@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bess1lie — security tooling</title>
+<meta name="description" content="Detection-only security CLIs: bounthunt (bug bounty orchestration) and gqlhunter (GraphQL recon & analysis).">
+<meta property="og:title" content="bess1lie — security tooling">
+<meta property="og:description" content="Detection-only security CLIs: bounthunt and gqlhunter.">
+<meta property="og:image" content="https://raw.githubusercontent.com/bess1lie/bounthunt/main/social-preview.png">
+<meta property="og:type" content="website">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --border: #30363d;
+    --border-soft: #21262d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --text-faint: #6e7681;
+    --green: #22c55e;
+    --blue: #3b82f6;
+    --mono: "SF Mono","JetBrains Mono","Fira Code","Cascadia Code",Consolas,monospace;
+    --sans: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  header {
+    padding: 96px 0 64px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  header .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--green);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+  }
+  header h1 {
+    font-family: var(--mono);
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+  }
+  header h1 .g { color: var(--green); }
+  header h1 .b { color: var(--blue); }
+  header p {
+    margin-top: 20px;
+    font-size: 20px;
+    color: var(--text-dim);
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  header .ctas {
+    margin-top: 36px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--text);
+    transition: border-color .15s, transform .05s;
+  }
+  .btn:hover { border-color: var(--text-dim); }
+  .btn:active { transform: translateY(1px); }
+  .btn.green { border-color: var(--green); color: var(--green); }
+  .btn.blue  { border-color: var(--blue);  color: var(--blue);  }
+
+  /* Sections */
+  section { padding: 72px 0; border-bottom: 1px solid var(--border-soft); }
+  section h2 {
+    font-family: var(--mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-faint);
+    margin-bottom: 36px;
+    text-align: center;
+  }
+
+  /* Project cards */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.green { border-top: 3px solid var(--green); }
+  .card.blue  { border-top: 3px solid var(--blue);  }
+  .card .name {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .card.green .name { color: var(--green); }
+  .card.blue  .name { color: var(--blue);  }
+  .card .tagline { color: var(--text-dim); margin-top: 6px; font-size: 15px; }
+  .card .desc { margin-top: 18px; color: var(--text); font-size: 15px; }
+  .card .chips { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+  }
+  .card .stats {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    border-top: 1px solid var(--border-soft);
+    padding-top: 22px;
+  }
+  .stat .n { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--text); }
+  .stat .l { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .card .links {
+    margin-top: 24px;
+    display: flex;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+  .card.green .links a:hover { color: var(--green); }
+  .card.blue  .links a:hover { color: var(--blue);  }
+
+  /* Why */
+  .why { max-width: 720px; margin: 0 auto; }
+  .why p { color: var(--text-dim); font-size: 17px; margin-bottom: 16px; }
+  .why strong { color: var(--text); font-weight: 600; }
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: var(--text);
+    margin: 0 2px;
+  }
+
+  /* Screenshots */
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 720px) { .shots { grid-template-columns: 1fr; } }
+  .shot {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .shot img { width: 100%; display: block; }
+  .shot .cap {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  /* Install */
+  .install { max-width: 680px; margin: 0 auto; }
+  .install .row { margin-bottom: 28px; }
+  .install .row .label {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dot-g { color: var(--green); }
+  .dot-b { color: var(--blue); }
+  .install pre {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--text);
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .install pre .c { color: var(--text-faint); }
+  .install pre .p { color: var(--green); }
+
+  /* Links footer */
+  .links-section { text-align: center; }
+  .links-section .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+  .links-section .list a {
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 18px;
+    background: var(--bg-soft);
+  }
+  .links-section .list a:hover { color: var(--text); border-color: var(--text-dim); }
+
+  footer {
+    padding: 40px 0 56px;
+    text-align: center;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="tag">detection-only &middot; scope-aware</span>
+    <h1><span class="g">bounthunt</span> &nbsp;&amp;&nbsp; <span class="b">gqlhunter</span></h1>
+    <p>Two focused security CLIs for bug bounty and API recon. Built to <strong>detect and report</strong>, never to exploit.</p>
+    <div class="ctas">
+      <a class="btn green" href="https://github.com/bess1lie/bounthunt">→ bounthunt</a>
+      <a class="btn blue" href="https://github.com/bess1lie/gqlhunter">→ gqlhunter</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2>The tools</h2>
+    <div class="grid">
+      <div class="card green">
+        <div class="name">bounthunt</div>
+        <div class="tagline">Scope-Aware Bug Bounty Orchestrator</div>
+        <div class="desc">Orchestrates subfinder, dnsx, httpx, naabu, nuclei and katana behind a YAML scope guard. SQLite history, checkpoint/resume, diff monitoring and Markdown/HTML reports.</div>
+        <div class="chips">
+          <span class="chip">Scope Guard</span>
+          <span class="chip">Diff Monitoring</span>
+          <span class="chip">Checkpoint/Resume</span>
+          <span class="chip">SQLite</span>
+          <span class="chip">Docker</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="n">v1.1.0</div><div class="l">release</div></div>
+          <div class="stat"><div class="n">8</div><div class="l">stages</div></div>
+          <div class="stat"><div class="n">7</div><div class="l">tools</div></div>
+          <div class="stat"><div class="n">91</div><div class="l">tests</div></div>
+        </div>
+        <div class="links">
+          <a href="https://github.com/bess1lie/bounthunt">repository →</a>
+          <a href="https://github.com/bess1lie/bounthunt#quick-start">docs →</a>
+        </div>
+      </div>
+      <div class="card blue">
+        <div class="name">gqlhunter</div>
+        <div class="tagline">GraphQL Recon &amp; Analysis CLI</div>
+        <div class="desc">Discovers GraphQL endpoints, runs introspection, classifies fields by risk, detects IDOR candidates by argument names, and diffs schema between runs. SARIF export and a local dashboard.</div>
+        <div class="chips">
+          <span class="chip">Introspection</span>
+          <span class="chip">Auth Analysis</span>
+          <span class="chip">Schema Diff</span>
+          <span class="chip">IDOR Detection</span>
+          <span class="chip">SARIF</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="n">v0.2.0</div><div class="l">release</div></div>
+          <div class="stat"><div class="n">10</div><div class="l">commands</div></div>
+          <div class="stat"><div class="n">18</div><div class="l">paths</div></div>
+          <div class="stat"><div class="n">195</div><div class="l">tests</div></div>
+        </div>
+        <div class="links">
+          <a href="https://github.com/bess1lie/gqlhunter">repository →</a>
+          <a href="https://github.com/bess1lie/gqlhunter#quick-start">docs →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Why these tools</h2>
+    <div class="why">
+      <p>Both tools share a single philosophy: <strong>detection only, never exploitation</strong>. They send recon and analysis requests, classify observations, and report. They do not send payloads, attempts, or exploit chains.</p>
+      <p>Every network action is gated by a YAML scope file — <span class="pill">allow</span> / <span class="pill">deny</span> for bounthunt, <span class="pill">targets</span> with <span class="pill">!</span> deny patterns for gqlhunter. Anything out of scope is refused before a single request leaves the host.</p>
+      <p>Results land in SQLite, render to Markdown/HTML, and export to JSON or SARIF 2.1.0 — so findings drop straight into your existing triage workflow instead of a proprietary silo.</p>
+      <p>Two tools, two domains: <strong>bounthunt</strong> for infra/host recon and continuous monitoring, <strong>gqlhunter</strong> for GraphQL schema and authorization analysis. No overlap, no monolith.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Screenshots</h2>
+    <div class="shots">
+      <div class="shot">
+        <img src="https://raw.githubusercontent.com/bess1lie/bounthunt/main/screenshots/terminal.png" alt="bounthunt terminal">
+        <div class="cap">bounthunt — pipeline output</div>
+      </div>
+      <div class="shot">
+        <img src="https://raw.githubusercontent.com/bess1lie/gqlhunter/main/screenshots/report-preview.png" alt="gqlhunter report">
+        <div class="cap">gqlhunter — HTML report</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Quick install</h2>
+    <div class="install">
+      <div class="row">
+        <div class="label"><span class="dot-g">●</span> bounthunt &nbsp;<span style="color:var(--text-faint)">— requires Go recon tools on PATH</span></div>
+<pre><span class="c"># from source (Python &gt;= 3.11)</span>
+git clone https://github.com/bess1lie/bounthunt.git
+<span class="p">cd</span> bounthunt &amp;&amp; pip install .
+
+<span class="c"># or docker (bundles subfinder/dnsx/httpx/naabu/nuclei/katana)</span>
+docker build -t bountyhunt .
+docker run --rm -v $(pwd)/scope.yaml:/data/scope.yaml:ro bountyhunt --help</pre>
+      </div>
+      <div class="row">
+        <div class="label"><span class="dot-b">●</span> gqlhunter &nbsp;<span style="color:var(--text-faint)">— pure Python, no external binaries</span></div>
+<pre><span class="c"># from source (Python &gt;= 3.11)</span>
+git clone https://github.com/bess1lie/gqlhunter.git
+<span class="p">cd</span> gqlhunter &amp;&amp; pip install .
+
+<span class="c"># or docker</span>
+docker build -t gqlhunter .
+docker run --rm -v $(pwd):/app gqlhunter --help</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="links-section">
+  <div class="container">
+    <h2>Links</h2>
+    <div class="list">
+      <a href="https://github.com/bess1lie/bounthunt">bounthunt repo</a>
+      <a href="https://github.com/bess1lie/gqlhunter">gqlhunter repo</a>
+      <a href="https://github.com/bess1lie/bounthunt/blob/main/README.md">bounthunt README</a>
+      <a href="https://github.com/bess1lie/gqlhunter/blob/main/README.md">gqlhunter README</a>
+      <a href="https://github.com/bess1lie">github.com/bess1lie</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    MIT licensed &middot; detection-only security tooling &middot; <a href="https://github.com/bess1lie">bess1lie</a>
+  </div>
+</footer>
+
+</body>
+</html>
