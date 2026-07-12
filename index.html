@@ -5,714 +5,1326 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bess1lie · security tooling</title>
     
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<!-- Preload critical fonts -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" as="style">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" media="print" onload="this.media='all'">
 
-    <style>
-        :root {
-            /* Dark Theme */
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-card: #1c2333;
-            --bg-hover: #2d3748;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --text-muted: #6e7681;
-            --border-color: #30363d;
-            --accent-blue: #58a6ff;
-            --accent-green: #3fb950;
-            --accent-orange: #f0883e;
-            --accent-red: #f85149;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            --radius: 12px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
 
-        [data-theme="light"] {
-            --bg-primary: #f6f8fa;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --bg-hover: #f0f3f6;
-            --text-primary: #1f2328;
-            --text-secondary: #57606a;
-            --text-muted: #8b949e;
-            --border-color: #d0d7de;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
+<!-- Material Icons for additional icons -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<style>
+    /* --- CSS Variables (themes) --- */
+    :root {
+        /* Dark theme (primary) */
+        --bg-primary: #0d1117;
+        --bg-secondary: #161b22;
+        --bg-card: #1c2333;
+        --bg-hover: #2d3748;
+        --text-primary: #f0f6fc;
+        --text-secondary: #8b949e;
+        --text-muted: #6e7681;
+        --border-color: #30363d;
+        --accent-blue: #58a6ff;
+        --accent-green: #3fb950;
+        --accent-orange: #f0883e;
+        --accent-red: #f85149;
+        --accent-yellow: #d29922;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+        --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-full: 9999px;
+        
+        /* Light theme overrides */
+        --light-bg-primary: #f6f8fa;
+        --light-bg-secondary: #ffffff;
+        --light-bg-card: #ffffff;
+        --light-bg-hover: #f0f3f6;
+        --light-text-primary: #1f2328;
+        --light-text-secondary: #57606a;
+        --light-text-muted: #8b949e;
+        --light-border-color: #d0d7de;
+        --light-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+        --light-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06);
+        --light-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08);
+        --light-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Apply light theme */
+    [data-theme="light"] {
+        --bg-primary: var(--light-bg-primary);
+        --bg-secondary: var(--light-bg-secondary);
+        --bg-card: var(--light-bg-card);
+        --bg-hover: var(--light-bg-hover);
+        --text-primary: var(--light-text-primary);
+        --text-secondary: var(--light-text-secondary);
+        --text-muted: var(--light-text-muted);
+        --border-color: var(--light-border-color);
+        --shadow-sm: var(--light-shadow-sm);
+        --shadow-md: var(--light-shadow-md);
+        --shadow-lg: var(--light-shadow-lg);
+        --shadow-xl: var(--light-shadow-xl);
+    }
+    
+    /* --- Reset & base --- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+    }
+    
+    body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    a {
+        color: var(--accent-blue);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    
+    a:hover {
+        color: var(--accent-orange);
+        text-decoration: none;
+    }
+    
+    h1, h2, h3 {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+    
+    /* --- Animations --- */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+    
+    @keyframes countUp {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    @keyframes ripple {
+        0% { transform: scale(0); opacity: 0.5; }
+        100% { transform: scale(2); opacity: 0; }
+    }
+    
+    /* --- Reusable classes --- */
+    .container {
+        max-width: 1200px;
+        width: 100%;
+        padding: 0 2rem;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
 
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color var(--transition), color var(--transition);
-        }
+    .section-header.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .section-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    
+    .section-header p {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        transition: all 0.2s ease;
+    }
+    
+    .badge:hover {
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+    }
+    
+    .badge-green { background: rgba(63, 185, 80, 0.1); color: var(--accent-green); border-color: rgba(63, 185, 80, 0.3); }
+    .badge-blue { background: rgba(88, 166, 255, 0.1); color: var(--accent-blue); border-color: rgba(88, 166, 255, 0.3); }
+    .badge-orange { background: rgba(240, 136, 62, 0.1); color: var(--accent-orange); border-color: rgba(240, 136, 62, 0.3); }
+    .badge-red { background: rgba(248, 81, 73, 0.1); color: var(--accent-red); border-color: rgba(248, 81, 73, 0.3); }
+    
+    /* --- Particle Background --- */
+    #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+        background: transparent;
+    }
+    
+    [data-theme="light"] #particle-canvas {
+        opacity: 0.3;
+    }
+    
+    /* --- Theme Toggle --- */
+    .theme-toggle {
+        position: fixed;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-full);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-primary);
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        z-index: 1000;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .theme-toggle:hover {
+        transform: scale(1.1) rotate(180deg);
+        border-color: var(--accent-blue);
+    }
+    
+    /* --- Terminal Emulator --- */
+    .terminal-wrapper {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-xl);
+        margin: 2rem 0;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    
+    .terminal-wrapper.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .terminal-header {
+        background: var(--bg-secondary);
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .terminal-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27c93f; }
+    
+    .terminal-title {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        margin-left: 0.5rem;
+        font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .terminal-body {
+        padding: 1.5rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        min-height: 200px;
+        max-height: 400px;
+        overflow-y: auto;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        position: relative;
+    }
+    
+    .terminal-body::before {
+        content: "▸";
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        color: var(--text-muted);
+        font-size: 0.8rem;
+        animation: pulse 2s infinite;
+    }
+    
+    .terminal-body .prompt {
+        color: var(--accent-green);
+        font-weight: 600;
+    }
+    
+    .terminal-body .command {
+        color: var(--text-primary);
+    }
+    
+    .terminal-body .output {
+        color: var(--text-secondary);
+        white-space: pre-wrap;
+        margin: 0.3rem 0 0.8rem 1.2rem;
+        border-left: 2px solid var(--border-color);
+        padding-left: 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .terminal-body .output .highlight {
+        color: var(--accent-blue);
+        font-weight: 600;
+    }
+    
+    .terminal-body .output .success {
+        color: var(--accent-green);
+        font-weight: 600;
+    }
+    
+    .terminal-body .output .error {
+        color: var(--accent-red);
+    }
+    
+    .typing-text {
+        color: var(--text-primary);
+        position: relative;
+    }
+    
+    .typing-text::after {
+        content: "|";
+        position: absolute;
+        right: -8px;
+        color: var(--accent-green);
+        font-weight: 600;
+        animation: pulse 1s infinite;
+    }
+    
+    .terminal-input-line {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .terminal-input-line span {
+        color: var(--accent-green);
+        font-weight: 600;
+    }
+    
+    .terminal-input-line input {
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        outline: none;
+        width: 100%;
+        padding: 0.5rem 0;
+        caret-color: var(--accent-green);
+    }
+    
+    .terminal-input-line input::placeholder {
+        color: var(--text-muted);
+    }
+    
+    /* --- Tools Grid --- */
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .tool-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        transition: transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
 
-        canvas#particles-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
+    .tool-card.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .tool-card:hover {
+        border-color: var(--accent-blue);
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .tool-card .icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+    
+    .tool-card:hover .icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+    
+    .tool-card h3 {
+        font-size: 1.5rem;
+        margin: 0.5rem 0;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .tool-card .new-badge {
+        background: var(--accent-orange);
+        color: #0d1117;
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 0.25rem 0.6rem;
+        border-radius: var(--radius-full);
+        margin-left: 0.5rem;
+        vertical-align: middle;
+        text-transform: uppercase;
+        animation: pulse 2s infinite;
+    }
+    
+    .tool-card p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin: 1rem 0;
+        line-height: 1.6;
+    }
+    
+    .tool-card .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+    }
+    
+    .tool-card .feature-list li {
+        padding: 0.4rem 0;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+    
+    .tool-card .feature-list li i {
+        color: var(--accent-green);
+        width: 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .tool-card .stats {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+    
+    .tool-card .stats i {
+        margin-right: 0.4rem;
+    }
+    
+    .tool-card .link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        font-weight: 600;
+        color: var(--accent-blue);
+        font-size: 0.95rem;
+    }
+    
+    .tool-card .link i {
+        transition: transform 0.3s ease;
+    }
+    
+    .tool-card .link:hover i {
+        transform: translateX(4px);
+    }
+    
+    /* --- Philosophy --- */
+    .philosophy {
+        background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+        border-left: 4px solid var(--accent-blue);
+        padding: 2.5rem;
+        border-radius: var(--radius-lg);
+        margin: 3rem 0;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    
+    .philosophy.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .philosophy::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(88, 166, 255, 0.05), transparent);
+        animation: shimmer 3s infinite;
+    }
+    
+    .philosophy > * {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .philosophy p {
+        margin: 1rem 0;
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        line-height: 1.8;
+    }
+    
+    .philosophy strong {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+    
+    /* --- Screenshots --- */
+    .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .screenshot-item {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        box-shadow: var(--shadow-md);
+        opacity: 0;
+        transform: translateY(30px);
+    }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .screenshot-item.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .screenshot-item::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+    
+    .screenshot-item:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: var(--accent-blue);
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .screenshot-item:hover::after {
+        opacity: 1;
+    }
+    
+    .screenshot-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .screenshot-item:hover img {
+        transform: scale(1.05);
+    }
+    
+    .screenshot-item figcaption {
+        padding: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        background: var(--bg-card);
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* --- Lightbox --- */
+    .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .lightbox.active {
+        display: flex;
+    }
+    
+    .lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        border: 2px solid var(--border-color);
+    }
+    
+    .lightbox .close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.5);
+        border-radius: 50%;
+    }
+    
+    .lightbox .close:hover {
+        transform: rotate(90deg) scale(1.1);
+    }
+    
+    /* --- Quick install --- */
+    .install-code {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+        white-space: pre;
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
 
-        /* Header */
-        header {
-            text-align: center;
-            padding: 5rem 0 3rem;
-            animation: fadeInUp 1s ease;
-        }
-        header h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        .tagline { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem; }
-        .badges { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .badge {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-        .badge i { margin-right: 0.4rem; color: var(--accent-blue); }
+    .install-code.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .install-code::before {
+        content: "⌨️";
+        position: absolute;
+        top: 0.5rem;
+        left: 0.75rem;
+        color: var(--accent-green);
+        font-size: 1.2rem;
+    }
+    
+    .install-code pre {
+        margin: 0;
+        padding-left: 2rem;
+        color: var(--text-primary);
+    }
+    
+    /* --- Footer --- */
+    .footer {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed; top: 1.5rem; right: 1.5rem;
-            width: 45px; height: 45px; border-radius: 50%;
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            color: var(--text-primary); cursor: pointer; z-index: 1000;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: var(--shadow); transition: transform var(--transition);
-        }
-        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); }
+    .footer.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .footer a {
+        color: var(--text-muted);
+        transition: color 0.2s ease;
+    }
+    
+    .footer a:hover {
+        color: var(--accent-blue);
+    }
+    
+    .footer .social {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+        font-size: 1.5rem;
+    }
+    
+    .footer .social a {
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+    }
+    
+    .footer .social a:hover {
+        color: var(--accent-blue);
+        transform: translateY(-3px);
+    }
+    
+    /* --- About Section --- */
+    .about-section {
+        background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+        padding: 3rem;
+        border-radius: var(--radius-lg);
+        margin: 4rem 0;
+        text-align: center;
+        border: 1px solid var(--border-color);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
 
-        /* Terminal */
-        .terminal {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 4rem;
-            animation: fadeInUp 1s ease 0.2s backwards;
-        }
-        .terminal-header {
-            background: var(--bg-secondary);
-            padding: 0.75rem 1rem;
-            display: flex; align-items: center; gap: 0.6rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
-        .terminal-title { color: var(--text-secondary); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-left: 0.5rem; }
-        .terminal-body {
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            min-height: 250px;
-            max-height: 400px;
-            overflow-y: auto;
-            background: var(--bg-primary);
-        }
-        .prompt { color: var(--accent-green); font-weight: 600; }
-        .command { color: var(--text-primary); }
-        .output { margin: 0.5rem 0 1rem 1.2rem; color: var(--text-secondary); white-space: pre-wrap; border-left: 1px solid var(--border-color); padding-left: 1rem; }
-        .output .highlight { color: var(--accent-blue); font-weight: 600; }
-        .output .error { color: var(--accent-red); }
-        .output .success { color: var(--accent-green); }
-        .terminal-input-line { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        .terminal-input-line span { color: var(--accent-green); }
-        .terminal-input-line input {
-            background: transparent; border: none; outline: none;
-            color: var(--text-primary); font-family: 'JetBrains Mono', monospace; width: 100%;
-        }
-        .terminal-footer {
-            background: var(--bg-secondary); border-top: 1px solid var(--border-color);
-            padding: 0.5rem 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;
-        }
-        .terminal-footer button {
-            background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-secondary);
-            padding: 0.3rem 0.7rem; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
-        }
-        .terminal-footer button:hover { color: var(--text-primary); border-color: var(--accent-blue); }
+    .about-section.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-        /* Section Title */
-        .section-title {
-            font-size: 2.5rem; text-align: center; margin: 4rem 0 2.5rem;
-            display: flex; align-items: center; justify-content: center; gap: 1rem;
-        }
-        .section-title i { color: var(--accent-blue); }
+    .about-section h2 {
+        margin-bottom: 1.5rem;
+    }
 
-        /* Tools Grid */
+    .about-section p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.8;
+    }
+    
+    /* --- Utility Classes --- */
+    .text-gradient {
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-orange));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: inline-block;
+    }
+    
+    .shimmer {
+        background: linear-gradient(90deg, 
+            rgba(255,255,255,0) 0%, 
+            rgba(255,255,255,0.1) 50%, 
+            rgba(255,255,255,0) 100%);
+        background-size: 200% 100%;
+        animation: shimmer 3s infinite;
+    }
+    
+    .count-up {
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+        color: var(--accent-blue);
+    }
+    
+    /* --- Sections Counter --- */
+    section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    
+    section.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* --- Mobile responsiveness --- */
+    @media (max-width: 768px) {
         .tools-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem; margin-bottom: 4rem;
+            grid-template-columns: 1fr;
         }
-        .tool-card {
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius);
-            padding: 2rem; transition: transform 0.1s ease-out, box-shadow 0.3s ease;
-            position: relative; overflow: hidden; cursor: default;
-            transform-style: preserve-3d; perspective: 1000px;
-        }
-        .tool-card:hover { box-shadow: var(--shadow); }
-        .tool-card .icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
-        .tool-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; }
-        .tool-card .new-badge {
-            background: var(--accent-orange); color: #000; font-size: 0.6rem;
-            padding: 0.1rem 0.5rem; border-radius: 10px; margin-left: 0.5rem; text-transform: uppercase;
-        }
-        .tool-card p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
-        .tool-card .feature-list { list-style: none; margin-bottom: 1.5rem; }
-        .tool-card .feature-list li { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem; }
-        .tool-card .feature-list li i { color: var(--accent-green); font-size: 0.8rem; }
-        .tool-card .stats { display: flex; gap: 1rem; font-size: 0.85rem; color: var(--text-muted); margin-top: auto; }
-        .tool-card .link {
-            display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600;
-            color: var(--accent-blue); margin-top: 1rem; text-decoration: none;
-        }
-        .tool-card .link:hover { text-decoration: underline; }
-
-        /* Philosophy */
-        .philosophy {
-            background: var(--bg-card); border-left: 4px solid var(--accent-blue);
-            padding: 2.5rem; border-radius: var(--radius); margin: 4rem 0;
-            box-shadow: var(--shadow);
-        }
-        .philosophy h2 { margin-bottom: 1rem; }
-        .philosophy p { color: var(--text-secondary); margin-bottom: 1rem; }
-        .philosophy strong { color: var(--text-primary); }
-
-        /* Screenshots */
+        
         .screenshots-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem; margin-bottom: 4rem;
+            grid-template-columns: 1fr;
         }
-        .screenshot-item {
-            border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-color);
-            cursor: pointer; transition: transform 0.3s ease;
+        
+        .header h1 {
+            font-size: 2.5rem;
         }
-        .screenshot-item:hover { transform: translateY(-10px); }
-        .screenshot-item img { width: 100%; display: block; }
-        .screenshot-item figcaption {
-            padding: 1rem; background: var(--bg-card); color: var(--text-secondary);
-            text-align: center; font-size: 0.9rem;
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+        }
+        
+        .tool-card {
+            padding: 1.5rem;
+        }
+        
+        .terminal-body {
+            font-size: 0.8rem;
         }
 
-        /* About Section */
         .about-section {
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-            padding: 3rem; border-radius: var(--radius); margin: 4rem 0;
-            text-align: center; border: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
         }
-        .about-section h2 { margin-bottom: 1.5rem; }
-        .about-section p { color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
-
-        /* Install Code */
-        .install-code {
-            background: var(--bg-primary); border: 1px solid var(--border-color);
-            padding: 1.5rem; border-radius: var(--radius); font-family: 'JetBrains Mono', monospace;
-            position: relative; overflow-x: auto; margin-bottom: 4rem;
-        }
-        .install-code span.comment { color: var(--text-muted); }
-        .install-code span.highlight { color: var(--accent-green); }
-
-        /* Lightbox */
-        .lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 10000; display: none;
-            align-items: center; justify-content: center; padding: 2rem;
-        }
-        .lightbox.active { display: flex; }
-        .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-        .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 2.5rem; color: #fff; cursor: pointer; }
-
-        /* Footer */
-        footer {
-            text-align: center; padding: 4rem 0; border-top: 1px solid var(--border-color);
-            color: var(--text-muted); font-size: 0.9rem;
-        }
-        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; font-size: 1.5rem; }
-        .social-links a { color: var(--text-secondary); transition: color 0.3s; }
-        .social-links a:hover { color: var(--accent-blue); }
-
-        /* Animations & Reveal */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            .section-title { font-size: 2rem; }
-            .tools-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * { animation: none !important; transition: none !important; }
-            .reveal { opacity: 1; transform: none; }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
+<!-- Particle Background -->
+<canvas id="particle-canvas"></canvas>
 
-    <canvas id="particles-canvas"></canvas>
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <i class="fas fa-moon" id="themeIcon"></i>
+</button>
 
-    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
-        <i class="fas fa-moon" id="themeIcon"></i>
-    </button>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <span class="close" id="lightboxClose">×</span>
+    <img id="lightboxImg" src="" alt="screenshot" />
+</div>
 
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close" id="lightboxClose">&times;</span>
-        <img id="lightboxImg" src="" alt="Enlarged view" />
+<div class="container">
+
+    <!-- Header -->
+    <header class="header reveal">
+        <h1>bess1lie</h1>
+        <div class="tagline">detection-only · scope-aware</div>
+        <div class="badges">
+            <span class="badge"><i class="fas fa-shield-alt"></i> Security Tooling</span>
+            <span class="badge"><i class="fas fa-code"></i> Open Source</span>
+            <span class="badge"><i class="fas fa-rocket"></i> 3 tools</span>
+            <span class="badge"><i class="fas fa-star" id="totalStars"></i> loading…</span>
+        </div>
+    </header>
+
+    <!-- Terminal Emulator -->
+    <div class="terminal-wrapper reveal">
+        <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">bess1lie@terminal — bash</span>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+            <!-- Terminal content will be injected via JS -->
+        </div>
+        <div class="terminal-input-line">
+            <span>$</span>
+            <input type="text" id="terminalInput" placeholder="Введите команду (discover, scan, report, help, clear)" autofocus />
+        </div>
     </div>
 
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>bess1lie</h1>
-            <div class="tagline">detection-only · scope-aware</div>
-            <div class="badges">
-                <span class="badge"><i class="fas fa-shield-alt"></i> Security Tooling</span>
-                <span class="badge"><i class="fas fa-code"></i> Open Source</span>
-                <span class="badge"><i class="fas fa-rocket"></i> 3 tools</span>
-                <span class="badge"><i class="fas fa-star" id="totalStars"></i> loading…</span>
+    <!-- Tools -->
+    <div class="section-header reveal" id="tools-section">
+        <h2><i class="fas fa-tools"></i> The tools</h2>
+        <p>Professional security tools for bug hunters and security researchers</p>
+    </div>
+    
+    <div class="tools-grid">
+        <!-- bounthunt -->
+        <div class="tool-card reveal" data-tilt>
+            <span class="icon">🎯</span>
+            <h3>bounthunt</h3>
+            <p>Bug bounty reconnaissance & automation.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Subdomain enumeration</li>
+                <li><i class="fas fa-check-circle"></i> Endpoint discovery</li>
+                <li><i class="fas fa-check-circle"></i> Parameter brute‑forcing</li>
+                <li><i class="fas fa-check-circle"></i> Automated reporting</li>
+            </ul>
+            <div class="stats">
+                <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="bounthunt">0</span></span>
+                <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="bounthunt">0</span></span>
             </div>
-        </header>
-
-        <!-- Terminal -->
-        <div class="terminal">
-            <div class="terminal-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="terminal-title">bess1lie@terminal — bash</span>
-            </div>
-            <div class="terminal-body" id="terminalBody">
-                <!-- Terminal content will be injected via JS -->
-            </div>
-            <div class="terminal-input-line">
-                <span>$</span>
-                <input type="text" id="terminalInput" placeholder="Try: discover, scan, report, help, clear" autofocus />
-            </div>
-            <div class="terminal-footer">
-                <button data-cmd="discover">🔍 discover</button>
-                <button data-cmd="scan">🛡️ scan</button>
-                <button data-cmd="report">📊 report</button>
-                <button data-cmd="help">❓ help</button>
-                <button data-cmd="clear">🧹 clear</button>
-            </div>
+            <a class="link" href="https://github.com/bess1lie/bounthunt">→ GitHub <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Tools Section -->
-        <h2 class="section-title reveal"><i class="fas fa-tools"></i> The tools</h2>
-        <div class="tools-grid">
-            <!-- bounthunt -->
-            <div class="tool-card reveal" data-tilt>
-                <span class="icon">🎯</span>
-                <h3>bounthunt</h3>
-                <p>Bug bounty reconnaissance & automation.</p>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> Subdomain enumeration</li>
-                    <li><i class="fas fa-check-circle"></i> Endpoint discovery</li>
-                    <li><i class="fas fa-check-circle"></i> Parameter brute-forcing</li>
-                    <li><i class="fas fa-check-circle"></i> Automated reporting</li>
-                </ul>
-                <div class="stats">
-                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="bounthunt">0</span></span>
-                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="bounthunt">0</span></span>
-                </div>
-                <a class="link" href="https://github.com/bess1lie/bounthunt">→ GitHub <i class="fas fa-arrow-right"></i></a>
+        <!-- gqlhunter -->
+        <div class="tool-card reveal" data-tilt>
+            <span class="icon">🚀</span>
+            <h3>gqlhunter</h3>
+            <p>GraphQL security testing & introspection.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Introspection extraction</li>
+                <li><i class="fas fa-check-circle"></i> Field fuzzing</li>
+                <li><i class="fas fa-check-circle"></i> Depth & complexity analysis</li>
+                <li><i class="fas fa-check-circle"></i> Persisted queries support</li>
+            </ul>
+            <div class="stats">
+                <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="gqlhunter">0</span></span>
+                <span><i class="fas fa-code-fork"></i> <span classgh-forks" data-repo="gqlhunter">0</span></span>
             </div>
-
-            <!-- gqlhunter -->
-            <div class="tool-card reveal" data-tilt>
-                <span class="icon">🚀</span>
-                <h3>gqlhunter</h3>
-                <p>GraphQL security testing & introspection.</p>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> Introspection extraction</li>
-                    <li><i class="fas fa-check-circle"></i> Field fuzzing</li>
-                    <li><i class="fas fa-check-circle"></i> Depth & complexity analysis</li>
-                    <li><i class="fas fa-check-circle"></i> Persisted queries support</li>
-                </ul>
-                <div class="stats">
-                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="gqlhunter">0</span></span>
-                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="gqlhunter">0</span></span>
-                </div>
-                <a class="link" href="https://github.com/bess1lie/gqlhunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- apihunter -->
-            <div class="tool-card reveal" data-tilt style="border-color: var(--accent-orange);">
-                <span class="icon">🔍</span>
-                <h3>apihunter <span class="new-badge">NEW</span></h3>
-                <p>Professional REST API security testing CLI.</p>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check-circle"></i> OpenAPI / Swagger discovery</li>
-                    <li><i class="fas fa-check-circle"></i> Heuristic scanning (IDOR, CORS)</li>
-                    <li><i class="fas fa-check-circle"></i> Authentication auditing</li>
-                    <li><i class="fas fa-check-circle"></i> HTML / Markdown / SARIF reports</li>
-                </ul>
-                <div class="stats">
-                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="apihunter">0</span></span>
-                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="apihunter">0</span></span>
-                </div>
-                <a class="link" href="https://github.com/bess1lie/apihunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
-            </div>
+            <a class="link" href="https://github.com/bess1lie/gqlhunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Philosophy Section -->
-        <div class="philosophy reveal">
-            <h2><i class="fas fa-brain"></i> Why these tools?</h2>
-            <p><strong>Detection only, never exploitation.</strong> Every tool in this suite is built to <strong>identify</strong> security issues without causing harm. We believe in empowering security researchers and developers with clear, actionable findings — not in automating attacks.</p>
-            <p><strong>Scope-aware by design.</strong> All tools respect configuration boundaries, so you can safely run them against production-like environments without worrying about accidental damage.</p>
-            <p><strong>Open source, forever.</strong> MIT licensed, community-driven, and built with modern Python.</p>
-        </div>
-
-        <!-- Screenshots Section -->
-        <h2 class="section-title reveal"><i class="fas fa-images"></i> Screenshots</h2>
-        <div class="screenshots-grid">
-            <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg">
-                <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" alt="apihunter discover" loading="lazy" />
-                <figcaption>🔍 Discovery of OpenAPI endpoints</figcaption>
-            </figure>
-            <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg">
-                <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" alt="apihunter scan" loading="lazy" />
-                <figcaption>🛡️ Heuristic security scanning</figcaption>
-            </figure>
-            <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg">
-                <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" alt="apihunter HTML report" loading="lazy" />
-                <figcaption>📊 HTML report with severity badges</figcaption>
-            </figure>
-        </div>
-
-        <!-- About Section -->
-        <section class="about-section reveal">
-            <h2><i class="fas fa-user"></i> About Me</h2>
-            <p>Разработчик из Алматы. Создаю инструменты для баг-хантеров и специалистов по безопасности. Мои проекты — apihunter, bounthunt, gqlhunter. Верю в detection-only, scope-aware, open source.</p>
-        </section>
-
-        <!-- Install Section -->
-        <h2 class="section-title reveal"><i class="fas fa-terminal"></i> Quick install</h2>
-        <div class="install-code reveal">
-            <span class="comment"># Install via pip</span><br>
-            pip install apihunter bounthunt gqlhunter<br><br>
-            <span class="comment"># Or from source</span><br>
-            git clone https://github.com/bess1lie/apihunter.git<br>
-            cd apihunter && pip install .<br><br>
-            <span class="comment"># Run your first scan</span><br>
-            apihunter discover <span class="highlight">https://api.example.com</span><br>
-            apihunter scan <span class="highlight">https://api.example.com</span><br>
-            apihunter report <span class="highlight">&lt;run_id&gt;</span> --format html
-        </div>
-
-        <!-- Footer -->
-        <footer class="reveal">
-            <div class="social-links">
-                <a href="https://github.com/bess1lie" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://bess1lie.github.io" target="_blank"><i class="fas fa-globe"></i></a>
-                <a href="https://twitter.com/bess1lie" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://linkedin.com/in/bess1lie" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <!-- apihunter (NEW) -->
+        <div class="tool-card reveal" data-tilt style="border-color: var(--accent-orange);">
+            <span class="icon">🔍</span>
+            <h3>apihunter <span class="new-badge">NEW</span></h3>
+            <p>Professional REST API security testing CLI.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> OpenAPI / Swagger discovery</li>
+                <li><i class="fas fa-check-circle"></i> Heuristic scanning (IDOR, CORS)</li>
+                <li><i class="fas fa-check-circle"></i> Authentication auditing</li>
+                <li><i class="fas fa-check-circle"></i> HTML / Markdown / SARIF reports</li>
+            </ul>
+            <div class="stats">
+                <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="apihunter">0</span></span>
+                <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="apihunter">0</span></span>
             </div>
-            <p>MIT licensed · detection-only security tooling · Almaty, Kazakhstan</p>
-        </footer>
+            <a class="link" href="https://github.com/bess1lie/apihunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
+        </div>
     </div>
 
-    <script>
-        /* --- Theme Toggle --- */
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const html = document.documentElement;
+    <!-- Philosophy -->
+    <div class="philosophy reveal">
+        <h2><i class="fas fa-brain"></i> Why these tools?</h2>
+        <p><strong>Detection only, never exploitation.</strong> Every tool in this suite is built to <strong>identify</strong> security issues without causing harm. We believe in empowering security researchers and developers with clear, actionable findings — not in automating attacks.</p>
+        <p><strong>Scope‑aware by design.</strong> All tools respect configuration boundaries, so you can safely run them against production‑like environments without worrying about accidental damage.</p>
+        <p><strong>Open source, forever.</strong> MIT licensed, community‑driven, and built with modern Python.</p>
+    </div>
 
-        function setTheme(theme) {
-            html.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    <!-- Screenshots -->
+    <div class="section-header reveal" id="screenshots-section">
+        <h2><i class="fas fa-images"></i> Screenshots</h2>
+        <p>Visual overview of what each tool can do</p>
+    </div>
+    
+    <div class="screenshots-grid">
+        <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg">
+            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" alt="apihunter discover" loading="lazy" />
+            <figcaption>🔍 Discovery of OpenAPI endpoints</figcaption>
+        </figure>
+        <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg">
+            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" alt="apihunter scan" loading="lazy" />
+            <figcaption>🛡️ Heuristic security scanning</figcaption>
+        </figure>
+        <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg">
+            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" alt="apihunter HTML report" loading="lazy" />
+            <figcaption>📊 HTML report with severity badges</figcaption>
+        </figure>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section reveal">
+        <h2><i class="fas fa-user"></i> About Me</h2>
+        <p>Разработчик из Алматы. Кибербезопасник в первую очередь. Создаю инструменты для баг-хантеров и специалистов по безопасности. Мои проекты — apihunter, bounthunt, gqlhunter. Верю в detection-only, scope-aware, open source.</p>
+    </section>
+
+    <!-- Quick install -->
+    <div class="section-header reveal" id="install-section">
+        <h2><i class="fas fa-terminal"></i> Quick install</h2>
+        <p>Get started with our tools in seconds</p>
+    </div>
+    
+    <div class="install-code reveal">
+        <pre>pip install apihunter bounthunt gqlhunter
+Or from source (Python ≥ 3.11)
+git clone https://github.com/bess1lie/apihunter.git
+cd apihunter && pip install .
+Run your first scan
+apihunter discover https://api.example.com
+apihunter scan https://api.example.com
+apihunter report <run_id> --format html</pre>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer reveal">
+        <div class="social-links">
+            <a href="https://github.com/bess1lie" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://bess1lie.github.io" target="_blank"><i class="fas fa-globe"></i></a>
+            <a href="https://twitter.com/bess1lie" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://linkedin.com/in/bess1lie" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>MIT licensed · detection‑only security tooling · Almaty, Kazakhstan</p>
+    </footer>
+
+</div>
+
+<script>
+    /* --- Theme Toggle --- */
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    /* --- Particle Background --- */
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        initParticles();
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.size = Math.random() * 2 + 1;
+            this.opacity = Math.random() * 0.4 + 0.1;
         }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = html.getAttribute('data-theme') === 'dark' ? `rgba(88, 166, 255, ${this.opacity})` : `rgba(0, 0, 0, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
 
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        setTheme(savedTheme);
+    function initParticles() {
+        particles = [];
+        const count = Math.min(Math.floor((width * height) / 15000), 120);
+        for (let i = 0; i < count; i++) particles.push(new Particle());
+    }
 
-        themeToggle.addEventListener('click', () => {
-            const current = html.getAttribute('data-theme');
-            setTheme(current === 'dark' ? 'light' : 'dark');
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    animate();
+
+    /* --- Terminal Emulator --- */
+    const terminalBody = document.getElementById('terminalBody');
+    const terminalInput = document.getElementById('terminalInput');
+
+    const commands = {
+        discover: () => `🔍 Discovering OpenAPI endpoints...\n  Found 4 endpoints\n  GET  /v1/users     → JWT\n  POST /v1/users     → JWT\n  POST /v1/login     → None\n  GET  /v1/admin     → 403 (RBAC)`,
+        scan: () => `🛡️ Running security scan...\n  ⚡ Scan completed in 12.3s\n  ❌ CRITICAL IDOR on /v1/users/{id}\n  ⚠️ HIGH Missing rate limiting on /v1/login\n  ✅ No SQL injection detected`,
+        report: () => `📊 Generating HTML report...\n  ✅ Report saved to report_<run_id>.html\n  Open it in your browser to see detailed findings.`,
+        help: () => `Available commands:\n  discover  — find OpenAPI endpoints\n  scan      — run security heuristics\n  report    — generate HTML report\n  clear     — clear terminal\n  help      — show this message`,
+        clear: () => { terminalBody.innerHTML = ''; return ''; }
+    };
+
+    function appendOutput(text, isCommand = false) {
+        const div = document.createElement('div');
+        if (isCommand) {
+            div.innerHTML = `<span class="prompt">$</span> <span class="command">${text}</span>`;
+        } else {
+            div.className = 'output';
+            div.textContent = text;
+        }
+        terminalBody.appendChild(div);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
+    function processCommand(cmd) {
+        const trimmed = cmd.trim();
+        if (!trimmed) return;
+        appendOutput(trimmed, true);
+        if (trimmed === 'clear') return;
+        const lower = trimmed.toLowerCase();
+        let response = '';
+        if (lower === 'help') response = commands.help();
+        else if (lower === 'discover') response = commands.discover();
+        else if (lower === 'scan') response = commands.scan();
+        else if (lower === 'report') response = commands.report();
+        else if (lower.startsWith('apihunter')) {
+            if (lower.includes('discover')) response = commands.discover();
+            else if (lower.includes('scan')) response = commands.scan();
+            else if (lower.includes('report')) response = commands.report();
+            else response = `❌ Unknown apihunter subcommand. Try: discover, scan, report`;
+        } else {
+            response = `❌ Command not found: ${trimmed}. Try: help, discover, scan, report, clear`;
+        }
+        if (response) {
+            setTimeout(() => {
+                const outputDiv = document.createElement('div');
+                outputDiv.className = 'output';
+                outputDiv.style.whiteSpace = 'pre-wrap';
+                outputDiv.textContent = response;
+                terminalBody.appendChild(outputDiv);
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+            }, 100);
+        }
+    }
+
+    // Typewriter Effect
+    function typeWriter(element, text, speed = 30) {
+        let i = 0;
+        element.innerHTML = '';
+        const interval = setInterval(() => {
+            element.innerHTML += text.charAt(i);
+            i++;
+            if (i >= text.length) clearInterval(interval);
+        }, speed);
+    }
+
+    // Initial demo
+    window.addEventListener('load', () => {
+        const demoLines = [
+            { type: 'cmd', text: 'echo "Welcome to bess1lie security tools"' },
+            { type: 'out', text: 'Welcome to bess1lie security tools' },
+            { type: 'cmd', text: 'apihunter discover https://api.example.com' },
+            { type: 'out', text: '🔍 Discovered 4 endpoints\nGET  /v1/users     → JWT\nPOST /v1/users     → JWT' }
+        ];
+        
+        let lineIdx = 0;
+        function runDemo() {
+            if (lineIdx < demoLines.length) {
+                const line = demoLines[lineIdx];
+                if (line.type === 'cmd') {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<span class="prompt">$</span> <span class="command" id="demo-cmd-${lineIdx}"></span>`;
+                    terminalBody.appendChild(div);
+                    typeWriter(document.getElementById(`demo-cmd-${lineIdx}`), line.text);
+                } else {
+                    const div = document.createElement('div');
+                    div.className = 'output';
+                    div.textContent = line.text;
+                    terminalBody.appendChild(div);
+                }
+                lineIdx++;
+                setTimeout(runDemo, 1000);
+            }
+        }
+        runDemo();
+    });
+
+    terminalInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            processCommand(terminalInput.value);
+            terminalInput.value = '';
+        }
+    });
+
+    /* --- GitHub Stats --- */
+    async function fetchGitHubStats() {
+        const repos = ['apihunter', 'bounthunt', 'gqlhunter'];
+        const baseUrl = 'https://api.github.com/repos/bess1lie';
+        for (const repo of repos) {
+            try {
+                const resp = await fetch(`${baseUrl}/${repo}`);
+                if (!resp.ok) throw new Error();
+                const data = await resp.json();
+                document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.stargazers_count || 0, 1000));
+                document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.forks_count || 0, 1000));
+            } catch (e) {
+                document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
+                document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
+            }
+        }
+        const totalStars = document.querySelectorAll('.gh-stars');
+        let total = 0;
+        totalStars.forEach(el => {
+            const val = parseInt(el.textContent);
+            if (!isNaN(val)) total += val;
         });
+        const totalEl = document.getElementById('totalStars');
+        if (totalEl) animateValue(totalEl, 0, total, 1200);
+    }
 
-        /* --- Particle Background --- */
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height, particles = [];
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initParticles();
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.size = Math.random() * 2 + 1;
-                this.opacity = Math.random() * 0.4 + 0.1;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = html.getAttribute('data-theme') === 'dark' ? `rgba(88, 166, 255, ${this.opacity})` : `rgba(0, 0, 0, ${this.opacity})`;
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const count = Math.min(Math.floor((width * height) / 15000), 120);
-            for (let i = 0; i < count; i++) particles.push(new Particle());
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-        animate();
-
-        /* --- Terminal Emulator --- */
-        const terminalBody = document.getElementById('terminalBody');
-        const terminalInput = document.getElementById('terminalInput');
-
-        const commands = {
-            discover: () => `🔍 Discovering OpenAPI endpoints...\n  Found 4 endpoints\n  GET  /v1/users     → JWT\n  POST /v1/users     → JWT\n  POST /v1/login     → None\n  GET  /v1/admin     → 403 (RBAC)`,
-            scan: () => `🛡️ Running security scan...\n  ⚡ Scan completed in 12.3s\n  ❌ CRITICAL IDOR on /v1/users/{id}\n  ⚠️ HIGH Missing rate limiting on /v1/login\n  ✅ No SQL injection detected`,
-            report: () => `📊 Generating HTML report...\n  ✅ Report saved to report_<run_id>.html\n  Open it in your browser to see detailed findings.`,
-            help: () => `Available commands:\n  discover  — find OpenAPI endpoints\n  scan      — run security heuristics\n  report    — generate HTML report\n  clear     — clear terminal\n  help      — show this message`,
-            clear: () => { terminalBody.innerHTML = ''; return ''; }
+    function animateValue(el, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const val = Math.floor(progress * (end - start) + start);
+            el.textContent = `⭐ ${val}`;
+            if (progress < 1) requestAnimationFrame(step);
         };
+        requestAnimationFrame(step);
+    }
+    fetchGitHubStats();
 
-        function appendOutput(text, isCommand = false) {
-            const div = document.createElement('div');
-            if (isCommand) {
-                div.innerHTML = `<span class="prompt">$</span> <span class="command">${text}</span>`;
-            } else {
-                div.className = 'output';
-                div.textContent = text;
-            }
-            terminalBody.appendChild(div);
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-        }
-
-        function processCommand(cmd) {
-            const trimmed = cmd.trim();
-            if (!trimmed) return;
-            appendOutput(trimmed, true);
-            if (trimmed === 'clear') return;
-            const lower = trimmed.toLowerCase();
-            let response = '';
-            if (lower === 'help') response = commands.help();
-            else if (lower === 'discover') response = commands.discover();
-            else if (lower === 'scan') response = commands.scan();
-            else if (lower === 'report') response = commands.report();
-            else if (lower.startsWith('apihunter')) {
-                if (lower.includes('discover')) response = commands.discover();
-                else if (lower.includes('scan')) response = commands.scan();
-                else if (lower.includes('report')) response = commands.report();
-                else response = `❌ Unknown apihunter subcommand. Try: discover, scan, report`;
-            } else {
-                response = `❌ Command not found: ${trimmed}. Try: help, discover, scan, report, clear`;
-            }
-            if (response) {
-                setTimeout(() => {
-                    const outputDiv = document.createElement('div');
-                    outputDiv.className = 'output';
-                    outputDiv.style.whiteSpace = 'pre-wrap';
-                    outputDiv.textContent = response;
-                    terminalBody.appendChild(outputDiv);
-                    terminalBody.scrollTop = terminalBody.scrollHeight;
-                }, 100);
-            }
-        }
-
-        // Typewriter Effect
-        function typeWriter(element, text, speed = 30) {
-            let i = 0;
-            element.innerHTML = '';
-            const interval = setInterval(() => {
-                element.innerHTML += text.charAt(i);
-                i++;
-                if (i >= text.length) clearInterval(interval);
-            }, speed);
-        }
-
-        // Initial demo
-        window.addEventListener('load', () => {
-            const demoLines = [
-                { type: 'cmd', text: 'echo "Welcome to bess1lie security tools"' },
-                { type: 'out', text: 'Welcome to bess1lie security tools' },
-                { type: 'cmd', text: 'apihunter discover https://api.example.com' },
-                { type: 'out', text: '🔍 Discovered 4 endpoints\nGET  /v1/users     → JWT\nPOST /v1/users     → JWT' }
-            ];
-            
-            let lineIdx = 0;
-            function runDemo() {
-                if (lineIdx < demoLines.length) {
-                    const line = demoLines[lineIdx];
-                    if (line.type === 'cmd') {
-                        const div = document.createElement('div');
-                        div.innerHTML = `<span class="prompt">$</span> <span class="command" id="demo-cmd-${lineIdx}"></span>`;
-                        terminalBody.appendChild(div);
-                        typeWriter(document.getElementById(`demo-cmd-${lineIdx}`), line.text);
-                    } else {
-                        const div = document.createElement('div');
-                        div.className = 'output';
-                        div.textContent = line.text;
-                        terminalBody.appendChild(div);
-                    }
-                    lineIdx++;
-                    setTimeout(runDemo, 1000);
-                }
-            }
-            runDemo();
+    /* --- 3D Tilt Effect --- */
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
         });
-
-        terminalInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                processCommand(terminalInput.value);
-                terminalInput.value = '';
-            }
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
         });
+    });
 
-        document.querySelectorAll('.terminal-commands button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                processCommand(btn.dataset.cmd);
-                terminalInput.value = '';
-                terminalInput.focus();
-            });
-        });
+    /* --- Lightbox --- */
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
 
-        /* --- GitHub Stats --- */
-        async function fetchGitHubStats() {
-            const repos = ['apihunter', 'bounthunt', 'gqlhunter'];
-            const baseUrl = 'https://api.github.com/repos/bess1lie';
-            for (const repo of repos) {
-                try {
-                    const resp = await fetch(`${baseUrl}/${repo}`);
-                    if (!resp.ok) throw new Error();
-                    const data = await resp.json();
-                    document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.stargazers_count || 0, 1000));
-                    document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.forks_count || 0, 1000));
-                } catch (e) {
-                    document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
-                    document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
-                }
-            }
-            // Total stars (approximation for demo)
-            const totalEl = document.getElementById('totalStars');
-            if (totalEl) animateValue(totalEl, 0, 123, 1500); // Placeholder or real fetch
-        }
-
-        function animateValue(el, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const val = Math.floor(progress * (end - start) + start);
-                el.textContent = `⭐ ${val}`;
-                if (progress < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-        }
-        fetchGitHubStats();
-
-        /* --- 3D Tilt Effect --- */
-        document.querySelectorAll('[data-tilt]').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-            });
-        });
-
-        /* --- Lightbox --- */
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxClose = document.getElementById('lightboxClose');
-
-        document.querySelectorAll('.screenshot-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const src = item.getAttribute('data-src');
+    document.querySelectorAll('.screenshot-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const src = item.getAttribute('data-src');
+            if (src) {
                 lightboxImg.src = src;
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            });
+            }
         });
+    });
 
-        lightboxClose.addEventListener('click', () => {
+    lightboxClose.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto';
-        });
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
+        }
+    });
 
-        /* --- Intersection Observer (Scroll Reveal) --- */
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal, .tool-card, .section-title, .philosophy, .screenshots-grid, .install-code, .footer').forEach(el => {
-            observer.observe(el);
+    /* --- Intersection Observer (Scroll Reveal) --- */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
         });
+    }, { threshold: 0.1 });
 
-        /* --- Keyboard Support --- */
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    </script>
+    document.querySelectorAll('.reveal, .tool-card, .section-header, .philosophy, .screenshots-grid, .install-code, .footer, .about-section').forEach(el => {
+        observer.observe(el);
+    });
+
+    /* --- Keyboard Support --- */
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+</script>
 </body>
 </html>
