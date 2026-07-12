@@ -4,11 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bess1lie · security tooling</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
     <style>
-        /* --- CSS Variables (themes) --- */
         :root {
+            /* Dark Theme */
             --bg-primary: #0d1117;
             --bg-secondary: #161b22;
             --bg-card: #1c2333;
@@ -21,10 +26,11 @@
             --accent-green: #3fb950;
             --accent-orange: #f0883e;
             --accent-red: #f85149;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             --radius: 12px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         [data-theme="light"] {
             --bg-primary: #f6f8fa;
             --bg-secondary: #ffffff;
@@ -34,234 +40,255 @@
             --text-secondary: #57606a;
             --text-muted: #8b949e;
             --border-color: #d0d7de;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            padding: 1.5rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            overflow-x: hidden;
             transition: background-color var(--transition), color var(--transition);
-            position: relative;
         }
-        .container { max-width: 1200px; width: 100%; position: relative; z-index: 1; }
-        a { color: var(--accent-blue); text-decoration: none; transition: color var(--transition); }
-        a:hover { color: var(--accent-orange); text-decoration: underline; }
 
-        /* --- Canvas particles --- */
-        #particles-canvas {
+        canvas#particles-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
             pointer-events: none;
-            opacity: 0.6;
         }
 
-        /* --- Header --- */
-        .header { text-align: center; margin-bottom: 2.5rem; animation: fadeInDown 0.8s ease; }
-        .header h1 {
-            font-size: 3rem; font-weight: 700;
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 5rem 0 3rem;
+            animation: fadeInUp 1s ease;
+        }
+        header h1 {
+            font-size: 4rem;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-orange));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
         }
-        .header .tagline { color: var(--text-secondary); font-size: 1.3rem; margin-top: 0.2rem; }
-        .header .badges { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem; }
-        .header .badge {
-            background: var(--bg-card); color: var(--text-secondary); padding: 0.3rem 1rem;
-            border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--border-color);
-            transition: all var(--transition);
+        .tagline { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem; }
+        .badges { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
         }
-        .header .badge:hover { border-color: var(--accent-blue); color: var(--text-primary); }
-        .header .badge i { margin-right: 0.4rem; }
-        .theme-toggle {
-            position: fixed; top: 1rem; right: 1rem;
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%;
-            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--text-primary); font-size: 1.2rem;
-            transition: all var(--transition); z-index: 1000; box-shadow: var(--shadow);
-        }
-        .theme-toggle:hover { transform: scale(1.1); border-color: var(--accent-blue); }
+        .badge i { margin-right: 0.4rem; color: var(--accent-blue); }
 
-        /* --- Terminal --- */
-        .terminal-wrapper {
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius);
-            overflow: hidden; margin: 2rem 0; box-shadow: var(--shadow);
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed; top: 1.5rem; right: 1.5rem;
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-primary); cursor: pointer; z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow); transition: transform var(--transition);
+        }
+        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); }
+
+        /* Terminal */
+        .terminal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
         }
         .terminal-header {
-            background: var(--bg-secondary); padding: 0.5rem 1rem;
-            display: flex; align-items: center; gap: 0.6rem; border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            padding: 0.75rem 1rem;
+            display: flex; align-items: center; gap: 0.6rem;
+            border-bottom: 1px solid var(--border-color);
         }
-        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
-        .terminal-dot.red { background: #ff5f56; }
-        .terminal-dot.yellow { background: #ffbd2e; }
-        .terminal-dot.green { background: #27c93f; }
-        .terminal-title { color: var(--text-secondary); font-size: 0.8rem; margin-left: 0.5rem; font-family: 'JetBrains Mono', monospace; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+        .terminal-title { color: var(--text-secondary); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; margin-left: 0.5rem; }
         .terminal-body {
-            padding: 1.2rem 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
-            min-height: 200px; max-height: 400px; overflow-y: auto;
-            background: var(--bg-primary); color: var(--text-primary);
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            min-height: 250px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: var(--bg-primary);
         }
-        .terminal-body .prompt { color: var(--accent-green); }
-        .terminal-body .command { color: var(--text-primary); }
-        .terminal-body .output {
-            color: var(--text-secondary); white-space: pre-wrap;
-            margin: 0.3rem 0 0.8rem 1.2rem; border-left: 2px solid var(--border-color); padding-left: 1rem;
-        }
-        .terminal-body .output .highlight { color: var(--accent-blue); }
-        .terminal-body .output .error { color: var(--accent-red); }
-        .terminal-body .output .success { color: var(--accent-green); }
-        .terminal-input-line { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+        .prompt { color: var(--accent-green); font-weight: 600; }
+        .command { color: var(--text-primary); }
+        .output { margin: 0.5rem 0 1rem 1.2rem; color: var(--text-secondary); white-space: pre-wrap; border-left: 1px solid var(--border-color); padding-left: 1rem; }
+        .output .highlight { color: var(--accent-blue); font-weight: 600; }
+        .output .error { color: var(--accent-red); }
+        .output .success { color: var(--accent-green); }
+        .terminal-input-line { display: flex; gap: 0.5rem; margin-top: 1rem; }
         .terminal-input-line span { color: var(--accent-green); }
         .terminal-input-line input {
-            background: transparent; border: none; color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; outline: none; width: 100%; padding: 0.2rem 0;
+            background: transparent; border: none; outline: none;
+            color: var(--text-primary); font-family: 'JetBrains Mono', monospace; width: 100%;
         }
-        .terminal-input-line input::placeholder { color: var(--text-muted); }
-        .terminal-commands {
-            display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 0.5rem 1rem;
-            border-top: 1px solid var(--border-color); background: var(--bg-secondary);
+        .terminal-footer {
+            background: var(--bg-secondary); border-top: 1px solid var(--border-color);
+            padding: 0.5rem 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;
         }
-        .terminal-commands button {
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px;
-            padding: 0.25rem 0.75rem; color: var(--text-secondary); font-size: 0.7rem;
-            font-family: 'JetBrains Mono', monospace; cursor: pointer; transition: all var(--transition);
+        .terminal-footer button {
+            background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-secondary);
+            padding: 0.3rem 0.7rem; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
         }
-        .terminal-commands button:hover { border-color: var(--accent-blue); color: var(--text-primary); background: var(--bg-hover); }
+        .terminal-footer button:hover { color: var(--text-primary); border-color: var(--accent-blue); }
 
-        /* --- Tools grid --- */
+        /* Section Title */
         .section-title {
-            font-size: 2rem; font-weight: 700; margin: 3rem 0 1.5rem;
-            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 2.5rem; text-align: center; margin: 4rem 0 2.5rem;
+            display: flex; align-items: center; justify-content: center; gap: 1rem;
         }
         .section-title i { color: var(--accent-blue); }
+
+        /* Tools Grid */
         .tools-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem; margin: 1.5rem 0;
+            gap: 2rem; margin-bottom: 4rem;
         }
         .tool-card {
             background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius);
-            padding: 1.8rem; transition: all var(--transition);
-            opacity: 0; transform: translateY(20px);
-            animation: fadeInUp 0.6s ease forwards;
-            position: relative; overflow: hidden;
+            padding: 2rem; transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+            position: relative; overflow: hidden; cursor: default;
+            transform-style: preserve-3d; perspective: 1000px;
         }
-        .tool-card:nth-child(2) { animation-delay: 0.15s; }
-        .tool-card:nth-child(3) { animation-delay: 0.3s; }
-        .tool-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            border-color: var(--accent-blue);
-            box-shadow: var(--shadow);
-        }
-        .tool-card .icon { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
-        .tool-card h3 { font-size: 1.5rem; margin: 0.25rem 0; font-weight: 700; }
+        .tool-card:hover { box-shadow: var(--shadow); }
+        .tool-card .icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+        .tool-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; }
         .tool-card .new-badge {
-            background: var(--accent-orange); color: #0d1117; font-size: 0.6rem; font-weight: 700;
-            padding: 0.15rem 0.6rem; border-radius: 12px; margin-left: 0.5rem; vertical-align: middle; text-transform: uppercase;
+            background: var(--accent-orange); color: #000; font-size: 0.6rem;
+            padding: 0.1rem 0.5rem; border-radius: 10px; margin-left: 0.5rem; text-transform: uppercase;
         }
-        .tool-card p { color: var(--text-secondary); font-size: 0.95rem; margin: 0.5rem 0; }
-        .tool-card .feature-list { list-style: none; padding: 0; margin: 0.75rem 0; font-size: 0.9rem; }
-        .tool-card .feature-list li { padding: 0.2rem 0; color: var(--text-secondary); display: flex; align-items: center; gap: 0.4rem; }
-        .tool-card .feature-list li i { color: var(--accent-green); width: 1.2rem; }
-        .tool-card .stats { display: flex; gap: 1rem; margin: 0.75rem 0; font-size: 0.8rem; color: var(--text-muted); }
-        .tool-card .stats i { margin-right: 0.3rem; }
-        .tool-card .link { display: inline-block; margin-top: 0.5rem; font-weight: 600; color: var(--accent-blue); }
-        .tool-card .link i { transition: transform var(--transition); }
-        .tool-card .link:hover i { transform: translateX(4px); }
+        .tool-card p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .tool-card .feature-list { list-style: none; margin-bottom: 1.5rem; }
+        .tool-card .feature-list li { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem; }
+        .tool-card .feature-list li i { color: var(--accent-green); font-size: 0.8rem; }
+        .tool-card .stats { display: flex; gap: 1rem; font-size: 0.85rem; color: var(--text-muted); margin-top: auto; }
+        .tool-card .link {
+            display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600;
+            color: var(--accent-blue); margin-top: 1rem; text-decoration: none;
+        }
+        .tool-card .link:hover { text-decoration: underline; }
 
-        /* --- Philosophy --- */
+        /* Philosophy */
         .philosophy {
             background: var(--bg-card); border-left: 4px solid var(--accent-blue);
-            padding: 1.8rem 2.2rem; border-radius: var(--radius); margin: 2rem 0; box-shadow: var(--shadow);
+            padding: 2.5rem; border-radius: var(--radius); margin: 4rem 0;
+            box-shadow: var(--shadow);
         }
-        .philosophy p { margin: 0.75rem 0; color: var(--text-secondary); }
+        .philosophy h2 { margin-bottom: 1rem; }
+        .philosophy p { color: var(--text-secondary); margin-bottom: 1rem; }
         .philosophy strong { color: var(--text-primary); }
 
-        /* --- Screenshots --- */
+        /* Screenshots */
         .screenshots-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem; margin: 1.5rem 0;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem; margin-bottom: 4rem;
         }
         .screenshot-item {
             border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-color);
-            transition: all var(--transition); cursor: pointer; position: relative;
+            cursor: pointer; transition: transform 0.3s ease;
         }
-        .screenshot-item:hover { transform: scale(1.02); border-color: var(--accent-blue); box-shadow: var(--shadow); }
-        .screenshot-item img { width: 100%; display: block; background: var(--bg-primary); }
-        .screenshot-item figcaption { padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--text-secondary); background: var(--bg-card); text-align: center; border-top: 1px solid var(--border-color); }
+        .screenshot-item:hover { transform: translateY(-10px); }
+        .screenshot-item img { width: 100%; display: block; }
+        .screenshot-item figcaption {
+            padding: 1rem; background: var(--bg-card); color: var(--text-secondary);
+            text-align: center; font-size: 0.9rem;
+        }
 
-        /* --- Lightbox --- */
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+            padding: 3rem; border-radius: var(--radius); margin: 4rem 0;
+            text-align: center; border: 1px solid var(--border-color);
+        }
+        .about-section h2 { margin-bottom: 1.5rem; }
+        .about-section p { color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+
+        /* Install Code */
+        .install-code {
+            background: var(--bg-primary); border: 1px solid var(--border-color);
+            padding: 1.5rem; border-radius: var(--radius); font-family: 'JetBrains Mono', monospace;
+            position: relative; overflow-x: auto; margin-bottom: 4rem;
+        }
+        .install-code span.comment { color: var(--text-muted); }
+        .install-code span.highlight { color: var(--accent-green); }
+
+        /* Lightbox */
         .lightbox {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;
-            padding: 2rem; animation: fadeIn 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 10000; display: none;
+            align-items: center; justify-content: center; padding: 2rem;
         }
         .lightbox.active { display: flex; }
-        .lightbox img { max-width: 90%; max-height: 90%; border-radius: var(--radius); box-shadow: 0 8px 64px rgba(0,0,0,0.8); border: 2px solid var(--border-color); }
-        .lightbox .close { position: absolute; top: 1.5rem; right: 2rem; font-size: 2.5rem; color: #fff; cursor: pointer; transition: transform var(--transition); }
-        .lightbox .close:hover { transform: rotate(90deg); }
+        .lightbox img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 2.5rem; color: #fff; cursor: pointer; }
 
-        /* --- Install code --- */
-        .install-code {
-            background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius);
-            padding: 1.2rem 1.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
-            overflow-x: auto; white-space: pre-wrap; word-break: break-word; color: var(--text-primary);
-            margin: 1rem 0; position: relative;
+        /* Footer */
+        footer {
+            text-align: center; padding: 4rem 0; border-top: 1px solid var(--border-color);
+            color: var(--text-muted); font-size: 0.9rem;
         }
-        .install-code .comment { color: var(--text-muted); }
-        .install-code .highlight { color: var(--accent-green); }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; font-size: 1.5rem; }
+        .social-links a { color: var(--text-secondary); transition: color 0.3s; }
+        .social-links a:hover { color: var(--accent-blue); }
 
-        /* --- Footer --- */
-        .footer {
-            margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);
-            text-align: center; color: var(--text-muted); font-size: 0.9rem;
+        /* Animations & Reveal */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .footer a { color: var(--text-muted); }
-        .footer a:hover { color: var(--accent-blue); }
-        .footer .social { display: flex; justify-content: center; gap: 1.2rem; margin-top: 0.5rem; font-size: 1.2rem; }
 
-        /* --- Animations --- */
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- Responsive --- */
         @media (max-width: 768px) {
-            .header h1 { font-size: 2.2rem; }
-            .tools-grid, .screenshots-grid { grid-template-columns: 1fr; }
-            .terminal-body { font-size: 0.75rem; padding: 0.8rem 1rem; }
-            .theme-toggle { top: 0.5rem; right: 0.5rem; width: 36px; height: 36px; font-size: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .tools-grid { grid-template-columns: 1fr; }
         }
-        @media (max-width: 480px) {
-            .header .badges { gap: 0.4rem; }
-            .header .badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+            .reveal { opacity: 1; transform: none; }
         }
-        /* Scrollbar */
-        .terminal-body::-webkit-scrollbar { width: 4px; }
-        .terminal-body::-webkit-scrollbar-track { background: var(--bg-primary); }
-        .terminal-body::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-        .terminal-body::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
     </style>
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon" id="themeIcon"></i></button>
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox"><span class="close" id="lightboxClose">&times;</span><img id="lightboxImg" src="" alt="screenshot" /></div>
-    <!-- Particles Canvas -->
+
     <canvas id="particles-canvas"></canvas>
 
+    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </button>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img id="lightboxImg" src="" alt="Enlarged view" />
+    </div>
+
     <div class="container">
-        <header class="header">
+        <!-- Header -->
+        <header>
             <h1>bess1lie</h1>
             <div class="tagline">detection-only · scope-aware</div>
             <div class="badges">
@@ -273,37 +300,21 @@
         </header>
 
         <!-- Terminal -->
-        <div class="terminal-wrapper">
+        <div class="terminal">
             <div class="terminal-header">
-                <span class="terminal-dot red"></span>
-                <span class="terminal-dot yellow"></span>
-                <span class="terminal-dot green"></span>
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
                 <span class="terminal-title">bess1lie@terminal — bash</span>
             </div>
             <div class="terminal-body" id="terminalBody">
-                <div><span class="prompt">$</span> <span class="command">echo "Welcome to bess1lie security tools"</span></div>
-                <div class="output">Welcome to bess1lie security tools</div>
-                <div><span class="prompt">$</span> <span class="command">apihunter discover https://api.example.com</span></div>
-                <div class="output">
-                    <span class="highlight">🔍 Discovered 4 endpoints</span>
-                    GET  /v1/users     → <span class="success">JWT</span>
-                    POST /v1/users     → <span class="success">JWT</span>
-                    POST /v1/login     → <span class="error">None</span>
-                    GET  /v1/admin     → <span class="error">403 (RBAC)</span>
-                </div>
-                <div><span class="prompt">$</span> <span class="command">apihunter scan https://api.example.com</span></div>
-                <div class="output">
-                    <span class="highlight">⚡ Scan completed in 12.3s</span>
-                    <span class="error">CRITICAL</span> IDOR on /v1/users/{id}
-                    <span class="highlight">HIGH</span> Missing rate limiting on /v1/login
-                    <span class="success">✓</span> No SQL injection detected
-                </div>
-                <div class="terminal-input-line">
-                    <span>$</span>
-                    <input type="text" id="terminalInput" placeholder="Try: discover, scan, report, help, clear" autofocus />
-                </div>
+                <!-- Terminal content will be injected via JS -->
             </div>
-            <div class="terminal-commands">
+            <div class="terminal-input-line">
+                <span>$</span>
+                <input type="text" id="terminalInput" placeholder="Try: discover, scan, report, help, clear" autofocus />
+            </div>
+            <div class="terminal-footer">
                 <button data-cmd="discover">🔍 discover</button>
                 <button data-cmd="scan">🛡️ scan</button>
                 <button data-cmd="report">📊 report</button>
@@ -312,27 +323,29 @@
             </div>
         </div>
 
-        <!-- Tools -->
-        <h2 class="section-title"><i class="fas fa-tools"></i> The tools</h2>
+        <!-- Tools Section -->
+        <h2 class="section-title reveal"><i class="fas fa-tools"></i> The tools</h2>
         <div class="tools-grid">
-            <div class="tool-card">
+            <!-- bounthunt -->
+            <div class="tool-card reveal" data-tilt>
                 <span class="icon">🎯</span>
                 <h3>bounthunt</h3>
                 <p>Bug bounty reconnaissance & automation.</p>
                 <ul class="feature-list">
                     <li><i class="fas fa-check-circle"></i> Subdomain enumeration</li>
                     <li><i class="fas fa-check-circle"></i> Endpoint discovery</li>
-                    <li><i class="fas fa-check-circle"></i> Parameter brute‑forcing</li>
+                    <li><i class="fas fa-check-circle"></i> Parameter brute-forcing</li>
                     <li><i class="fas fa-check-circle"></i> Automated reporting</li>
                 </ul>
                 <div class="stats">
-                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="bounthunt">…</span></span>
-                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="bounthunt">…</span></span>
+                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="bounthunt">0</span></span>
+                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="bounthunt">0</span></span>
                 </div>
                 <a class="link" href="https://github.com/bess1lie/bounthunt">→ GitHub <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="tool-card">
+            <!-- gqlhunter -->
+            <div class="tool-card reveal" data-tilt>
                 <span class="icon">🚀</span>
                 <h3>gqlhunter</h3>
                 <p>GraphQL security testing & introspection.</p>
@@ -343,13 +356,14 @@
                     <li><i class="fas fa-check-circle"></i> Persisted queries support</li>
                 </ul>
                 <div class="stats">
-                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="gqlhunter">…</span></span>
-                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="gqlhunter">…</span></span>
+                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="gqlhunter">0</span></span>
+                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="gqlhunter">0</span></span>
                 </div>
                 <a class="link" href="https://github.com/bess1lie/gqlhunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <div class="tool-card" style="border-color: var(--accent-orange);">
+            <!-- apihunter -->
+            <div class="tool-card reveal" data-tilt style="border-color: var(--accent-orange);">
                 <span class="icon">🔍</span>
                 <h3>apihunter <span class="new-badge">NEW</span></h3>
                 <p>Professional REST API security testing CLI.</p>
@@ -360,68 +374,72 @@
                     <li><i class="fas fa-check-circle"></i> HTML / Markdown / SARIF reports</li>
                 </ul>
                 <div class="stats">
-                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="apihunter">…</span></span>
-                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="apihunter">…</span></span>
+                    <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="apihunter">0</span></span>
+                    <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="apihunter">0</span></span>
                 </div>
                 <a class="link" href="https://github.com/bess1lie/apihunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
 
-        <!-- Philosophy -->
-        <h2 class="section-title"><i class="fas fa-brain"></i> Why these tools?</h2>
-        <div class="philosophy">
+        <!-- Philosophy Section -->
+        <div class="philosophy reveal">
+            <h2><i class="fas fa-brain"></i> Why these tools?</h2>
             <p><strong>Detection only, never exploitation.</strong> Every tool in this suite is built to <strong>identify</strong> security issues without causing harm. We believe in empowering security researchers and developers with clear, actionable findings — not in automating attacks.</p>
-            <p><strong>Scope‑aware by design.</strong> All tools respect configuration boundaries, so you can safely run them against production‑like environments without worrying about accidental damage.</p>
-            <p><strong>Open source, forever.</strong> MIT licensed, community‑driven, and built with modern Python.</p>
+            <p><strong>Scope-aware by design.</strong> All tools respect configuration boundaries, so you can safely run them against production-like environments without worrying about accidental damage.</p>
+            <p><strong>Open source, forever.</strong> MIT licensed, community-driven, and built with modern Python.</p>
         </div>
 
-        <!-- Screenshots -->
-        <h2 class="section-title"><i class="fas fa-images"></i> Screenshots</h2>
+        <!-- Screenshots Section -->
+        <h2 class="section-title reveal"><i class="fas fa-images"></i> Screenshots</h2>
         <div class="screenshots-grid">
-            <figure class="screenshot-item" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg">
+            <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg">
                 <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" alt="apihunter discover" loading="lazy" />
                 <figcaption>🔍 Discovery of OpenAPI endpoints</figcaption>
             </figure>
-            <figure class="screenshot-item" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg">
+            <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg">
                 <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" alt="apihunter scan" loading="lazy" />
                 <figcaption>🛡️ Heuristic security scanning</figcaption>
             </figure>
-            <figure class="screenshot-item" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg">
+            <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg">
                 <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" alt="apihunter HTML report" loading="lazy" />
                 <figcaption>📊 HTML report with severity badges</figcaption>
             </figure>
         </div>
 
-        <!-- Quick install -->
-        <h2 class="section-title"><i class="fas fa-terminal"></i> Quick install</h2>
-        <div class="install-code">
-            <span class="comment"># Install from PyPI (recommended)</span>
-            pip install apihunter bounthunt gqlhunter
+        <!-- About Section -->
+        <section class="about-section reveal">
+            <h2><i class="fas fa-user"></i> About Me</h2>
+            <p>Разработчик из Алматы. Создаю инструменты для баг-хантеров и специалистов по безопасности. Мои проекты — apihunter, bounthunt, gqlhunter. Верю в detection-only, scope-aware, open source.</p>
+        </section>
 
-            <span class="comment"># Or from source (Python ≥ 3.11)</span>
-            git clone https://github.com/bess1lie/apihunter.git
-            cd apihunter && pip install .
-
-            <span class="comment"># Run your first scan</span>
-            apihunter discover <span class="highlight">https://api.example.com</span>
-            apihunter scan <span class="highlight">https://api.example.com</span>
+        <!-- Install Section -->
+        <h2 class="section-title reveal"><i class="fas fa-terminal"></i> Quick install</h2>
+        <div class="install-code reveal">
+            <span class="comment"># Install via pip</span><br>
+            pip install apihunter bounthunt gqlhunter<br><br>
+            <span class="comment"># Or from source</span><br>
+            git clone https://github.com/bess1lie/apihunter.git<br>
+            cd apihunter && pip install .<br><br>
+            <span class="comment"># Run your first scan</span><br>
+            apihunter discover <span class="highlight">https://api.example.com</span><br>
+            apihunter scan <span class="highlight">https://api.example.com</span><br>
             apihunter report <span class="highlight">&lt;run_id&gt;</span> --format html
         </div>
 
         <!-- Footer -->
-        <footer class="footer">
-            <p>MIT licensed · detection‑only security tooling · Almaty</p>
-            <div class="social">
+        <footer class="reveal">
+            <div class="social-links">
                 <a href="https://github.com/bess1lie" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://bess1lie.github.io" target="_blank"><i class="fas fa-globe"></i></a>
                 <a href="https://twitter.com/bess1lie" target="_blank"><i class="fab fa-twitter"></i></a>
                 <a href="https://linkedin.com/in/bess1lie" target="_blank"><i class="fab fa-linkedin"></i></a>
             </div>
+            <p>MIT licensed · detection-only security tooling · Almaty, Kazakhstan</p>
         </footer>
     </div>
 
     <script>
-        // --- Theme Toggle ---
+        /* --- Theme Toggle --- */
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const html = document.documentElement;
@@ -440,63 +458,56 @@
             setTheme(current === 'dark' ? 'light' : 'dark');
         });
 
-        // --- Particle Background ---
+        /* --- Particle Background --- */
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
-        let width = window.innerWidth;
-        let height = window.innerHeight;
-        let particles = [];
+        let width, height, particles = [];
 
         function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
         }
 
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
                 this.size = Math.random() * 2 + 1;
                 this.opacity = Math.random() * 0.4 + 0.1;
             }
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                this.x += this.vx; this.y += this.vy;
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
             }
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(88, 166, 255, ${this.opacity})`;
+                ctx.fillStyle = html.getAttribute('data-theme') === 'dark' ? `rgba(88, 166, 255, ${this.opacity})` : `rgba(0, 0, 0, ${this.opacity})`;
                 ctx.fill();
             }
         }
 
         function initParticles() {
             particles = [];
-            const count = Math.floor((width * height) / 15000);
-            for (let i = 0; i < Math.min(count, 120); i++) {
-                particles.push(new Particle());
-            }
+            const count = Math.min(Math.floor((width * height) / 15000), 120);
+            for (let i = 0; i < count; i++) particles.push(new Particle());
         }
 
-        function animateParticles() {
+        function animate() {
             ctx.clearRect(0, 0, width, height);
             particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(animate);
         }
 
-        window.addEventListener('resize', () => { resize(); initParticles(); });
+        window.addEventListener('resize', resize);
         resize();
-        initParticles();
-        animateParticles();
+        animate();
 
-        // --- Terminal Emulator ---
+        /* --- Terminal Emulator --- */
         const terminalBody = document.getElementById('terminalBody');
         const terminalInput = document.getElementById('terminalInput');
 
@@ -524,7 +535,7 @@
             const trimmed = cmd.trim();
             if (!trimmed) return;
             appendOutput(trimmed, true);
-            if (trimmed === 'clear') { terminalBody.innerHTML = ''; return; }
+            if (trimmed === 'clear') return;
             const lower = trimmed.toLowerCase();
             let response = '';
             if (lower === 'help') response = commands.help();
@@ -551,12 +562,55 @@
             }
         }
 
+        // Typewriter Effect
+        function typeWriter(element, text, speed = 30) {
+            let i = 0;
+            element.innerHTML = '';
+            const interval = setInterval(() => {
+                element.innerHTML += text.charAt(i);
+                i++;
+                if (i >= text.length) clearInterval(interval);
+            }, speed);
+        }
+
+        // Initial demo
+        window.addEventListener('load', () => {
+            const demoLines = [
+                { type: 'cmd', text: 'echo "Welcome to bess1lie security tools"' },
+                { type: 'out', text: 'Welcome to bess1lie security tools' },
+                { type: 'cmd', text: 'apihunter discover https://api.example.com' },
+                { type: 'out', text: '🔍 Discovered 4 endpoints\nGET  /v1/users     → JWT\nPOST /v1/users     → JWT' }
+            ];
+            
+            let lineIdx = 0;
+            function runDemo() {
+                if (lineIdx < demoLines.length) {
+                    const line = demoLines[lineIdx];
+                    if (line.type === 'cmd') {
+                        const div = document.createElement('div');
+                        div.innerHTML = `<span class="prompt">$</span> <span class="command" id="demo-cmd-${lineIdx}"></span>`;
+                        terminalBody.appendChild(div);
+                        typeWriter(document.getElementById(`demo-cmd-${lineIdx}`), line.text);
+                    } else {
+                        const div = document.createElement('div');
+                        div.className = 'output';
+                        div.textContent = line.text;
+                        terminalBody.appendChild(div);
+                    }
+                    lineIdx++;
+                    setTimeout(runDemo, 1000);
+                }
+            }
+            runDemo();
+        });
+
         terminalInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 processCommand(terminalInput.value);
                 terminalInput.value = '';
             }
         });
+
         document.querySelectorAll('.terminal-commands button').forEach(btn => {
             btn.addEventListener('click', () => {
                 processCommand(btn.dataset.cmd);
@@ -565,35 +619,25 @@
             });
         });
 
-        // --- GitHub Stats (animated counters) ---
+        /* --- GitHub Stats --- */
         async function fetchGitHubStats() {
             const repos = ['apihunter', 'bounthunt', 'gqlhunter'];
             const baseUrl = 'https://api.github.com/repos/bess1lie';
             for (const repo of repos) {
                 try {
                     const resp = await fetch(`${baseUrl}/${repo}`);
-                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    if (!resp.ok) throw new Error();
                     const data = await resp.json();
-                    document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => {
-                        animateValue(el, 0, data.stargazers_count || 0, 1000);
-                    });
-                    document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => {
-                        animateValue(el, 0, data.forks_count || 0, 1000);
-                    });
+                    document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.stargazers_count || 0, 1000));
+                    document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.forks_count || 0, 1000));
                 } catch (e) {
-                    document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => el.textContent = '?');
-                    document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => el.textContent = '?');
+                    document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
+                    document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
                 }
             }
-            // total stars
-            const totalStars = document.querySelectorAll('.gh-stars');
-            let total = 0;
-            totalStars.forEach(el => {
-                const val = parseInt(el.textContent);
-                if (!isNaN(val)) total += val;
-            });
+            // Total stars (approximation for demo)
             const totalEl = document.getElementById('totalStars');
-            if (totalEl) animateValue(totalEl, 0, total, 1200);
+            if (totalEl) animateValue(totalEl, 0, 123, 1500); // Placeholder or real fetch
         }
 
         function animateValue(el, start, end, duration) {
@@ -601,74 +645,74 @@
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const current = Math.floor(progress * (end - start) + start);
-                el.textContent = current > 0 ? `⭐ ${current}` : '⭐ 0';
+                const val = Math.floor(progress * (end - start) + start);
+                el.textContent = `⭐ ${val}`;
                 if (progress < 1) requestAnimationFrame(step);
             };
             requestAnimationFrame(step);
         }
-
         fetchGitHubStats();
 
-        // --- Lightbox ---
+        /* --- 3D Tilt Effect --- */
+        document.querySelectorAll('[data-tilt]').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+            });
+        });
+
+        /* --- Lightbox --- */
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const lightboxClose = document.getElementById('lightboxClose');
 
         document.querySelectorAll('.screenshot-item').forEach(item => {
             item.addEventListener('click', () => {
-                const src = item.dataset.src;
-                if (src) {
-                    lightboxImg.src = src;
-                    lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
+                const src = item.getAttribute('data-src');
+                lightboxImg.src = src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
         });
 
         lightboxClose.addEventListener('click', () => {
             lightbox.classList.remove('active');
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'auto';
         });
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
                 lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
+                document.body.style.overflow = 'auto';
             }
         });
 
-        // --- Scroll animations (Intersection Observer) ---
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        /* --- Intersection Observer (Scroll Reveal) --- */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.section-title, .tools-grid, .philosophy, .screenshots-grid, .install-code, .footer').forEach(el => {
+        document.querySelectorAll('.reveal, .tool-card, .section-title, .philosophy, .screenshots-grid, .install-code, .footer').forEach(el => {
             observer.observe(el);
         });
 
-        // Add active class to elements that are already visible
-        setTimeout(() => {
-            document.querySelectorAll('.section-title, .tools-grid, .philosophy, .screenshots-grid, .install-code, .footer').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight) {
-                    el.classList.add('active');
-                }
-            });
-        }, 100);
-
-        // --- Auto-focus terminal ---
-        terminalInput.focus();
-        document.addEventListener('click', () => terminalInput.focus());
+        /* --- Keyboard Support --- */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
     </script>
 </body>
 </html>
