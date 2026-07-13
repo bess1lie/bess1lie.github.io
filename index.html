@@ -1050,10 +1050,17 @@
         <pre># Install from source (Python ≥ 3.11)
 git clone https://github.com/bess1lie/apihunter.git
 cd apihunter && pip install .
-Run your first scan
+
+git clone https://github.com/bess1lie/bounthunt.git
+cd bounthunt && pip install .
+
+git clone https://github.com/bess1lie/gqlhunter.git
+cd gqlhunter && pip install .
+
+# Run your first scan
 apihunter discover https://api.example.com
-apihunter scan https://api.example.com
-apihunter report <run_id> --format html</pre>
+bounthunt scan scope.yaml
+gqlhunter discover https://example.com/graphql</pre>
     </div>
 
     <!-- Footer -->
