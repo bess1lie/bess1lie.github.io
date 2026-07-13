@@ -1,26 +1,31 @@
 # bess1lie.github.io
 
-Landing page for my security tooling.
+Landing page for my security tooling ecosystem.
 
 **Live:** https://bess1lie.github.io/
 
-## Projects
-
-- [bounthunt](https://github.com/bess1lie/bounthunt) — scope-aware bug bounty orchestrator
-- [gqlhunter](https://github.com/bess1lie/gqlhunter) — GraphQL recon & analysis CLI
-
 ## What's here
 
-This repository contains a single `index.html` — a static, dependency-free
-landing page in a dark terminal aesthetic. It links to both projects, shows
-screenshots, and documents the quick-install for each.
+Single `index.html` — interactive terminal, tool cards, philosophy, screenshots, and install instructions.
+
+## Projects
+
+- [apihunter](https://github.com/bess1lie/apihunter) — REST API security testing CLI
+- [bounthunt](https://github.com/bess1lie/bounthunt) — Bug bounty recon automation
+- [gqlhunter](https://github.com/bess1lie/gqlhunter) — GraphQL security testing
+
+## Features
+
+- Dark/light theme toggle with particles background
+- Interactive terminal emulator (discover, scan, report, help, clear)
+- Scroll‑reveal animations and 3D tilt cards
+- Lightbox for screenshots
+- GitHub stats via API
+- Fallback placeholders for broken images
 
 ## Tech
 
-- Pure HTML + inline CSS, no JavaScript frameworks
-- Dark theme (`#0d1117`), monospace headings
-- Screenshots pulled from `raw.githubusercontent.com` so they stay in sync
-  with the source repos automatically
+Pure HTML + inline CSS + vanilla JS. No frameworks, no dependencies.
 
 ## License
 

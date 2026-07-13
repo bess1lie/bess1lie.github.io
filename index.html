@@ -648,6 +648,25 @@
         position: relative;
         z-index: 2;
     }
+
+    .screenshot-fallback {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem;
+        background: var(--bg-card);
+        color: var(--text-muted);
+        font-size: 3rem;
+        gap: 1rem;
+        min-height: 200px;
+    }
+
+    .screenshot-fallback p {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin: 0;
+    }
     
     /* --- Lightbox --- */
     .lightbox {
@@ -962,7 +981,7 @@
             </ul>
             <div class="stats">
                 <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="gqlhunter">0</span></span>
-                <span><i class="fas fa-code-fork"></i> <span classgh-forks" data-repo="gqlhunter">0</span></span>
+                <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="gqlhunter">0</span></span>
             </div>
             <a class="link" href="https://github.com/bess1lie/gqlhunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
         </div>
@@ -1002,15 +1021,15 @@
     
     <div class="screenshots-grid">
         <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg">
-            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" alt="apihunter discover" loading="lazy" />
+            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" alt="apihunter discover" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=screenshot-fallback><i class=\'fas fa-search\'></i><p>OpenAPI Discovery</p></div>'" />
             <figcaption>🔍 Discovery of OpenAPI endpoints</figcaption>
         </figure>
         <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg">
-            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" alt="apihunter scan" loading="lazy" />
+            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" alt="apihunter scan" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=screenshot-fallback><i class=\'fas fa-shield-alt\'></i><p>Security Scan</p></div>'" />
             <figcaption>🛡️ Heuristic security scanning</figcaption>
         </figure>
         <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg">
-            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" alt="apihunter HTML report" loading="lazy" />
+            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" alt="apihunter HTML report" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=screenshot-fallback><i class=\'fas fa-file-alt\'></i><p>HTML Report</p></div>'" />
             <figcaption>📊 HTML report with severity badges</figcaption>
         </figure>
     </div>
@@ -1072,7 +1091,7 @@ apihunter report <run_id> --format html</pre>
     });
 
     /* --- Particle Background --- */
-    const canvas = document.getElementById('particles-canvas');
+    const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
 
