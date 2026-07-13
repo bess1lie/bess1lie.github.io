@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -922,7 +922,7 @@
             <span class="badge"><i class="fas fa-shield-alt"></i> Security Tooling</span>
             <span class="badge"><i class="fas fa-code"></i> Open Source</span>
             <span class="badge"><i class="fas fa-rocket"></i> 3 tools</span>
-            <span class="badge"><i class="fas fa-star" id="totalStars"></i> loading…</span>
+            <span class="badge"><i class="fas fa-star"></i> <span id="totalStars">0</span></span>
         </div>
     </header>
 
@@ -939,7 +939,7 @@
         </div>
         <div class="terminal-input-line">
             <span>$</span>
-            <input type="text" id="terminalInput" placeholder="Введите команду (discover, scan, report, help, clear)" autofocus />
+            <input type="text" id="terminalInput" placeholder="Type a command (discover, scan, report, help, clear)" autofocus />
         </div>
     </div>
 
@@ -1037,17 +1037,17 @@
     <!-- About Section -->
     <section class="about-section reveal">
         <h2><i class="fas fa-user"></i> About Me</h2>
-        <p>Разработчик из Алматы. Кибербезопасник в первую очередь. Создаю инструменты для баг-хантеров и специалистов по безопасности. Мои проекты — apihunter, bounthunt, gqlhunter. Верю в detection-only, scope-aware, open source.</p>
+        <p>Security engineer from Almaty. Building detection‑first, scope‑aware security CLIs for bug hunters and security engineers. Creator of apihunter, bounthunt, and gqlhunter. Open source advocate.</p>
     </section>
 
     <!-- Quick install -->
     <div class="section-header reveal" id="install-section">
-        <h2><i class="fas fa-terminal"></i> Quick install</h2>
-        <p>Get started with our tools in seconds</p>
+        <h2><i class="fas fa-terminal"></i> Quick Install</h2>
+        <p>Get started in seconds</p>
     </div>
     
     <div class="install-code reveal">
-        <pre># Установка из исходников (Python ≥ 3.11)
+        <pre># Install from source (Python ≥ 3.11)
 git clone https://github.com/bess1lie/apihunter.git
 cd apihunter && pip install .
 Run your first scan
