@@ -55,6 +55,11 @@
         --light-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06);
         --light-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08);
         --light-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+        --light-accent-blue: #0969da;
+        --light-accent-green: #1a7f37;
+        --light-accent-orange: #bd561d;
+        --light-accent-red: #cf222e;
+        --light-accent-yellow: #9a6700;
     }
     
     /* Apply light theme */
@@ -71,6 +76,11 @@
         --shadow-md: var(--light-shadow-md);
         --shadow-lg: var(--light-shadow-lg);
         --shadow-xl: var(--light-shadow-xl);
+        --accent-blue: var(--light-accent-blue);
+        --accent-green: var(--light-accent-green);
+        --accent-orange: var(--light-accent-orange);
+        --accent-red: var(--light-accent-red);
+        --accent-yellow: var(--light-accent-yellow);
     }
     
     /* --- Reset & base --- */
@@ -223,6 +233,10 @@
     .badge-blue { background: rgba(88, 166, 255, 0.1); color: var(--accent-blue); border-color: rgba(88, 166, 255, 0.3); }
     .badge-orange { background: rgba(240, 136, 62, 0.1); color: var(--accent-orange); border-color: rgba(240, 136, 62, 0.3); }
     .badge-red { background: rgba(248, 81, 73, 0.1); color: var(--accent-red); border-color: rgba(248, 81, 73, 0.3); }
+    [data-theme="light"] .badge-green { background: rgba(26, 127, 55, 0.1); border-color: rgba(26, 127, 55, 0.25); }
+    [data-theme="light"] .badge-blue { background: rgba(9, 105, 218, 0.1); border-color: rgba(9, 105, 218, 0.25); }
+    [data-theme="light"] .badge-orange { background: rgba(189, 86, 29, 0.1); border-color: rgba(189, 86, 29, 0.25); }
+    [data-theme="light"] .badge-red { background: rgba(207, 34, 46, 0.1); border-color: rgba(207, 34, 46, 0.25); }
     
     /* --- Particle Background --- */
     #particle-canvas {
@@ -237,7 +251,7 @@
     }
     
     [data-theme="light"] #particle-canvas {
-        opacity: 0.3;
+        opacity: 0.5;
     }
     
     /* --- Theme Toggle --- */
@@ -471,6 +485,10 @@
         vertical-align: middle;
         text-transform: uppercase;
         animation: pulse 2s infinite;
+    }
+    
+    [data-theme="light"] .tool-card .new-badge {
+        color: #ffffff;
     }
     
     .tool-card p {
@@ -760,7 +778,7 @@
         padding-top: 2rem;
         border-top: 1px solid var(--border-color);
         text-align: center;
-        color: var(--text-muted);
+        color: var(--text-secondary);
         font-size: 0.95rem;
         opacity: 0;
         transform: translateY(30px);
@@ -807,6 +825,7 @@
         margin: 4rem 0;
         text-align: center;
         border: 1px solid var(--border-color);
+        border-left: 4px solid var(--accent-blue);
         opacity: 0;
         transform: translateY(30px);
         transition: all 0.8s ease-out;
