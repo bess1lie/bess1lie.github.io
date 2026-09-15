@@ -1,66 +1,609 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Мастерская «Ағаш» — Мебель из массива в Алматы</title>
-<meta name="description" content="Столярная мастерская в Алматы: делаем мебель из массива берёзы, дуба и ясеня по вашим размерам. Свой цех, без посредников.">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfcf8">
+  <meta name="description" content="Ағаш, столярная мастерская в Алматы. Мебель из массива берёзы, дуба и ясеня по вашим размерам. Свой цех, с 2016 года.">
+  <meta property="og:title" content="Ағаш, мебель, которая переживет ремонт">
+  <meta property="og:description" content="Мебель из массива дерева по вашим размерам. Алматы, свой цех, фиксированная цена в договоре.">
+  <title>Ағаш, столярная мастерская в Алматы</title>
+  <style>
+    :root {
+      --cream: #fdfcf8;
+      --sand: #e8ddd0;
+      --sand-2: #f1e9df;
+      --wood: #7c4a2b;
+      --wood-dark: #5e351f;
+      --olive: #4a5a3a;
+      --ink: #24231f;
+      --muted: #77736b;
+      --line: #d8d0c5;
+      --white: #ffffff;
+      --max: 1240px;
+      --shadow: 0 18px 40px rgba(63, 42, 24, .08);
+      --radius: 0px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "Manrope", Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { border: 0; cursor: pointer; }
+    img { display: block; max-width: 100%; }
+
+    .container { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .mono { font-family: "Fragment Mono", "SFMono-Regular", Consolas, monospace; }
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      margin: 0 0 22px;
+      color: var(--olive);
+      font: 12px/1.3 "Fragment Mono", "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(124,74,43,.14);
+      background: rgba(253,252,248,.94);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand { font-size: 12px; font-weight: 800; letter-spacing: .13em; }
+    .brand span { color: var(--wood); }
+    .nav-links { display: flex; align-items: center; gap: 28px; font-size: 13px; color: #4e4a44; }
+    .nav-links a { position: relative; padding: 8px 0; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--wood); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .header-cta { display: inline-flex; align-items: center; gap: 10px; color: var(--wood); font-weight: 800; font-size: 13px; }
+    .header-cta .dot { width: 7px; height: 7px; background: var(--olive); border-radius: 50%; }
+    .menu-toggle { display: none; background: transparent; width: 42px; height: 42px; }
+    .menu-toggle span { display: block; width: 20px; height: 1px; margin: 5px auto; background: var(--ink); }
+
+    .hero { padding: 92px 0 110px; position: relative; overflow: hidden; }
+    .hero::after {
+      content: ""; position: absolute; right: -120px; top: -100px; width: 58vw; max-width: 760px; height: 520px; opacity: .55; pointer-events: none;
+      background:
+        repeating-linear-gradient(8deg, transparent 0 15px, rgba(124,74,43,.10) 16px, transparent 17px),
+        repeating-linear-gradient(-18deg, transparent 0 28px, rgba(74,90,58,.08) 29px, transparent 30px),
+        linear-gradient(135deg, rgba(232,221,208,.42), rgba(253,252,248,0));
+      transform: rotate(3deg);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 72px; align-items: end; position: relative; z-index: 1; }
+    h1 { max-width: 820px; margin: 0; font-size: clamp(46px, 7vw, 92px); line-height: .94; letter-spacing: -.05em; font-weight: 700; }
+    .hero-copy { max-width: 640px; margin-top: 30px; color: #5f5b54; font-size: 18px; }
+    .hero-copy strong { color: var(--ink); font-weight: 700; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px; }
+    .btn {
+      min-height: 48px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 11px;
+      padding: 0 22px;
+      border: 1px solid var(--wood);
+      font-weight: 800;
+      font-size: 13px;
+      transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--wood); color: var(--white); }
+    .btn-primary:hover { background: var(--wood-dark); border-color: var(--wood-dark); }
+    .btn-ghost { background: transparent; color: var(--wood); }
+    .btn-ghost:hover { background: var(--sand-2); }
+    .hero-note { margin-top: 24px; color: #6e6a62; font-size: 13px; font-family: "Fragment Mono", "SFMono-Regular", Consolas, monospace; }
+    .hero-meta { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); margin-top: 32px; }
+    .hero-stat { padding: 22px 18px 6px 0; border-right: 1px solid var(--line); }
+    .hero-stat:last-child { border-right: 0; padding-left: 18px; }
+    .hero-stat b { display: block; font-size: 31px; letter-spacing: -.04em; }
+    .hero-stat span { color: var(--muted); font-size: 12px; }
+    .hero-image { min-height: 520px; position: relative; background: var(--sand); overflow: hidden; }
+    .hero-image::before, .wood-placeholder::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 18% 24%, rgba(255,255,255,.34), transparent 23%),
+        repeating-linear-gradient(84deg, rgba(124,74,43,.16) 0 1px, transparent 1px 23px),
+        repeating-linear-gradient(4deg, rgba(83,52,29,.09) 0 1px, transparent 1px 13px),
+        linear-gradient(120deg, #dbc5af, #8b5b39 48%, #d5bca4);
+      mix-blend-mode: multiply;
+    }
+    .hero-image::after {
+      content: "МАССИВ / 2016–2026"; position: absolute; left: 24px; bottom: 24px;
+      color: rgba(255,255,255,.88); font: 11px "Fragment Mono", Consolas, monospace; letter-spacing: .08em;
+    }
+    .hero-frame { position: absolute; inset: 22px; border: 1px solid rgba(253,252,248,.65); z-index: 2; }
+
+    .section { padding: 112px 0; }
+    .section-soft { background: var(--sand-2); }
+    .section-wood { background: var(--olive); color: var(--cream); }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 46px; }
+    h2 { margin: 0; font-size: clamp(34px, 4vw, 54px); line-height: 1; letter-spacing: -.04em; }
+    .section-lead { max-width: 440px; margin: 0; color: var(--muted); font-size: 14px; }
+    .section-wood .section-lead { color: rgba(253,252,248,.66); }
+
+    .catalog-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(300px, .8fr); gap: 36px; align-items: start; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .card { background: var(--white); border: 1px solid var(--line); box-shadow: 0 0 0 rgba(0,0,0,0); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: rgba(124,74,43,.42); }
+    .card-media { aspect-ratio: 1.55; position: relative; overflow: hidden; background: var(--sand); }
+    .wood-placeholder { position: absolute; inset: 0; overflow: hidden; }
+    .card-body { padding: 24px; }
+    .card-top { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+    .card h3 { margin: 0; font-size: 22px; letter-spacing: -.03em; }
+    .card p { min-height: 48px; margin: 10px 0 20px; color: var(--muted); font-size: 13px; }
+    .price { font-size: 16px; font-weight: 800; }
+    .card .btn { width: 100%; margin-top: 20px; }
+    .tag { color: var(--olive); font: 10px "Fragment Mono", Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; }
+
+    .calculator { position: sticky; top: 100px; background: var(--white); border: 1px solid var(--line); padding: 28px; }
+    .calculator h3 { margin: 0 0 8px; font-size: 24px; letter-spacing: -.03em; }
+    .calculator > p { margin: 0 0 24px; color: var(--muted); font-size: 13px; }
+    .field { margin-bottom: 22px; }
+    .field label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; font-weight: 800; }
+    select, input[type="number"], input[type="text"], input[type="tel"], input[type="email"], textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      outline: none;
+      background: var(--cream);
+      color: var(--ink);
+      padding: 13px 14px;
+    }
+    select:focus, input:focus, textarea:focus { border-color: var(--wood); box-shadow: 0 0 0 2px rgba(124,74,43,.08); }
+    input[type="range"] { width: 100%; accent-color: var(--wood); }
+    .range-output { font: 12px "Fragment Mono", Consolas, monospace; color: var(--wood); }
+    .calc-price { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .calc-price span { display: block; color: var(--muted); font-size: 11px; }
+    .calc-price strong { display: block; margin-top: 4px; font-size: 36px; letter-spacing: -.04em; }
+    .calc-note { margin: 8px 0 0; color: var(--muted); font-size: 11px; }
+
+    .steps { list-style: none; padding: 0; margin: 60px 0 0; display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(253,252,248,.24); }
+    .step { min-height: 260px; padding: 26px 26px 0 0; border-right: 1px solid rgba(253,252,248,.24); }
+    .step:not(:first-child) { padding-left: 26px; }
+    .step:last-child { border-right: 0; }
+    .step-no { display: block; margin-bottom: 55px; color: #cfd8bf; font: 11px "Fragment Mono", Consolas, monospace; }
+    .step h3 { margin: 0 0 12px; font-size: 22px; letter-spacing: -.03em; }
+    .step p { margin: 0; color: rgba(253,252,248,.66); font-size: 13px; }
+
+    .gallery { display: grid; grid-template-columns: 1.4fr .8fr .8fr; gap: 16px; }
+    .gallery-item { min-height: 250px; position: relative; overflow: hidden; background: var(--sand); border: 1px solid var(--line); }
+    .gallery-item:nth-child(1) { grid-row: span 2; min-height: 516px; }
+    .gallery-item:nth-child(4) { grid-column: 2 / 4; }
+    .gallery-item::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(120deg, rgba(90,53,30,.08), rgba(255,255,255,.18)),
+        repeating-linear-gradient(14deg, transparent 0 18px, rgba(83,52,29,.10) 19px 20px),
+        repeating-linear-gradient(-34deg, transparent 0 37px, rgba(124,74,43,.11) 38px 39px),
+        var(--g, linear-gradient(135deg,#cab19c,#8b5b39));
+      transition: transform .6s ease;
+    }
+    .gallery-item:hover::before { transform: scale(1.06); }
+    .gallery-label { position: absolute; left: 18px; bottom: 16px; padding: 7px 9px; background: rgba(253,252,248,.88); color: var(--ink); font: 10px "Fragment Mono", Consolas, monospace; text-transform: uppercase; }
+
+    .reviews { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .review { padding: 28px; background: var(--white); border: 1px solid var(--line); }
+    .review blockquote { margin: 0; font-size: 16px; line-height: 1.6; }
+    .review footer { margin-top: 32px; display: flex; justify-content: space-between; gap: 15px; color: var(--muted); font-size: 12px; }
+
+    .faq-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-question { width: 100%; padding: 22px 0; background: transparent; display: flex; justify-content: space-between; gap: 24px; text-align: left; font-weight: 800; }
+    .faq-icon { color: var(--wood); font-size: 21px; line-height: 1; transition: transform .2s ease; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
+    .faq-answer p { margin: -4px 0 22px; color: var(--muted); font-size: 14px; max-width: 620px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; }
+    .contact-details { display: grid; gap: 24px; margin-top: 34px; }
+    .contact-item .label { display: block; margin-bottom: 5px; color: rgba(253,252,248,.5); font: 10px "Fragment Mono", Consolas, monospace; text-transform: uppercase; }
+    .contact-item a, .contact-item p { margin: 0; font-size: 17px; }
+    .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 30px; background: rgba(253,252,248,.06); border: 1px solid rgba(253,252,248,.18); }
+    .contact-form input, .contact-form textarea { background: rgba(253,252,248,.94); border-color: transparent; }
+    .contact-form textarea { min-height: 150px; resize: vertical; grid-column: 1 / -1; }
+    .contact-form .full { grid-column: 1 / -1; }
+    .contact-form .btn { width: 100%; }
+    .form-status { grid-column: 1 / -1; min-height: 20px; color: #dae4ca; font-size: 12px; }
+
+    .footer { padding: 26px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 1100px) {
+      .hero-grid, .catalog-layout, .faq-layout, .contact-grid { grid-template-columns: 1fr; }
+      .hero-image { min-height: 420px; order: -1; }
+      .calculator { position: static; }
+      .steps { grid-template-columns: repeat(2,1fr); }
+      .step:nth-child(2) { border-right: 0; }
+      .step:nth-child(n+3) { border-top: 1px solid rgba(253,252,248,.24); }
+      .step:nth-child(3) { padding-left: 0; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      .site-header { position: sticky; }
+      .nav { min-height: 68px; }
+      .nav-links { position: fixed; inset: 68px 0 0; background: var(--cream); padding: 30px 28px; flex-direction: column; align-items: flex-start; gap: 18px; transform: translateX(100%); transition: transform .25s ease; border-top: 1px solid var(--line); }
+      .nav-links.open { transform: translateX(0); }
+      .header-cta { display: none; }
+      .menu-toggle { display: block; }
+      .hero { padding: 60px 0 75px; }
+      h1 { font-size: clamp(48px, 15vw, 78px); }
+      .hero-copy { font-size: 16px; }
+      .hero-meta { grid-template-columns: 1fr 1fr; }
+      .hero-image { min-height: 350px; }
+      .section { padding: 78px 0; }
+      .section-head { display: block; margin-bottom: 30px; }
+      .section-lead { margin-top: 16px; }
+      .catalog, .reviews, .steps { grid-template-columns: 1fr; }
+      .step, .step:not(:first-child) { min-height: auto; padding: 26px 0; border-right: 0; }
+      .step:nth-child(n+2) { border-top: 1px solid rgba(253,252,248,.24); }
+      .step-no { margin-bottom: 24px; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery-item, .gallery-item:nth-child(1), .gallery-item:nth-child(4) { grid-row: auto; grid-column: auto; min-height: 220px; }
+      .gallery-item:nth-child(1) { min-height: 300px; grid-column: 1 / -1; }
+      .contact-grid { gap: 36px; }
+      .contact-form { grid-template-columns: 1fr; padding: 20px; }
+      .contact-form textarea, .contact-form .full, .form-status { grid-column: auto; }
+      .footer-inner { flex-direction: column; gap: 8px; }
+    }
+    @media (max-width: 420px) {
+      .hero-meta { grid-template-columns: 1fr; }
+      .hero-stat, .hero-stat:last-child { border-right: 0; padding: 17px 0; border-bottom: 1px solid var(--line); }
+      .gallery { grid-template-columns: 1fr; }
+      .gallery-item, .gallery-item:nth-child(1) { min-height: 280px; grid-column: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
-<body>
-<header class="nav">
-  <div class="container nav__inner">
-    <a class="nav__brand" href="#top">АҒАШ — МАСТЕРСКАЯ</a>
-    <nav><ul class="nav__list"><li><a href="#catalog">Каталог</a></li><li><a href="#process">Как делаем</a></li><li><a href="#contacts">Контакты</a></li></ul></nav>
-  </div>
-</header>
-<section class="hero">
-  <div class="container hero__inner">
-    <p class="hero__eyebrow">Алматы · промзона · с 2016</p>
-    <h1>Мебель, которая <br>переживет ремонт</h1>
-    <p class="hero__desc">Столярная мастерская в Алматы: делаем мебель из массива берёзы, дуба и ясеня по вашим размерам. Свой цех, свои руки, без посредников.</p>
-    <p class="hero__hint">Цену фиксируем в договоре · Каталог ниже</p>
-  </div>
-</section>
-
-<section id="catalog" class="section">
-  <div class="container">
-    <div class="section-head"><h2>Каталог</h2><p>Цены от, расчёт за минуту — нажми «Рассчитать»</p></div>
-    <div class="catalog">
-      <article class="card"><div class="card__img" style="background: linear-gradient(135deg,#e8dcc8,#f7f3ec)"></div><h3>Кухни под заказ</h3><p>Гарнитур из массива, фурнитура Blum</p><b>от 650 000 ₸</b><a class="btn btn--wood" href="#contacts">Рассчитать</a></article>
-      <article class="card"><div class="card__img" style="background: linear-gradient(135deg,#d6c7a8,#eee8d8)"></div><h3>Гардеробные</h3><p>Встроенные под ниши: штанги, полки</p><b>от 500 000 ₸</b><a class="btn btn--wood" href="#contacts">Рассчитать</a></article>
-      <article class="card"><div class="card__img" style="background: linear-gradient(135deg,#e0d5c0,#faf6f0)"></div><h3>Шкафы и стеллажи</h3><p>От прихожей до библиотеки</p><b>от 250 000 ₸</b><a class="btn btn--wood" href="#contacts">Рассчитать</a></article>
-      <article class="card"><div class="card__img" style="background: linear-gradient(135deg,#dcc9a8,#f0e6d3)"></div><h3>Столы и стулья</h3><p>Обеденные и рабочие, масло/лак</p><b>от 180 000 ₸</b><a class="btn btn--wood" href="#contacts">Рассчитать</a></article>
+<body id="top">
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top">АҒАШ <span>/</span> МАСТЕРСКАЯ</a>
+      <nav class="nav-links" id="siteNav" aria-label="Основная навигация">
+        <a href="#catalog">Каталог</a>
+        <a href="#process">Как делаем</a>
+        <a href="#gallery">Работы</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="header-cta" href="tel:+77053334455"><span class="dot"></span>+7 705 333 44 55</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
-  </div>
-</section>
+  </header>
 
-<section id="process" class="section section--wood">
-  <div class="container">
-    <h2>Как мы делаем</h2>
-    <ol class="steps">
-      <li><b>01 Выбор дерева</b><span>Берёза, дуб, ясень — показываем образцы</span></li>
-      <li><b>02 Распил и сушка</b><span>Свой цех, сами сушим</span></li>
-      <li><b>03 Сборка</b><span>Столяры, фурнитура Blum</span></li>
-      <li><b>04 Покрытие</b><span>Масло или лак, цена в договоре</span></li>
-    </ol>
-  </div>
-</section>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <p class="eyebrow">Алматы · промзона · с 2016</p>
+          <h1>Мебель, которая переживет ремонт</h1>
+          <p class="hero-copy">Делаем мебель под ваш размер из массива <strong>берёзы, дуба и ясеня</strong>. Работаем в собственном цехе, контролируем материал, сборку и покрытие на каждом этапе.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">Рассчитать проект <span>↗</span></a>
+            <a class="btn btn-ghost" href="#gallery">Смотреть работы</a>
+          </div>
+          <p class="hero-note">Цену фиксируем в договоре · без скрытого пересчёта после согласования</p>
+          <div class="hero-meta">
+            <div class="hero-stat"><b>2016</b><span>год работы мастерской</span></div>
+            <div class="hero-stat"><b>100%</b><span>свой цех и сборка</span></div>
+          </div>
+        </div>
+        <div class="hero-image reveal" aria-label="Текстура массива дерева">
+          <div class="hero-frame"></div>
+        </div>
+      </div>
+    </section>
 
-<section class="section">
-  <div class="container">
-    <h2>Галерея</h2>
-    <div class="gallery"><img src="assets/images/furn-1.svg"><img src="assets/images/furn-2.svg"><img src="assets/images/furn-3.svg"><img src="assets/images/furn-4.svg"><img src="assets/images/furn-5.svg"><img src="assets/images/furn-6.svg"></div>
-  </div>
-</section>
+    <section id="catalog" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">01 / Каталог</p>
+            <h2>Материал задаёт характер</h2>
+          </div>
+          <p class="section-lead">Стартовые цены нужны для ориентира. Итог зависит от размеров, породы дерева, фурнитуры и покрытия.</p>
+        </div>
 
-<section id="contacts" class="section section--wood">
-  <div class="container contacts">
-    <div><h2>Контакты</h2><p>Алматы, промзона · Пн–Сб 9:00–19:00<br>+7 705 333 44 55 · zakaz@agash-mebel.kz</p><a class="btn btn--wood" href="tel:+77053334455">Позвонить</a></div>
-    <form class="form"><input placeholder="Имя"><input placeholder="Телефон"><textarea placeholder="Что нужно сделать?"></textarea><button class="btn btn--wood">Отправить</button></form>
-  </div>
-</section>
-<footer class="footer"><div class="container">Ағаш · Алматы · bess1lie</div></footer>
+        <div class="catalog-layout">
+          <div class="catalog">
+            <article class="card reveal" data-type="kitchen" data-base="650000">
+              <div class="card-media"><div class="wood-placeholder" style="--tone:linear-gradient(135deg,#d6bea6,#8a5a38)"></div></div>
+              <div class="card-body">
+                <div class="card-top"><h3>Кухни под заказ</h3><span class="tag">01 / кухня</span></div>
+                <p>Фасады из массива, точные размеры, фурнитура Blum и продуманное хранение.</p>
+                <div class="price">от 650 000 ₸</div>
+                <a class="btn btn-ghost" href="#calculator" data-prefill="kitchen">Рассчитать</a>
+              </div>
+            </article>
+            <article class="card reveal" data-type="wardrobe" data-base="500000">
+              <div class="card-media"><div class="wood-placeholder" style="--tone:linear-gradient(135deg,#dfd2bb,#a97753)"></div></div>
+              <div class="card-body">
+                <div class="card-top"><h3>Гардеробные</h3><span class="tag">02 / хранение</span></div>
+                <p>Встроенные системы под нишу, полки, штанги и двери с точной посадкой.</p>
+                <div class="price">от 500 000 ₸</div>
+                <a class="btn btn-ghost" href="#calculator" data-prefill="wardrobe">Рассчитать</a>
+              </div>
+            </article>
+            <article class="card reveal" data-type="cabinet" data-base="250000">
+              <div class="card-media"><div class="wood-placeholder" style="--tone:linear-gradient(135deg,#dbcab7,#765037)"></div></div>
+              <div class="card-body">
+                <div class="card-top"><h3>Шкафы и стеллажи</h3><span class="tag">03 / корпус</span></div>
+                <p>От прихожей до домашней библиотеки. Проектируем хранение под ваш сценарий.</p>
+                <div class="price">от 250 000 ₸</div>
+                <a class="btn btn-ghost" href="#calculator" data-prefill="cabinet">Рассчитать</a>
+              </div>
+            </article>
+            <article class="card reveal" data-type="table" data-base="180000">
+              <div class="card-media"><div class="wood-placeholder" style="--tone:linear-gradient(135deg,#d7bb99,#70442d)"></div></div>
+              <div class="card-body">
+                <div class="card-top"><h3>Столы</h3><span class="tag">04 / столярка</span></div>
+                <p>Обеденные и рабочие столы из массива, покрытие маслом или лаком.</p>
+                <div class="price">от 180 000 ₸</div>
+                <a class="btn btn-ghost" href="#calculator" data-prefill="table">Рассчитать</a>
+              </div>
+            </article>
+          </div>
+
+          <aside class="calculator reveal" id="calculator">
+            <p class="eyebrow">Быстрый расчёт</p>
+            <h3>Сколько заложить в бюджет</h3>
+            <p>Выберите тип изделия и примерный размер. Получите ориентир, затем уточним проект по вашему ТЗ.</p>
+
+            <div class="field">
+              <label for="calcType">Тип изделия</label>
+              <select id="calcType">
+                <option value="kitchen" data-base="650000" data-scale="1.00">Кухня</option>
+                <option value="wardrobe" data-base="500000" data-scale="0.80">Гардеробная</option>
+                <option value="cabinet" data-base="250000" data-scale="0.45">Шкаф / стеллаж</option>
+                <option value="table" data-base="180000" data-scale="0.36">Стол</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="calcWidth"><span>Ширина</span><span class="range-output" id="widthOut">180 см</span></label>
+              <input id="calcWidth" type="range" min="60" max="500" value="180" step="10">
+            </div>
+
+            <div class="field">
+              <label for="calcDepth"><span>Глубина</span><span class="range-output" id="depthOut">60 см</span></label>
+              <input id="calcDepth" type="range" min="30" max="120" value="60" step="5">
+            </div>
+
+            <div class="field">
+              <label for="calcFinish">Покрытие</label>
+              <select id="calcFinish">
+                <option value="1">Масло</option>
+                <option value="1.08">Лак</option>
+                <option value="1.14">Премиум матовый лак</option>
+              </select>
+            </div>
+
+            <div class="calc-price">
+              <span>Ориентировочная цена от</span>
+              <strong id="calcPrice">650 000 ₸</strong>
+              <p class="calc-note">Расчёт не заменяет замер и спецификацию. Финальную стоимость закрепляем в договоре.</p>
+            </div>
+            <a class="btn btn-primary" href="#contacts" id="calcOrder">Обсудить проект</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="section section-wood">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><p class="eyebrow" style="color:#d8dfcc">02 / Процесс</p><h2>Как мы делаем</h2></div>
+          <p class="section-lead">Один цех. Один ответственный за проект. Материал и детали проходят через наши руки.</p>
+        </div>
+        <ol class="steps">
+          <li class="step reveal"><span class="step-no">01</span><h3>Выбор дерева</h3><p>Показываем образцы. Обсуждаем текстуру, цвет и поведение массива в помещении.</p></li>
+          <li class="step reveal"><span class="step-no">02</span><h3>Распил и сушка</h3><p>Готовим детали в собственном цехе. Контролируем геометрию и влажность материала.</p></li>
+          <li class="step reveal"><span class="step-no">03</span><h3>Сборка Blum</h3><p>Собираем изделие с точной фурнитурой Blum и проверяем узлы до выезда.</p></li>
+          <li class="step reveal"><span class="step-no">04</span><h3>Покрытие</h3><p>Масло или лак. Выравниваем фактуру и защищаем поверхность под ваш сценарий использования.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <div class="container">
+        <div class="section-head reveal"><div><p class="eyebrow">03 / Работы</p><h2>Фактура, которую видно</h2></div><p class="section-lead">Визуальные заглушки ниже выполнены внутри страницы. Их легко заменить вашими фотографиями без изменения вёрстки.</p></div>
+        <div class="gallery">
+          <div class="gallery-item reveal" style="--g:linear-gradient(145deg,#8f6042,#d8c1aa 62%,#765036)"><span class="gallery-label">Дуб / кухня</span></div>
+          <div class="gallery-item reveal" style="--g:linear-gradient(135deg,#d8ccb8,#9f744f)"><span class="gallery-label">Ясень / фасад</span></div>
+          <div class="gallery-item reveal" style="--g:linear-gradient(135deg,#74462f,#c49b77)"><span class="gallery-label">Орех / стол</span></div>
+          <div class="gallery-item reveal" style="--g:linear-gradient(120deg,#a87854,#e2cfbb,#8e6043)"><span class="gallery-label">Берёза / стеллаж</span></div>
+          <div class="gallery-item reveal" style="--g:linear-gradient(145deg,#d7bfa5,#8b5d3b)"><span class="gallery-label">Массив / детали</span></div>
+          <div class="gallery-item reveal" style="--g:linear-gradient(135deg,#7b5138,#cab096)"><span class="gallery-label">Сборка / цех</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container">
+        <div class="section-head reveal"><div><p class="eyebrow">04 / Отзывы</p><h2>Что отмечают клиенты</h2></div><p class="section-lead">Короткие форматы отзыва. Для публикации реальных отзывов замените текст и имена на ваши подтверждённые данные.</p></div>
+        <div class="reviews">
+          <article class="review reveal"><blockquote>«Согласовали материал и размеры без долгой переписки. На монтаже всё встало точно по месту, фактура дерева получилась ровной и спокойной.»</blockquote><footer><span>Клиент, Алматы</span><span class="mono">01 / кухня</span></footer></article>
+          <article class="review reveal"><blockquote>«Отдельно понравилось, что цену зафиксировали после утверждения проекта. По итогу получили именно тот оттенок и матовое покрытие, которое выбрали.»</blockquote><footer><span>Клиент, Алматы</span><span class="mono">02 / гардероб</span></footer></article>
+          <article class="review reveal"><blockquote>«Стол сделали по нестандартному размеру. Тяжёлый массив, аккуратные кромки, без ощущения фаброчного ширпотреба.»</blockquote><footer><span>Клиент, Алматы</span><span class="mono">03 / стол</span></footer></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container faq-layout">
+        <div class="reveal"><p class="eyebrow">05 / FAQ</p><h2>Перед заказом</h2><p class="section-lead" style="margin-top:20px">Основные вопросы, которые появляются до замера и расчёта.</p></div>
+        <div class="faq-list reveal">
+          <div class="faq-item open"><button class="faq-question" type="button"><span>Вы работаете только по Алматы?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Основная работа и монтаж проходят в Алматы. По другим городам условия доставки и монтажа обсуждаем отдельно.</p></div></div>
+          <div class="faq-item"><button class="faq-question" type="button"><span>Как формируется цена?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Учитываем размеры, породу и сорт массива, конструкцию, фурнитуру, покрытие, доставку и монтаж. После согласования спецификации цену фиксируем в договоре.</p></div></div>
+          <div class="faq-item"><button class="faq-question" type="button"><span>Нужен замер до расчёта?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Для ориентировочного бюджета достаточно типа изделия и примерных размеров. Точную стоимость считаем после замера или получения точного ТЗ.</p></div></div>
+          <div class="faq-item"><button class="faq-question" type="button"><span>Какое дерево выбрать?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Берёза даёт спокойную светлую фактуру, дуб подходит для более выраженного рисунка и высокой нагрузки, ясень сочетает светлый тон и заметную текстуру. Покажем образцы перед заказом.</p></div></div>
+          <div class="faq-item"><button class="faq-question" type="button"><span>Как проходит оплата?</span><span class="faq-icon">+</span></button><div class="faq-answer"><p>Условия оплаты закрепляем в договоре после утверждения проекта, спецификации и сроков изготовления.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" class="section section-wood">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <p class="eyebrow" style="color:#d8dfcc">06 / Контакты</p>
+          <h2>Расскажите, что нужно сделать</h2>
+          <div class="contact-details">
+            <div class="contact-item"><span class="label">Телефон</span><a href="tel:+77053334455">+7 705 333 44 55</a></div>
+            <div class="contact-item"><span class="label">Почта</span><a href="mailto:zakaz@agash-mebel.kz">zakaz@agash-mebel.kz</a></div>
+            <div class="contact-item"><span class="label">Адрес</span><p>Алматы, промзона</p></div>
+            <div class="contact-item"><span class="label">График</span><p>Пн–Сб · 09:00–19:00</p></div>
+          </div>
+        </div>
+        <form class="contact-form reveal" id="contactForm">
+          <input id="name" type="text" name="name" placeholder="Ваше имя" autocomplete="name" required>
+          <input id="phone" type="tel" name="phone" placeholder="Телефон" autocomplete="tel" required>
+          <input id="email" class="full" type="email" name="email" placeholder="Почта, если удобно" autocomplete="email">
+          <textarea id="message" name="message" placeholder="Что нужно сделать? Например: кухня 4,2 м, дуб, матовый лак"></textarea>
+          <div class="form-status" id="formStatus" aria-live="polite"></div>
+          <button class="btn btn-primary full" type="submit">Подготовить заявку</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>АҒАШ · Алматы · столярная мастерская · с 2016</span>
+      <span class="mono">HTML / CSS / JS · no dependencies</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const menuToggle = document.getElementById('menuToggle');
+      const siteNav = document.getElementById('siteNav');
+      const navLinks = siteNav.querySelectorAll('a');
+
+      function closeMenu() {
+        siteNav.classList.remove('open');
+        document.body.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      menuToggle.addEventListener('click', function () {
+        const open = siteNav.classList.toggle('open');
+        document.body.classList.toggle('menu-open', open);
+        menuToggle.setAttribute('aria-expanded', String(open));
+      });
+      navLinks.forEach(function (link) { link.addEventListener('click', closeMenu); });
+
+      const calcType = document.getElementById('calcType');
+      const calcWidth = document.getElementById('calcWidth');
+      const calcDepth = document.getElementById('calcDepth');
+      const calcFinish = document.getElementById('calcFinish');
+      const widthOut = document.getElementById('widthOut');
+      const depthOut = document.getElementById('depthOut');
+      const calcPrice = document.getElementById('calcPrice');
+      const calcOrder = document.getElementById('calcOrder');
+
+      function money(value) {
+        return new Intl.NumberFormat('ru-RU').format(Math.round(value / 1000) * 1000) + ' ₸';
+      }
+
+      function updateCalc() {
+        const selected = calcType.options[calcType.selectedIndex];
+        const base = Number(selected.dataset.base);
+        const width = Number(calcWidth.value);
+        const depth = Number(calcDepth.value);
+        const finish = Number(calcFinish.value);
+        const sizeFactor = 0.62 + (width / 250) * 0.30 + (depth / 65) * 0.08;
+        const result = Math.max(base, base * sizeFactor * finish);
+        widthOut.textContent = width + ' см';
+        depthOut.textContent = depth + ' см';
+        calcPrice.textContent = money(result);
+      }
+
+      [calcType, calcWidth, calcDepth, calcFinish].forEach(function (el) { el.addEventListener('input', updateCalc); });
+      updateCalc();
+
+      document.querySelectorAll('[data-prefill]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          calcType.value = link.dataset.prefill;
+          updateCalc();
+        });
+      });
+      calcOrder.addEventListener('click', function () {
+        const typeName = calcType.options[calcType.selectedIndex].textContent;
+        const message = 'Здравствуйте. Хочу обсудить проект: ' + typeName + ', ширина ' + calcWidth.value + ' см, глубина ' + calcDepth.value + ' см. Ориентир: ' + calcPrice.textContent + '.';
+        const messageBox = document.getElementById('message');
+        messageBox.value = message;
+      });
+
+      document.querySelectorAll('.faq-question').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const item = button.closest('.faq-item');
+          const answer = item.querySelector('.faq-answer');
+          const open = item.classList.toggle('open');
+          answer.style.maxHeight = open ? answer.scrollHeight + 'px' : '0px';
+        });
+      });
+      document.querySelectorAll('.faq-item.open .faq-answer').forEach(function (answer) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      });
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        if (!name || !phone) return;
+        const subject = encodeURIComponent('Заявка на мебель, Ағаш');
+        const body = encodeURIComponent([
+          'Имя: ' + name,
+          'Телефон: ' + phone,
+          email ? 'Почта: ' + email : '',
+          '',
+          'Проект:',
+          message || 'Нужна консультация и расчёт.'
+        ].filter(Boolean).join('\n'));
+        window.location.href = 'mailto:zakaz@agash-mebel.kz?subject=' + subject + '&body=' + body;
+        status.textContent = 'Открываем почтовый клиент с подготовленной заявкой.';
+      });
+    })();
+  </script>
 </body>
 </html>
