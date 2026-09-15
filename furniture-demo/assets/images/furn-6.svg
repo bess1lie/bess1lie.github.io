@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Детали: шип-паз и масляное покрытие">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5ecdc"/>
+      <stop offset="1" stop-color="#dfc8a2"/>
+    </linearGradient>
+    <linearGradient id="oak" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9b87e"/>
+      <stop offset="1" stop-color="#b98a5c"/>
+    </linearGradient>
+    <linearGradient id="oil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8c48a"/>
+      <stop offset="1" stop-color="#c09a60"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="420" width="800" height="180" fill="#b98a5c"/>
+  <path d="M0 420 Q200 412 400 422 Q600 432 800 420 L800 430 Q600 440 400 430 Q200 420 0 430 Z" fill="#8f6540" opacity="0.5"/>
+  <ellipse cx="300" cy="424" rx="220" ry="20" fill="#000" opacity="0.14"/>
+  <g transform="rotate(-6 300 200)">
+    <rect x="140" y="120" width="340" height="36" rx="6" fill="url(#oak)"/>
+    <rect x="140" y="120" width="340" height="36" rx="6" fill="none" stroke="#9c7a4a" stroke-width="2" opacity="0.5"/>
+    <g stroke="#9c7a4a" stroke-width="2.5" opacity="0.45">
+      <line x1="180" y1="124" x2="180" y2="152"/>
+      <line x1="230" y1="124" x2="230" y2="152"/>
+      <line x1="280" y1="124" x2="280" y2="152"/>
+      <line x1="330" y1="124" x2="330" y2="152"/>
+      <line x1="380" y1="124" x2="380" y2="152"/>
+      <line x1="430" y1="124" x2="430" y2="152"/>
+    </g>
+    <rect x="480" y="110" width="90" height="56" rx="6" fill="#a97a4b"/>
+  </g>
+  <g transform="rotate(4 580 260)">
+    <rect x="440" y="230" width="280" height="34" rx="6" fill="#c9a06a"/>
+    <rect x="440" y="230" width="280" height="34" rx="6" fill="none" stroke="#9c7a4a" stroke-width="2" opacity="0.5"/>
+    <rect x="456" y="226" width="80" height="42" rx="6" fill="#a97a4b"/>
+  </g>
+  <rect x="140" y="320" width="120" height="34" rx="6" fill="url(#oak)"/>
+  <rect x="150" y="310" width="120" height="34" rx="6" fill="url(#oak)"/>
+  <rect x="150" y="310" width="60" height="34" rx="6" fill="#d9b87e" opacity="0.7"/>
+  <g stroke="#9c7a4a" stroke-width="2.5" opacity="0.5">
+    <line x1="170" y1="314" x2="170" y2="340"/>
+    <line x1="200" y1="314" x2="200" y2="340"/>
+    <line x1="230" y1="314" x2="230" y2="340"/>
+  </g>
+  <rect x="360" y="320" width="70" height="70" rx="10" fill="#5a4a2c"/>
+  <rect x="352" y="312" width="86" height="16" rx="8" fill="#8a6a3a"/>
+  <rect x="470" y="330" width="30" height="56" rx="8" fill="url(#oil)"/>
+  <path d="M478 386 h14 l6 26 h-26 Z" fill="#8a6a3a"/>
+  <rect x="560" y="330" width="120" height="24" rx="12" fill="#c9a06a"/>
+  <circle cx="586" cy="342" r="4" fill="#8a6a3a"/>
+  <circle cx="610" cy="342" r="4" fill="#8a6a3a"/>
+  <circle cx="634" cy="342" r="4" fill="#8a6a3a"/>
+  <g fill="#d9b87e" opacity="0.8">
+    <circle cx="210" cy="440" r="12"/>
+    <circle cx="300" cy="450" r="10"/>
+    <circle cx="380" cy="440" r="11"/>
+    <circle cx="500" cy="455" r="9"/>
+    <circle cx="600" cy="442" r="12"/>
+    <circle cx="690" cy="452" r="10"/>
+  </g>
+</svg>

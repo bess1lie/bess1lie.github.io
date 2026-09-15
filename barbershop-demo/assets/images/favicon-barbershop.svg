@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Фавикон барбершопа «Жігіт»: ножницы">
+  <rect width="64" height="64" rx="14" fill="#1e293b"/>
+  <rect x="21" y="10" width="22" height="5" rx="2.5" fill="#f4f4f5"/>
+  <path d="M43 10 l8 -4 a4 4 0 0 1 5 5 l-8 4 q-3 1.5 -5 -5 Z" fill="#c2410c"/>
+  <path d="M43 15 l8 4 a4 4 0 0 0 5 -5 l-8 -4 q-3 -1.5 -5 5 Z" fill="#c2410c"/>
+  <rect x="17" y="49" width="26" height="5" rx="2.5" fill="#f4f4f5"/>
+  <path d="M43 49 l8 -4 a4 4 0 0 1 5 5 l-8 4 q-3 1.5 -5 -5 Z" fill="#c2410c"/>
+  <path d="M43 54 l8 4 a4 4 0 0 0 5 -5 l-8 -4 q-3 -1.5 -5 5 Z" fill="#c2410c"/>
+  <circle cx="32" cy="32" r="5" fill="#f4f4f5"/>
+  <circle cx="32" cy="32" r="2" fill="#1e293b"/>
+</svg>

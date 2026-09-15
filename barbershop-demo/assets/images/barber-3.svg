@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Набор инструментов мастера">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3442"/>
+      <stop offset="1" stop-color="#1e2733"/>
+    </linearGradient>
+    <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e5e7eb"/>
+      <stop offset="1" stop-color="#9aa6b3"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="430" width="800" height="170" fill="#141a22"/>
+  <path d="M0 430 Q200 422 400 432 Q600 442 800 430 L800 440 Q600 450 400 440 Q200 430 0 440 Z" fill="#c2410c" opacity="0.4"/>
+  <ellipse cx="400" cy="440" rx="220" ry="22" fill="#000" opacity="0.35"/>
+  <g transform="rotate(-20 330 330)">
+    <rect x="200" y="300" width="300" height="30" rx="15" fill="#c2410c"/>
+    <path d="M500 300 l60 -30 a28 28 0 0 1 40 40 l-60 30 q-22 12 -40 -40 Z" fill="url(#blade)"/>
+    <path d="M500 330 l60 30 a28 28 0 0 0 40 -40 l-60 -30 q-22 -12 -40 40 Z" fill="url(#blade)"/>
+  </g>
+  <g transform="rotate(14 520 340)">
+    <rect x="380" y="325" width="260" height="28" rx="14" fill="#374151"/>
+    <path d="M640 325 l50 -22 a26 26 0 0 1 30 36 l-50 22 q-20 9 -30 -36 Z" fill="url(#blade)"/>
+    <path d="M640 353 l50 22 a26 26 0 0 0 30 -36 l-50 -22 q-20 -9 -30 36 Z" fill="url(#blade)"/>
+  </g>
+  <rect x="560" y="380" width="40" height="56" rx="8" fill="#374151"/>
+  <path d="M564 380 l32 -24 v40 Z" fill="#c2410c"/>
+  <rect x="300" y="386" width="130" height="16" rx="8" fill="#4b5563"/>
+  <rect x="304" y="402" width="122" height="16" rx="8" fill="#4b5563"/>
+  <rect x="308" y="418" width="114" height="16" rx="8" fill="#4b5563"/>
+  <path d="M250 380 h40 v64 h-40 Z" fill="#c2410c"/>
+  <path d="M262 390 h16 v44 h-16 Z" fill="#f0c39a"/>
+  <ellipse cx="150" cy="440" rx="70" ry="14" fill="#c2410c" opacity="0.9"/>
+  <rect x="110" y="420" width="80" height="20" rx="10" fill="#c2410c"/>
+</svg>

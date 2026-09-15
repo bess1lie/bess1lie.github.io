@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Гардеробная в нише с выдвижными ящиками">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5efe2"/>
+      <stop offset="1" stop-color="#e2d3b4"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d3c49f"/>
+      <stop offset="1" stop-color="#b09f74"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8f7a4e"/>
+      <stop offset="1" stop-color="#6e5a34"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect x="60" y="60" width="680" height="480" rx="8" fill="#fffdf6"/>
+  <rect x="60" y="60" width="680" height="480" rx="8" fill="none" stroke="#b09f74" stroke-width="8"/>
+  <rect x="140" y="110" width="520" height="380" fill="url(#dark)"/>
+  <rect x="140" y="110" width="520" height="20" fill="#5a4a2c"/>
+  <g stroke="#8a7a50" stroke-width="6">
+    <line x1="400" y1="130" x2="400" y2="490"/>
+    <line x1="140" y1="130" x2="140" y2="490"/>
+    <line x1="660" y1="130" x2="660" y2="490"/>
+  </g>
+  <rect x="400" y="130" width="260" height="360" fill="#6e5a34"/>
+  <rect x="400" y="130" width="260" height="14" fill="#5a4a2c"/>
+  <g fill="url(#wood)">
+    <rect x="160" y="150" width="220" height="60" rx="5"/>
+    <rect x="160" y="226" width="220" height="60" rx="5"/>
+    <rect x="160" y="302" width="220" height="60" rx="5"/>
+    <rect x="160" y="378" width="220" height="60" rx="5"/>
+  </g>
+  <g fill="#8a6a3a">
+    <circle cx="270" cy="180" r="7"/>
+    <circle cx="270" cy="256" r="7"/>
+    <circle cx="270" cy="332" r="7"/>
+    <circle cx="270" cy="408" r="7"/>
+  </g>
+  <rect x="420" y="160" width="40" height="330" rx="5" fill="#c2b394"/>
+  <path d="M520 160 q14 -20 28 0 v330 h-28 Z" fill="#c2b394"/>
+  <g stroke="#8a7a50" stroke-width="5" stroke-linecap="round">
+    <line x1="520" y1="190" x2="520" y2="240"/>
+    <line x1="520" y1="260" x2="520" y2="310"/>
+    <line x1="520" y1="330" x2="520" y2="380"/>
+  </g>
+  <rect x="580" y="160" width="60" height="330" rx="5" fill="#d3c49f"/>
+  <g fill="#8a7a50">
+    <rect x="592" y="180" width="36" height="14" rx="4"/>
+    <rect x="592" y="220" width="36" height="14" rx="4"/>
+    <rect x="592" y="260" width="36" height="14" rx="4"/>
+  </g>
+</svg>

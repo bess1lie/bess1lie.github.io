@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Кухня из ясеня с открытыми полками">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f3ec"/>
+      <stop offset="1" stop-color="#e8dcc8"/>
+    </linearGradient>
+    <linearGradient id="ash" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0d3b8"/>
+      <stop offset="1" stop-color="#c2b394"/>
+    </linearGradient>
+    <linearGradient id="top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9b990"/>
+      <stop offset="1" stop-color="#a8956a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="0" width="800" height="180" fill="#efe5d0"/>
+  <rect y="200" width="800" height="400" fill="#ded0b4"/>
+  <rect x="70" y="120" width="250" height="18" rx="6" fill="#8a6a3a" opacity="0.8"/>
+  <rect x="70" y="152" width="250" height="18" rx="6" fill="#8a6a3a" opacity="0.8"/>
+  <g fill="url(#ash)">
+    <rect x="70" y="180" width="16" height="240" rx="4"/>
+    <rect x="304" y="180" width="16" height="240" rx="4"/>
+  </g>
+  <g fill="#a06a3a">
+    <rect x="130" y="0" width="26" height="120"/>
+    <rect x="210" y="0" width="26" height="120"/>
+  </g>
+  <rect x="60" y="420" width="680" height="180" fill="url(#ash)"/>
+  <rect x="60" y="420" width="680" height="22" fill="url(#top)"/>
+  <rect x="60" y="420" width="680" height="6" fill="#8a6a3a" opacity="0.6"/>
+  <g fill="#a8936a">
+    <rect x="140" y="470" width="150" height="110" rx="6"/>
+    <rect x="360" y="470" width="150" height="110" rx="6"/>
+  </g>
+  <g fill="url(#ash)">
+    <rect x="140" y="470" width="150" height="110" rx="6"/>
+    <rect x="360" y="470" width="150" height="110" rx="6"/>
+  </g>
+  <circle cx="215" cy="560" r="7" fill="#c9b990"/>
+  <circle cx="435" cy="560" r="7" fill="#c9b990"/>
+  <rect x="560" y="470" width="90" height="110" rx="6" fill="#c2b394"/>
+  <circle cx="605" cy="520" r="8" fill="#a06a3a"/>
+  <circle cx="605" cy="540" r="8" fill="#a06a3a"/>
+  <path d="M660 470 h70 v22 q-34 6 -70 0 Z" fill="#a8936a"/>
+  <rect x="180" y="240" width="440" height="150" rx="8" fill="#166534"/>
+  <rect x="180" y="240" width="440" height="150" rx="8" fill="none" stroke="#0f4526" stroke-width="4"/>
+  <path d="M400 330 q30 -26 0 -52 q-30 -26 0 -52" fill="none" stroke="#f7f3ec" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+  <rect x="270" y="260" width="70" height="60" rx="6" fill="#0f4526" opacity="0.5"/>
+  <rect x="460" y="260" width="70" height="60" rx="6" fill="#0f4526" opacity="0.5"/>
+</svg>

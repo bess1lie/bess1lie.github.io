@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Фавикон мастерской «Ағаш»: дерево">
+  <rect width="64" height="64" rx="14" fill="#166534"/>
+  <path d="M32 8 l14 22 h-9 l9 16 h-28 l9 -16 h-9 Z" fill="#f7f3ec"/>
+  <rect x="29" y="46" width="6" height="10" rx="3" fill="#f7f3ec"/>
+  <circle cx="22" cy="24" r="4" fill="#f7f3ec"/>
+  <circle cx="42" cy="18" r="3" fill="#f7f3ec"/>
+  <circle cx="46" cy="34" r="3" fill="#f7f3ec"/>
+</svg>

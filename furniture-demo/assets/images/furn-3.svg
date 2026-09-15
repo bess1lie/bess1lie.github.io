@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Обеденный стол из дуба ручной работы">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f3ec"/>
+      <stop offset="1" stop-color="#e6d9c0"/>
+    </linearGradient>
+    <linearGradient id="oak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9a06a"/>
+      <stop offset="1" stop-color="#a97a4b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="440" width="800" height="160" fill="#b98a5c"/>
+  <path d="M0 440 Q200 432 400 442 Q600 452 800 440 L800 450 Q600 460 400 450 Q200 440 0 450 Z" fill="#8f6540" opacity="0.5"/>
+  <ellipse cx="400" cy="452" rx="250" ry="24" fill="#000" opacity="0.16"/>
+  <rect x="140" y="360" width="520" height="26" rx="6" fill="url(#oak)"/>
+  <rect x="140" y="360" width="520" height="26" rx="6" fill="none" stroke="#8a5a2a" stroke-width="2" opacity="0.4"/>
+  <path d="M400 386 q-12 -14 0 -28 q12 -14 0 -28" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  <rect x="200" y="386" width="34" height="70" rx="4" fill="#a97a4b"/>
+  <rect x="566" y="386" width="34" height="70" rx="4" fill="#a97a4b"/>
+  <rect x="180" y="456" width="74" height="24" rx="6" fill="#8f6540"/>
+  <rect x="546" y="456" width="74" height="24" rx="6" fill="#8f6540"/>
+  <g>
+    <path d="M560 360 l-30 -200 h40 l30 200 Z" fill="#8a5a2a"/>
+    <path d="M250 360 l30 -200 h40 l-30 200 Z" fill="#8a5a2a" opacity="0"/>
+  </g>
+  <rect x="540" y="160" width="80" height="200" rx="8" fill="#a97a4b"/>
+  <path d="M540 340 l-14 50 h28 Z" fill="#8f6540"/>
+  <rect x="552" y="168" width="12" height="120" rx="6" fill="#c9a06a"/>
+  <rect x="596" y="168" width="12" height="120" rx="6" fill="#c9a06a"/>
+  <g transform="rotate(180 330 300)">
+    <rect x="290" y="300" width="80" height="200" rx="8" fill="#a97a4b"/>
+    <path d="M290 160 l-14 -50 h28 Z" fill="#8f6540"/>
+    <rect x="302" y="308" width="12" height="120" rx="6" fill="#c9a06a"/>
+    <rect x="346" y="308" width="12" height="120" rx="6" fill="#c9a06a"/>
+  </g>
+  <ellipse cx="300" cy="340" rx="100" ry="20" fill="#000" opacity="0.14"/>
+  <ellipse cx="540" cy="340" rx="100" ry="20" fill="#000" opacity="0.14"/>
+  <path d="M600 500 h140 v12 q-70 8 -140 0 Z" fill="#8f6540" opacity="0.4"/>
+  <path d="M60 500 h140 v12 q-70 8 -140 0 Z" fill="#8f6540" opacity="0.4"/>
+</svg>

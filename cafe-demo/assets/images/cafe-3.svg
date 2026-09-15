@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Зерно свежей обжарки на стойке">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6e3c8"/>
+      <stop offset="1" stop-color="#e3c59c"/>
+    </linearGradient>
+    <linearGradient id="sack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c9a06a"/>
+      <stop offset="1" stop-color="#9c7a4a"/>
+    </linearGradient>
+    <radialGradient id="bean" cx="0.35" cy="0.3" r="1">
+      <stop offset="0" stop-color="#7a4a24"/>
+      <stop offset="1" stop-color="#4a2a12"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="440" width="800" height="160" fill="#c99a6a"/>
+  <path d="M0 440 Q200 430 400 442 Q600 454 800 440 L800 452 Q600 462 400 450 Q200 438 0 450 Z" fill="#8f6540" opacity="0.5"/>
+  <path d="M250 170 q-70 40 -84 150 q-4 60 8 110 h140 q12 -50 8 -110 q-14 -110 -72 -150 Z" fill="url(#sack)"/>
+  <path d="M250 170 q-6 12 -6 26 q0 20 6 40 l4 8 4 -8 q6 -20 6 -40 q0 -14 -6 -26 Z" fill="#7a5230"/>
+  <path d="M340 430 q0 -40 -16 -74 q-8 40 -6 74 Z" fill="#c9a06a" stroke="#8f6540" stroke-width="3"/>
+  <ellipse cx="310" cy="424" rx="24" ry="10" fill="#c9a06a"/>
+  <ellipse cx="560" cy="480" rx="200" ry="26" fill="#000" opacity="0.14"/>
+  <ellipse cx="560" cy="456" rx="190" ry="24" fill="#fdf6ea"/>
+  <path d="M400 452 q80 -10 160 0 v24 q-80 -10 -160 0 Z" fill="#d9b98c"/>
+  <ellipse cx="560" cy="452" rx="170" ry="22" fill="#7a4a24"/>
+  <g fill="url(#bean)">
+    <ellipse cx="470" cy="452" rx="14" ry="9"/>
+    <ellipse cx="510" cy="458" rx="14" ry="9"/>
+    <ellipse cx="550" cy="448" rx="14" ry="9"/>
+    <ellipse cx="600" cy="455" rx="14" ry="9"/>
+    <ellipse cx="640" cy="450" rx="14" ry="9"/>
+    <ellipse cx="490" cy="446" rx="13" ry="8"/>
+    <ellipse cx="535" cy="462" rx="13" ry="8"/>
+    <ellipse cx="580" cy="446" rx="13" ry="8"/>
+    <ellipse cx="620" cy="462" rx="13" ry="8"/>
+    <ellipse cx="455" cy="462" rx="13" ry="8"/>
+  </g>
+  <path d="M455 452 l5 5 M505 458 l5 5 M545 448 l5 5 M595 455 l5 5 M635 450 l5 5" stroke="#2a1808" stroke-width="1.5" opacity="0.5"/>
+  <ellipse cx="560" cy="452" rx="120" ry="14" fill="#2a1808" opacity="0.35"/>
+  <rect x="676" y="340" width="26" height="80" rx="6" fill="#b45309"/>
+  <rect x="682" y="348" width="6" height="60" rx="3" fill="#e8c39a"/>
+  <path d="M689 416 q0 8 8 8 q8 0 8 -8 l-4 -30 h-8 Z" fill="#9a3412"/>
+</svg>

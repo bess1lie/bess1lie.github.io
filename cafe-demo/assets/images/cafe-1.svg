@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Чашка капучино с рисунком на пенке">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fdf3e3"/>
+      <stop offset="1" stop-color="#f3ddc0"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c99a6a"/>
+      <stop offset="1" stop-color="#a97a4b"/>
+    </linearGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf9"/>
+      <stop offset="1" stop-color="#e8d8c0"/>
+    </linearGradient>
+    <radialGradient id="foam" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#e6c48f"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="430" width="800" height="170" fill="url(#wood)"/>
+  <path d="M0 430 Q200 420 400 432 Q600 444 800 430 L800 440 Q600 452 400 440 Q200 428 0 440 Z" fill="#8f6540" opacity="0.5"/>
+  <ellipse cx="400" cy="448" rx="220" ry="22" fill="#000" opacity="0.18"/>
+  <ellipse cx="400" cy="424" rx="180" ry="26" fill="#f7e9d4"/>
+  <ellipse cx="400" cy="424" rx="150" ry="20" fill="#fffdf9"/>
+  <path d="M285 260 Q266 320 290 372 Q316 422 400 424 Q484 422 510 372 Q534 320 515 260 Z" fill="url(#cup)"/>
+  <ellipse cx="400" cy="260" rx="115" ry="34" fill="url(#foam)"/>
+  <path d="M400 232 a14 14 0 0 1 24 0 q2 3 0 7 l-24 24 -24 -24 q-2 -4 0 -7 a14 14 0 0 1 24 0" fill="#9a5b22" opacity="0.85"/>
+  <path d="M515 270 q62 4 58 60 -4 58 -60 60 q-14 1 -20 -6 q38 -8 40 -48 2 -40 -20 -48 q6 -8 2 -18" fill="#efe2cc" stroke="#d6c2a4" stroke-width="3"/>
+  <path d="M380 190 q14 -16 0 -32 q-14 -16 0 -32" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity="0.7"/>
+  <path d="M430 198 q12 -14 0 -28 q-12 -14 0 -28" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+  <ellipse cx="400" cy="424" rx="186" ry="27" fill="#a97a4b" opacity="0.4"/>
+</svg>

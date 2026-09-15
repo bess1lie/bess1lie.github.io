@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Шкаф из берёзы в прихожей">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6efe0"/>
+      <stop offset="1" stop-color="#e3d2b4"/>
+    </linearGradient>
+    <linearGradient id="birch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e3d5b8"/>
+      <stop offset="1" stop-color="#c0ac86"/>
+    </linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2ead6"/>
+      <stop offset="1" stop-color="#e2d2b4"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="360" width="800" height="240" fill="#b98a5c"/>
+  <path d="M0 360 Q200 352 400 362 Q600 372 800 360 L800 370 Q600 380 400 370 Q200 360 0 370 Z" fill="#8f6540" opacity="0.5"/>
+  <rect x="140" y="90" width="300" height="330" rx="8" fill="url(#birch)"/>
+  <rect x="140" y="90" width="300" height="330" rx="8" fill="none" stroke="#a8956a" stroke-width="4"/>
+  <rect x="152" y="102" width="128" height="150" rx="5" fill="#fffdf6"/>
+  <rect x="152" y="102" width="128" height="150" rx="5" fill="none" stroke="#a8956a" stroke-width="3"/>
+  <rect x="296" y="102" width="128" height="150" rx="5" fill="#fffdf6"/>
+  <rect x="296" y="102" width="128" height="150" rx="5" fill="none" stroke="#a8956a" stroke-width="3"/>
+  <g stroke="#c9b990" stroke-width="4" stroke-linecap="round">
+    <line x1="172" y1="140" x2="260" y2="140"/>
+    <line x1="172" y1="210" x2="260" y2="210"/>
+    <line x1="316" y1="140" x2="404" y2="140"/>
+    <line x1="316" y1="210" x2="404" y2="210"/>
+  </g>
+  <rect x="152" y="268" width="128" height="140" rx="5" fill="#fffdf6"/>
+  <rect x="296" y="268" width="128" height="140" rx="5" fill="#fffdf6"/>
+  <g fill="#8a6a3a">
+    <circle cx="216" cy="338" r="8"/>
+    <circle cx="360" cy="338" r="8"/>
+  </g>
+  <rect x="500" y="360" width="200" height="80" rx="8" fill="url(#birch)"/>
+  <rect x="500" y="360" width="200" height="80" rx="8" fill="none" stroke="#a8956a" stroke-width="3"/>
+  <rect x="556" y="440" width="88" height="14" rx="7" fill="#a8956a"/>
+  <rect x="516" y="384" width="168" height="20" rx="6" fill="#fffdf6"/>
+  <path d="M420 150 q14 -20 28 0 l-8 60 h-12 Z" fill="#8f6540"/>
+  <circle cx="444" cy="150" r="10" fill="#8f6540"/>
+  <ellipse cx="444" cy="176" rx="34" ry="10" fill="#8f6540"/>
+  <g fill="#b98a5c">
+    <rect x="468" y="120" width="12" height="60" rx="6"/>
+    <rect x="520" y="96" width="12" height="84" rx="6"/>
+    <rect x="572" y="110" width="12" height="70" rx="6"/>
+  </g>
+  <rect x="450" y="180" width="160" height="16" rx="8" fill="#a8956a"/>
+  <rect x="430" y="250" width="170" height="60" rx="6" fill="url(#birch)"/>
+  <rect x="440" y="310" width="150" height="20" rx="8" fill="#c9b990"/>
+  <ellipse cx="500" cy="236" rx="60" ry="14" fill="#000" opacity="0.12"/>
+</svg>

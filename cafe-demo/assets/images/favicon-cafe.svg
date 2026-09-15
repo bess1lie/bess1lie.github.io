@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Фавикон кофейни «Дәме»">
+  <rect width="64" height="64" rx="14" fill="#9a3412"/>
+  <path d="M18 30 h28 l-3 20 a11 11 0 0 1 -22 0 Z" fill="#fbf4ec"/>
+  <path d="M46 36 q14 2 12 13 q-2 12 -14 12" fill="none" stroke="#b45309" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="32" cy="30" rx="14" ry="4" fill="#fbf4ec"/>
+  <ellipse cx="32" cy="29" rx="10" ry="3" fill="#6b4423"/>
+  <path d="M22 14 q8 -8 0 -16 q-8 -8 0 -16" fill="none" stroke="#fbf4ec" stroke-width="5" stroke-linecap="round"/>
+  <path d="M36 18 q7 -7 0 -14 q-7 -7 0 -14" fill="none" stroke="#b45309" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Столярный цех «Ағаш» за работой">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4ecdc"/>
+      <stop offset="1" stop-color="#d9c39c"/>
+    </linearGradient>
+    <linearGradient id="bench" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c9a06a"/>
+      <stop offset="1" stop-color="#9c7a4a"/>
+    </linearGradient>
+    <linearGradient id="plank" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0c89a"/>
+      <stop offset="1" stop-color="#b98a5c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="380" width="800" height="220" fill="#a98250"/>
+  <path d="M0 380 Q200 372 400 382 Q600 392 800 380 L800 390 Q600 400 400 390 Q200 380 0 390 Z" fill="#8f6540" opacity="0.5"/>
+  <rect x="80" y="250" width="640" height="150" rx="8" fill="url(#bench)"/>
+  <rect x="80" y="250" width="640" height="18" rx="6" fill="#8a5a2a" opacity="0.6"/>
+  <rect x="60" y="400" width="100" height="120" rx="6" fill="#8a5a2a"/>
+  <rect x="640" y="400" width="100" height="120" rx="6" fill="#8a5a2a"/>
+  <g fill="url(#plank)">
+    <rect x="160" y="210" width="480" height="34" rx="5"/>
+    <rect x="180" y="180" width="440" height="26" rx="5"/>
+  </g>
+  <g stroke="#9c7a4a" stroke-width="3" stroke-linecap="round" opacity="0.6">
+    <line x1="200" y1="214" x2="600" y2="214"/>
+    <line x1="220" y1="184" x2="580" y2="184"/>
+  </g>
+  <rect x="120" y="270" width="30" height="60" rx="4" fill="#5a4a2c"/>
+  <path d="M126 330 h18 q-6 26 -18 26 Z" fill="#8a5a2a"/>
+  <path d="M135 264 h6 v18 h-6 Z" fill="#5a4a2c"/>
+  <path d="M150 330 h60 l20 -40 l-40 -10 Z" fill="#c9a06a" opacity="0.5"/>
+  <g fill="#8a6a3a">
+    <circle cx="560" cy="300" r="10"/>
+    <circle cx="580" cy="300" r="10"/>
+    <circle cx="600" cy="300" r="10"/>
+  </g>
+  <path d="M540 300 q60 -20 90 0 q20 8 0 16 q-30 20 -90 0 q-20 -8 0 -16 Z" fill="#8a5a2a" opacity="0.7"/>
+  <rect x="420" y="290" width="160" height="16" rx="8" fill="#8a6a3a"/>
+  <rect x="560" y="286" width="10" height="24" rx="5" fill="#5a4a2c"/>
+  <path d="M620 200 q10 -20 30 -20 q20 0 30 20 q-10 24 -30 24 q-20 0 -30 -24 Z" fill="#c9a06a"/>
+  <path d="M680 210 q0 -12 6 -20 q6 8 6 20 q0 12 -6 20 q-6 -8 -6 -20 Z" fill="#8a5a2a"/>
+  <g fill="#b98a5c" opacity="0.7">
+    <circle cx="260" cy="430" r="14"/>
+    <circle cx="310" cy="450" r="12"/>
+    <circle cx="350" cy="435" r="10"/>
+    <circle cx="410" cy="455" r="13"/>
+    <circle cx="470" cy="430" r="11"/>
+  </g>
+  <rect x="240" y="520" width="320" height="30" rx="8" fill="#c9a06a"/>
+  <g fill="#a97a4b">
+    <rect x="260" y="500" width="12" height="40" rx="4"/>
+    <rect x="420" y="500" width="12" height="40" rx="4"/>
+  </g>
+</svg>

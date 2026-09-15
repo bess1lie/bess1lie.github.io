@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Фейд с плавным переходом после стрижки">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#313b4a"/>
+      <stop offset="1" stop-color="#1c2530"/>
+    </linearGradient>
+    <radialGradient id="hair" cx="0.4" cy="0.3" r="1">
+      <stop offset="0" stop-color="#3b4757"/>
+      <stop offset="1" stop-color="#1b2230"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <ellipse cx="400" cy="520" rx="260" ry="40" fill="#000" opacity="0.35"/>
+  <path d="M400 120 a200 200 0 0 0 -200 200 q0 40 12 76 q60 -60 120 -60 l68 20 q-20 -18 -16 -40 q4 -22 16 -36 q44 -36 88 -36 q54 0 96 30 q12 -30 12 -58 a200 200 0 0 0 -196 -196 Z" fill="url(#hair)"/>
+  <path d="M200 320 q0 40 12 76 q60 -60 120 -60 l-20 -44 q-50 -16 -84 -28 q-22 20 -28 56 Z" fill="#141a22" opacity="0.85"/>
+  <path d="M238 330 q40 12 84 22 q-30 26 -58 52 q-18 -22 -26 -74 Z" fill="#c2410c" opacity="0.85"/>
+  <path d="M238 330 q40 12 84 22 q-22 30 -50 50 q-18 -20 -34 -72 Z" fill="#f0c39a" opacity="0.9"/>
+  <path d="M240 340 q36 10 72 18 q-18 24 -42 40 q-16 -20 -30 -58 Z" fill="#e2e8f0" opacity="0.5"/>
+  <path d="M266 368 q-16 60 -4 128 q6 34 26 56 q-40 -24 -52 -70 q-10 -40 8 -92 Z" fill="#111827" opacity="0.8"/>
+  <path d="M290 380 q-10 48 -2 96 q4 26 16 42 q-30 -20 -38 -52 q-8 -40 4 -84 Z" fill="#9aa6b3" opacity="0.6"/>
+  <path d="M316 420 q-6 40 4 84 q4 18 14 28 q-24 -12 -30 -40 q-6 -34 2 -66 Z" fill="#c7d0da" opacity="0.5"/>
+  <path d="M340 452 q-4 26 4 52 q2 10 8 16 q-18 -8 -22 -30 q-4 -24 0 -42 Z" fill="#e2e8f0" opacity="0.4"/>
+</svg>

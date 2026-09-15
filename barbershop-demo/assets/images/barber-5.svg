@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Зона ожидания с кофе">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#313b4a"/>
+      <stop offset="1" stop-color="#1c2530"/>
+    </linearGradient>
+    <linearGradient id="sofa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4b5563"/>
+      <stop offset="1" stop-color="#2d3743"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="400" width="800" height="200" fill="#141a22"/>
+  <rect x="90" y="120" width="620" height="280" rx="16" fill="url(#sofa)"/>
+  <rect x="70" y="150" width="40" height="230" rx="10" fill="#374151"/>
+  <rect x="690" y="150" width="40" height="230" rx="10" fill="#374151"/>
+  <rect x="90" y="120" width="620" height="54" rx="16" fill="#3f4956"/>
+  <rect x="90" y="160" width="620" height="40" fill="#3f4956"/>
+  <path d="M90 120 h620 v40 h-620 Z" rx="16" fill="#4b5563"/>
+  <g fill="#6b7280">
+    <ellipse cx="240" cy="196" rx="60" ry="14"/>
+    <ellipse cx="420" cy="196" rx="60" ry="14"/>
+    <ellipse cx="580" cy="196" rx="60" ry="14"/>
+  </g>
+  <rect x="160" y="380" width="480" height="40" rx="8" fill="#374151"/>
+  <path d="M180 380 v-30 l90 30 Z" fill="#3f4956"/>
+  <path d="M620 380 v-30 l-90 30 Z" fill="#3f4956"/>
+  <rect x="520" y="300" width="60" height="80" rx="6" fill="#c2410c"/>
+  <rect x="528" y="308" width="18" height="50" rx="3" fill="#f0c39a"/>
+  <path d="M588 330 q16 0 18 12 q-8 10 -22 8 q-12 -2 -14 -14 q6 -6 18 -6 Z" fill="#c2410c"/>
+  <ellipse cx="570" cy="386" rx="80" ry="12" fill="#000" opacity="0.3"/>
+  <path d="M130 300 h44 v80 h-44 Z" fill="#7a8a99"/>
+  <circle cx="152" cy="278" r="26" fill="#7a8a99"/>
+  <path d="M152 252 q-10 -16 0 -28 q10 -12 0 -28" fill="none" stroke="#7a8a99" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="152" cy="250" rx="46" ry="14" fill="#000" opacity="0.2"/>
+  <rect x="360" y="260" width="70" height="90" rx="4" fill="#374151"/>
+  <rect x="366" y="266" width="58" height="12" rx="2" fill="#9aa6b3"/>
+  <path d="M370 292 q28 12 56 0 M370 320 q28 12 56 0" stroke="#9aa6b3" stroke-width="2" fill="none" opacity="0.5"/>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Контур бороды после стрижки">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3442"/>
+      <stop offset="1" stop-color="#1c2530"/>
+    </linearGradient>
+    <linearGradient id="beard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3b4757"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <ellipse cx="400" cy="520" rx="280" ry="44" fill="#000" opacity="0.35"/>
+  <path d="M320 120 q-90 30 -100 140 q-4 60 40 120 q-8 80 6 140 q8 34 34 44 q44 -20 50 -80 q-14 -40 -2 -90 q16 -52 60 -70 q10 -40 -8 -72 q-26 -46 -80 -132 Z" fill="url(#beard)"/>
+  <path d="M350 120 q-40 40 -60 90 q-12 34 -10 70 q-30 44 -26 96 q2 30 16 52 q-6 -60 16 -112 q20 -44 44 -60 q16 -46 20 -136 Z" fill="#c2410c" opacity="0.75"/>
+  <path d="M350 120 q-40 40 -60 90 q-12 34 -10 70 q-20 34 -20 70 q-2 24 6 46 q-4 -48 16 -92 q20 -40 40 -56 q14 -44 18 -128 Z" fill="#f0c39a" opacity="0.7"/>
+  <path d="M430 460 q-20 60 -6 96 q6 16 20 22 q-20 -18 -24 -44 q-6 -30 4 -60 Z" fill="#111827" opacity="0.85"/>
+  <path d="M430 460 q-20 60 -6 96 q6 16 20 22 q-20 -18 -24 -44 q-6 -30 4 -60 Z" fill="none" stroke="#c2410c" stroke-width="5"/>
+  <g transform="rotate(-18 600 400)">
+    <rect x="540" y="384" width="130" height="26" rx="13" fill="#374151"/>
+    <path d="M670 384 l40 -16 a22 22 0 0 1 26 30 l-40 16 q-16 6 -26 -30 Z" fill="#e5e7eb"/>
+    <path d="M670 410 l40 16 a22 22 0 0 0 26 -30 l-40 -16 q-16 -6 -26 30 Z" fill="#c7d0da"/>
+  </g>
+  <ellipse cx="150" cy="440" rx="70" ry="14" fill="#000" opacity="0.3"/>
+  <rect x="110" y="414" width="80" height="26" rx="13" fill="#c2410c"/>
+  <rect x="110" y="414" width="40" height="26" rx="13" fill="#f0c39a"/>
+</svg>

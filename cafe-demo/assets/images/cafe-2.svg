@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Интерьер кофейни «Дәме» утром">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbeed8"/>
+      <stop offset="1" stop-color="#f0d6b0"/>
+    </linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6e7cf"/>
+      <stop offset="1" stop-color="#ead3b0"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b98a5c"/>
+      <stop offset="1" stop-color="#8f6238"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect y="380" width="800" height="220" fill="url(#floor)"/>
+  <rect y="0" width="800" height="380" fill="url(#wall)"/>
+  <rect x="90" y="60" width="620" height="230" rx="6" fill="#fdf6ea" opacity="0.6"/>
+  <rect x="90" y="60" width="620" height="230" rx="6" fill="none" stroke="#c99a6a" stroke-width="6"/>
+  <path d="M90 290 h180 v-70 q0 -60 -90 -60 q-90 0 -90 60 Z" fill="#cfe0e8" opacity="0.8"/>
+  <path d="M90 290 h180 v-70 q0 -60 -90 -60 q-90 0 -90 60 Z" fill="none" stroke="#a7c0cd" stroke-width="5"/>
+  <path d="M180 290 v-120 M90 260 h180" stroke="#ffffff" stroke-width="4" opacity="0.7"/>
+  <rect x="270" y="270" width="530" height="110" fill="#b98a5c" opacity="0.35"/>
+  <rect x="330" y="300" width="200" height="14" rx="7" fill="#7a5230"/>
+  <rect x="330" y="330" width="120" height="14" rx="7" fill="#7a5230"/>
+  <rect x="480" y="330" width="90" height="14" rx="7" fill="#7a5230"/>
+  <rect x="60" y="400" width="170" height="60" rx="4" fill="#a97a4b"/>
+  <rect x="60" y="394" width="170" height="8" rx="4" fill="#c99a6a"/>
+  <rect x="570" y="400" width="170" height="60" rx="4" fill="#a97a4b"/>
+  <rect x="570" y="394" width="170" height="8" rx="4" fill="#c99a6a"/>
+  <ellipse cx="400" cy="440" rx="120" ry="16" fill="#000" opacity="0.12"/>
+  <path d="M310 440 l-16 -70 h212 l-16 70 Z" fill="#d9b98c"/>
+  <ellipse cx="400" cy="440" rx="90" ry="10" fill="#9a5b22" opacity="0.5"/>
+  <ellipse cx="400" cy="430" rx="90" ry="10" fill="#6b4423"/>
+  <path d="M318 400 h-8 a12 12 0 0 0 -12 12 v16 a12 12 0 0 0 12 12 h8 Z" fill="#9a5b22"/>
+  <path d="M482 400 h8 a12 12 0 0 1 12 12 v16 a12 12 0 0 1 -12 12 h-8 Z" fill="#9a5b22"/>
+  <path d="M360 270 q-90 8 -170 0 v-20 q90 8 170 0 Z" fill="#9a3412" opacity="0.9"/>
+  <path d="M440 270 q90 8 170 0 v-20 q-90 8 -170 0 Z" fill="#9a3412" opacity="0.9"/>
+  <rect x="330" y="140" width="140" height="5" rx="2" fill="#7a5230"/>
+  <rect x="330" y="140" width="10" height="90" rx="5" fill="#7a5230"/>
+  <path d="M400 190 q20 -16 0 -32 q-20 -16 0 -32" fill="none" stroke="#f7e3c8" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
+  <rect x="630" y="320" width="90" height="60" rx="6" fill="#9a3412"/>
+  <rect x="638" y="326" width="22" height="48" rx="4" fill="#c2410c"/>
+  <rect x="670" y="326" width="22" height="48" rx="4" fill="#b45309"/>
+  <rect x="702" y="326" width="10" height="48" rx="4" fill="#8a2f10"/>
+</svg>
