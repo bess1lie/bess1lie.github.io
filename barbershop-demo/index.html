@@ -1,82 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Барбершоп «Жігіт» — Мужские стрижки в центре Алматы</title>
-<meta name="description" content="Фейды, классика и горячие полотенца. Запись по телефону или WhatsApp — приходите в назначенное время.">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&family=Oswald:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+<meta name="theme-color" content="#0a0f1e">
+<title>Жігіт | Barbershop Алматы</title>
+<meta name="description" content="Барбершоп Жігіт, Алматы, пр. Абая 44/2. Мужские стрижки, борода, бритьё. Запись за 30 секунд.">
+<style>
+:root{--bg:#f8fafc;--dark:#0a0f1e;--dark2:#111827;--gold:#c8a96a;--copper:#c2410c;--ink:#111827;--muted:#697386;--line:#d9dee7;--max:1280px;--pad:clamp(20px,5vw,80px)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit;border-radius:0}img{max-width:100%;display:block}
+.container{width:min(var(--max),calc(100% - 2*var(--pad)));margin:auto}.mono{font-family:"Courier New",monospace}.oswald{font-family:Impact,"Arial Narrow",sans-serif;letter-spacing:.04em}
+.topbar{background:#060a14;color:#aeb7c7;font-size:12px;letter-spacing:.08em;text-transform:uppercase}.topbar .inner{min-height:38px;display:flex;justify-content:space-between;align-items:center;gap:20px}.topbar a{color:#f8fafc}
+.nav{position:sticky;top:0;z-index:20;background:rgba(10,15,30,.96);border-bottom:1px solid rgba(200,169,106,.2);color:#f8fafc}.nav .inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{font-weight:800;letter-spacing:.14em;font-size:14px}.brand span{color:var(--gold)}.navlinks{display:flex;gap:28px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#cbd5e1}.navlinks a:hover{color:#fff}.navcta,.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 20px;border:1px solid transparent;text-transform:uppercase;letter-spacing:.08em;font-weight:700;font-size:12px;cursor:pointer;transition:.2s}.navcta,.btn.gold{background:var(--gold);color:#0a0f1e}.navcta:hover,.btn.gold:hover{background:#e0c68e}.menu{display:none;background:none;color:#fff;border:1px solid #334155;padding:10px 12px}
+.hero{background:var(--dark);color:#f8fafc;min-height:690px;position:relative;overflow:hidden;border-bottom:1px solid #1c2639}.hero:after{content:"";position:absolute;right:-10%;top:0;width:55%;height:100%;background:radial-gradient(circle at 35% 42%,rgba(200,169,106,.17),transparent 42%),linear-gradient(135deg,transparent 0 49%,rgba(194,65,12,.09) 50%,transparent 51%);pointer-events:none}.hero .grid{min-height:690px;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:50px}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.15em;font-size:12px;font-weight:700}.hero h1{font-family:Impact,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.025em;font-size:clamp(58px,8vw,112px);line-height:.92;margin:20px 0 28px;max-width:900px}.hero h1 span{color:var(--gold)}.hero p.desc{max-width:620px;color:#b7c1d1;font-size:17px}.actions{display:flex;gap:12px;margin-top:36px}.btn.line{border-color:#64748b;color:#fff}.btn.line:hover{border-color:var(--gold);color:var(--gold)}.big-num{font-family:"Courier New",monospace;font-size:clamp(140px,23vw,310px);line-height:.75;color:transparent;-webkit-text-stroke:1px rgba(200,169,106,.42);text-align:right}.num-label{text-align:right;color:#94a3b8;font:600 12px "Courier New",monospace;letter-spacing:.15em;margin-top:24px}
+.section{padding:clamp(70px,9vw,120px) 0}.section.dark{background:var(--dark);color:#f8fafc}.sectionhead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:45px}.section h2{font-family:Impact,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.05em;font-size:clamp(38px,5vw,64px);line-height:1;margin:0}.sectionhead p{color:var(--muted);max-width:430px;margin:0}.dark .sectionhead p{color:#94a3b8}
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid #30394a}.price-card{padding:28px 4px 30px;border-bottom:1px solid #30394a;min-height:175px}.price-title{display:flex;align-items:baseline;gap:12px;font-size:20px;font-weight:800}.price-title:after{content:"";flex:1;border-bottom:1px dotted #687386;transform:translateY(-5px)}.price-value{font:700 20px "Courier New",monospace;color:var(--gold);white-space:nowrap}.duration{font:600 12px "Courier New",monospace;color:#aab3c2;white-space:nowrap}.price-card p{margin:14px 0 0;color:#9faabd;max-width:650px;font-size:14px}.price-note{margin-top:24px;color:#8994a8;font-size:12px}
+.works-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}.work{position:relative;overflow:hidden;background:#161d2c;min-height:250px}.work:nth-child(1){grid-column:span 7}.work:nth-child(2){grid-column:span 5}.work:nth-child(3),.work:nth-child(4),.work:nth-child(5),.work:nth-child(6){grid-column:span 3}.work:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#222d40,#080c15 55%,#313b4c)}.work:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 15px,rgba(200,169,106,.08) 16px 17px),linear-gradient(120deg,rgba(200,169,106,.16),transparent 42%,rgba(194,65,12,.14));mix-blend-mode:screen}.work .label{position:absolute;left:18px;bottom:15px;z-index:2;color:#fff;font:600 11px "Courier New",monospace;text-transform:uppercase;letter-spacing:.12em}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}.chairs{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chair{height:420px;background:linear-gradient(160deg,#1e293b,#0b101c 55%,#3f2d1c);position:relative}.chair:before{content:"";position:absolute;width:36%;height:48%;left:32%;top:24%;border:2px solid rgba(200,169,106,.45);box-shadow:inset 0 0 0 20px rgba(255,255,255,.015)}.chair:after{content:"CHAIR 01";position:absolute;left:16px;bottom:16px;color:#c8a96a;font:600 11px "Courier New",monospace}.about-copy p{color:#b1bac8;font-size:17px;max-width:600px}.facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #30394a;margin-top:35px}.fact{padding:18px 10px 18px 0;border-bottom:1px solid #30394a}.fact b{display:block;color:#fff;text-transform:uppercase;font-size:11px;letter-spacing:.12em}.fact span{display:block;color:#9ba6b8;margin-top:5px;font-size:14px}
+.team{display:grid;grid-template-columns:1fr 1fr;gap:18px}.person{border:1px solid var(--line);padding:0;background:#fff}.portrait{height:390px;background:linear-gradient(145deg,#dfe3e8,#626b78 50%,#202837);position:relative;filter:grayscale(1)}.portrait:before{content:"";position:absolute;inset:12% 26%;background:linear-gradient(#4b5563 0 16%,#b9a58a 17% 38%,#202938 39% 100%);clip-path:polygon(30% 0,70% 0,90% 22%,82% 100%,18% 100%,10% 22%)}.person-info{padding:22px}.person-info h3{font-family:Impact,"Arial Narrow",sans-serif;text-transform:uppercase;font-size:30px;margin:0}.person-info p{color:var(--muted);font-size:13px;margin:6px 0 0}
+.reviews{display:grid;grid-template-columns:1fr 1fr;gap:18px}.review{background:#fff;border:1px solid var(--line);padding:30px;min-height:210px;display:flex;flex-direction:column;justify-content:space-between}.review p{font-size:18px;line-height:1.5;margin:0}.review b{font:600 12px "Courier New",monospace;color:#697386}
+.cta{background:var(--gold);color:#0a0f1e;padding:70px 0}.cta .inner{display:flex;justify-content:space-between;align-items:center;gap:30px}.cta h2{font-family:Impact,"Arial Narrow",sans-serif;text-transform:uppercase;font-size:clamp(42px,6vw,76px);line-height:.95;margin:0}.btn.dark{background:var(--dark);color:#fff}.btn.dark:hover{background:#1b2538}
+.contactgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px}.contactinfo p{color:#9faabd;font-size:16px}.contact-links{display:grid;gap:10px;margin-top:30px}.contact-links a{color:#fff;font-weight:700}.contact-links a:hover{color:var(--gold)}form{display:grid;gap:12px}input,textarea{width:100%;background:#111827;color:#fff;border:1px solid #30394a;padding:16px}textarea{min-height:140px;resize:vertical}input:focus,textarea:focus{outline:none;border-color:var(--gold)}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-status{font:600 12px "Courier New",monospace;color:#aab3c2;min-height:18px}
+.faq{border-top:1px solid var(--line)}details{border-bottom:1px solid var(--line);padding:22px 0}summary{cursor:pointer;font-weight:800;font-size:16px;list-style:none;display:flex;justify-content:space-between}summary::-webkit-details-marker{display:none}summary:after{content:"+";font-family:"Courier New",monospace;color:var(--gold);font-size:22px}details[open] summary:after{content:"−"}details p{color:var(--muted);max-width:800px;padding-right:50px}
+.footer{background:#060a14;color:#778196;padding:30px 0 80px;font-size:12px}.footer .inner{display:flex;justify-content:space-between;gap:20px}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#0a0f1ef0;backdrop-filter:blur(8px);border-top:1px solid rgba(200,169,106,.35);padding:10px 14px;display:none}.sticky .inner{display:flex;align-items:center;justify-content:space-between;gap:12px}.sticky small{color:#bbc3d1}.sticky .btn{padding:12px 15px}
+@media(max-width:900px){.navlinks{display:none}.menu{display:block}.navlinks.open{position:absolute;left:0;right:0;top:76px;background:#0a0f1e;display:grid;padding:20px var(--pad);border-bottom:1px solid #263247}.hero .grid{grid-template-columns:1fr}.hero{min-height:auto}.hero .grid{min-height:auto;padding-top:90px;padding-bottom:100px}.hero .big-num{text-align:left;font-size:180px}.num-label{text-align:left}.price-grid{grid-template-columns:1fr}.about,.contactgrid{grid-template-columns:1fr;gap:45px}.work:nth-child(n){grid-column:span 6}.cta .inner{flex-direction:column;align-items:flex-start}.sticky{display:block}}
+@media(max-width:620px){.topbar .inner{min-height:34px;font-size:10px}.topbar .right{display:none}.nav .inner{height:66px}.navlinks.open{top:66px}.hero .grid{padding-top:70px}.hero h1{font-size:54px}.actions{flex-direction:column;align-items:stretch}.actions .btn{width:100%}.section{padding:65px 0}.sectionhead{display:block;margin-bottom:32px}.sectionhead p{margin-top:15px}.price-title{display:grid;grid-template-columns:1fr auto;gap:5px}.price-title:after{grid-column:1 / -1;order:3}.price-card{min-height:0}.works-grid{gap:7px}.work:nth-child(n){grid-column:span 12;min-height:230px}.chairs{grid-template-columns:1fr 1fr}.chair{height:260px}.team,.reviews,.form-row{grid-template-columns:1fr}.portrait{height:310px}.footer .inner{display:block}.footer .inner span{display:block;margin-top:8px}.sticky small{font-size:10px}.sticky .btn{font-size:11px;padding:11px 12px}.contactgrid{gap:35px}}
+</style>
 </head>
 <body>
-<header class="nav">
-  <div class="container nav__inner">
-    <a class="nav__brand" href="#top">ЖІГІТ — BARBERSHOP</a>
-    <nav><ul class="nav__list"><li><a href="#price">Прайс</a></li><li><a href="#works">Работы</a></li><li><a href="#about">О нас</a></li><li><a href="#contacts">Контакты</a></li></ul></nav>
-  </div>
-</header>
-<section class="hero">
-  <div class="container hero__grid">
-    <div class="hero__left">
-      <p class="hero__kicker">Алматы · центр · с 2022</p>
-      <h1>Стрижка, <br>которая держит <span class="gold">форму</span></h1>
-      <p class="hero__desc">Два кресла. Один принцип: стрижка занимает столько времени, сколько нужно. Без конвейера.</p>
-      <div class="hero__actions"><a class="btn btn--gold" href="tel:+77082223344">Записаться</a><a class="btn btn--line" href="#price">Прайс</a></div>
-    </div>
-    <div class="hero__right">
-      <div class="hero__num">01</div>
-      <p class="hero__num-label">СВОБОДНЫХ КРЕСЕЛ</p>
-    </div>
-  </div>
-</section>
+<div class="topbar"><div class="container inner"><div>Алматы · 10:00–21:00</div><div class="right"><a href="tel:+77082223344">+7 708 222 33 44</a></div></div></div>
 
-<section id="price" class="section section--dark">
-  <div class="container">
-    <div class="section-head"><h2>Прайс</h2><p>Рядом с ценой — длительность. Честно, как на стене в барбершопе</p></div>
-    <div class="price-list">
-      <div class="price-row"><span>Мужская стрижка</span><span>6 000 ₸ · 30 мин</span></div>
-      <div class="price-row"><span>Стрижка + борода</span><span>8 500 ₸ · 45 мин</span></div>
-      <div class="price-row"><span>Моделирование бороды</span><span>3 000 ₸ · 20 мин</span></div>
-      <div class="price-row"><span>Королевское бритьё</span><span>5 000 ₸ · 30 мин</span></div>
-      <div class="price-row"><span>Детская стрижка</span><span>4 000 ₸ · 25 мин</span></div>
-      <div class="price-row"><span>Отец и сын</span><span>9 000 ₸ · 60 мин</span></div>
-    </div>
-    <p class="price__note">Мытьё, стрижка, укладка и кофе — в каждом тарифе. Горячее полотенце — со стрижкой бороды.</p>
-  </div>
-</section>
+<header class="nav"><div class="container inner">
+<a class="brand" href="#top">ЖІГІТ <span>/</span> BARBERSHOP</a>
+<nav class="navlinks" id="navlinks"><a href="#price">Прайс</a><a href="#works">Работы</a><a href="#about">О нас</a><a href="#team">Команда</a><a href="#contacts">Контакты</a></nav>
+<div style="display:flex;gap:10px;align-items:center"><a class="navcta" href="#booking">Записаться</a><button class="menu" id="menu" aria-label="Меню">MENU</button></div>
+</div></header>
 
-<section id="works" class="section">
-  <div class="container">
-    <h2>Работы</h2>
-    <div class="works">
-      <img src="assets/images/barber-1.svg" alt="кресло"><img src="assets/images/barber-2.svg" alt="фейд"><img src="assets/images/barber-3.svg" alt="инструменты"><img src="assets/images/barber-4.svg" alt="бритьё"><img src="assets/images/barber-5.svg" alt="ожидание"><img src="assets/images/barber-6.svg" alt="борода">
-    </div>
-  </div>
-</section>
+<main id="top">
+<section class="hero"><div class="container grid">
+<div>
+<div class="eyebrow">Барбершоп · Алматы · пр. Абая 44/2</div>
+<h1>Где точность<br>встречается<br>со <span>стилем</span></h1>
+<p class="desc">Два кресла. Чёткая форма. Спокойная запись без конвейера. Стрижки, борода и бритьё в центре Алматы.</p>
+<div class="actions"><a class="btn gold" href="#booking">Записаться 30 сек</a><a class="btn line" href="#price">Смотреть прайс</a></div>
+</div>
+<div><div class="big-num">01</div><div class="num-label">ЖІГІТ / BARBERSHOP</div></div>
+</div></section>
 
-<section id="about" class="section section--dark">
-  <div class="container about">
-    <div><h2>О нас</h2><p>«Жігіт» открылся в 2022, когда мы устали от конвейеров. Два кресла, мастера на проценте — гнаться за скоростью незачем. Кофе нальём, поговорим если хочется, можем и помолчать.</p></div>
-    <div class="about__facts"><div><b>Адрес</b><span>Алматы, центр</span></div><div><b>График</b><span>10:00–21:00</span></div><div><b>Телефон</b><span>+7 708 222 33 44</span></div></div>
-  </div>
-</section>
+<section id="price" class="section dark"><div class="container">
+<div class="sectionhead"><div><div class="eyebrow">01 / Услуги</div><h2>Прайс</h2></div><p>Цена и длительность указаны сразу. Без скрытых доплат и непонятных тарифов.</p></div>
+<div class="price-grid">
+<div class="price-card"><div class="price-title"><span>Мужская стрижка</span><span class="price-value">6 000 ₸</span><span class="duration">30 мин</span></div><p>Консультация, стрижка, оформление, укладка.</p></div>
+<div class="price-card"><div class="price-title"><span>Стрижка + борода</span><span class="price-value">8 500 ₸</span><span class="duration">45 мин</span></div><p>Стрижка, моделирование бороды и финальная укладка.</p></div>
+<div class="price-card"><div class="price-title"><span>Борода</span><span class="price-value">3 000 ₸</span><span class="duration">20 мин</span></div><p>Контур, форма, длина и горячее полотенце.</p></div>
+<div class="price-card"><div class="price-title"><span>Королевское бритьё</span><span class="price-value">5 000 ₸</span><span class="duration">30 мин</span></div><p>Классическое бритьё с горячим полотенцем и уходом.</p></div>
+<div class="price-card"><div class="price-title"><span>Детская</span><span class="price-value">4 000 ₸</span><span class="duration">25 мин</span></div><p>Аккуратная стрижка для детей, без спешки.</p></div>
+<div class="price-card"><div class="price-title"><span>Отец и сын</span><span class="price-value">9 000 ₸</span><span class="duration">60 мин</span></div><p>Две стрижки подряд в одном визите.</p></div>
+</div>
+<p class="price-note">Все цены указаны в тенге. Запись подтверждаем по телефону, WhatsApp или Telegram.</p>
+</div></section>
 
-<section class="section">
-  <div class="container">
-    <h2>Отзывы</h2>
-    <div class="reviews">
-      <div class="review"><p>“Фейд ровный. Запись держат, ждать не приходится.”</p><b>Тимур · 5/5</b></div>
-      <div class="review"><p>“Впервые брили опасной — аккуратно, без спешки.”</p><b>Данияр · 5/5</b></div>
-    </div>
-  </div>
-</section>
+<section id="works" class="section"><div class="container">
+<div class="sectionhead"><div><div class="eyebrow" style="color:var(--copper)">02 / Портфолио</div><h2>Работы</h2></div><p>Монохромная подача работ сохраняет фокус на форме, текстуре и деталях.</p></div>
+<div class="works-grid">
+<div class="work"><span class="label">01 / Skin fade</span></div><div class="work"><span class="label">02 / Classic</span></div><div class="work"><span class="label">03 / Texture</span></div><div class="work"><span class="label">04 / Beard</span></div><div class="work"><span class="label">05 / Shave</span></div><div class="work"><span class="label">06 / Detail</span></div>
+</div></div></section>
 
-<section id="contacts" class="section section--dark">
-  <div class="container contacts">
-    <div><h2>Контакты</h2><p>+7 708 222 33 44 · book@jigit-barber.kz<br>Алматы, центр</p><a class="btn btn--gold" href="https://wa.me/77082223344">WhatsApp</a></div>
-    <form class="form"><input placeholder="Имя"><input placeholder="Телефон"><textarea placeholder="Сообщение"></textarea><button class="btn btn--gold">Отправить</button></form>
-  </div>
-</section>
-<footer class="footer"><div class="container">Жігіт Barbershop · Алматы · bess1lie</div></footer>
+<section id="about" class="section dark"><div class="container about">
+<div class="chairs"><div class="chair"></div><div class="chair"></div></div>
+<div class="about-copy"><div class="eyebrow">03 / О нас</div><h2>Два кресла.<br>Один стандарт.</h2><p>«Жігіт» строится вокруг спокойного сервиса. Мастер работает с формой, а не с количеством клиентов. Вы знаете цену до начала услуги и время записи заранее.</p>
+<div class="facts"><div class="fact"><b>Адрес</b><span>Алматы, пр. Абая 44/2</span></div><div class="fact"><b>График</b><span>Каждый день, 10:00–21:00</span></div><div class="fact"><b>Формат</b><span>2 рабочих кресла</span></div><div class="fact"><b>Связь</b><span>WhatsApp · Telegram</span></div></div></div>
+</div></section>
+
+<section id="team" class="section"><div class="container">
+<div class="sectionhead"><div><div class="eyebrow" style="color:var(--copper)">04 / Команда</div><h2>Мастера</h2></div><p>Два мастера, единый стандарт работы и понятный результат.</p></div>
+<div class="team">
+<div class="person"><div class="portrait"></div><div class="person-info"><h3>Арман</h3><p>Fade / classic / beard</p></div></div>
+<div class="person"><div class="portrait" style="background:linear-gradient(145deg,#c9cdd3,#596270 50%,#191f2d)"></div><div class="person-info"><h3>Данияр</h3><p>Classic / texture / shave</p></div></div>
+</div></div></section>
+
+<section class="section" style="padding-top:0"><div class="container"><div class="sectionhead"><div><div class="eyebrow" style="color:var(--copper)">05 / Мнение</div><h2>Отзывы</h2></div></div><div class="reviews">
+<div class="review"><p>«Фейд получился ровно таким, как показал на референсе. По времени тоже всё чётко.»</p><b>Тимур · 5 / 5</b></div>
+<div class="review"><p>«Хорошее место без суеты. Записался, пришёл вовремя, вышел с нормальной формой и без ожидания.»</p><b>Данияр · 5 / 5</b></div>
+</div></div></section>
+
+<section class="cta"><div class="container inner"><h2>Запись<br>30 секунд</h2><a class="btn dark" href="#booking">Выбрать время</a></div></section>
+
+<section class="section dark" id="contacts"><div class="container">
+<div class="sectionhead"><div><div class="eyebrow">06 / Контакты</div><h2>Запись</h2></div><p>Оставьте номер. Мы свяжемся для подтверждения удобного времени.</p></div>
+<div class="contactgrid">
+<div class="contactinfo"><p>ЖІГІТ / BARBERSHOP<br>Алматы, пр. Абая 44/2<br>Ежедневно, 10:00–21:00</p><div class="contact-links"><a href="tel:+77082223344">+7 708 222 33 44</a><a href="mailto:book@jigit-barber.kz">book@jigit-barber.kz</a><a href="https://wa.me/77082223344" target="_blank" rel="noopener">WhatsApp</a><a href="https://t.me/" target="_blank" rel="noopener">Telegram</a></div></div>
+<form id="booking">
+<div class="form-row"><input id="name" name="name" placeholder="Имя" required><input id="phone" name="phone" placeholder="Телефон" required></div>
+<input id="service" name="service" placeholder="Услуга, например: стрижка + борода">
+<textarea id="message" name="message" placeholder="Желаемая дата / время"></textarea>
+<button class="btn gold" type="submit">Отправить заявку</button><div class="form-status" id="status"></div>
+</form>
+</div></div></section>
+
+<section class="section"><div class="container"><div class="sectionhead"><div><div class="eyebrow" style="color:var(--copper)">07 / FAQ</div><h2>Вопросы</h2></div></div><div class="faq">
+<details><summary>Нужно ли записываться заранее?</summary><p>Да. Запись помогает сохранить время без ожидания. Для записи используйте форму или позвоните по номеру +7 708 222 33 44.</p></details>
+<details><summary>Сколько длится визит?</summary><p>Длительность указана рядом с каждой услугой в прайсе. Например, мужская стрижка занимает 30 минут, стрижка с бородой 45 минут.</p></details>
+<details><summary>Как оплатить?</summary><p>Способ оплаты уточняйте при записи. Цена услуги фиксируется до начала работы.</p></details>
+<details><summary>Где вы находитесь?</summary><p>Алматы, пр. Абая 44/2. График работы 10:00–21:00.</p></details>
+</div></div></section>
+</main>
+
+<footer class="footer"><div class="container inner"><span>ЖІГІТ / BARBERSHOP</span><span>Алматы · пр. Абая 44/2</span></div></footer>
+<div class="sticky"><div class="container inner"><small>Алматы · 10:00–21:00</small><a class="btn gold" href="#booking">Записаться</a></div></div>
+
+<script>
+const menu=document.getElementById('menu'),nav=document.getElementById('navlinks');
+menu.addEventListener('click',()=>nav.classList.toggle('open'));
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+document.getElementById('booking').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=document.getElementById('name').value.trim();
+ const phone=document.getElementById('phone').value.trim();
+ const service=document.getElementById('service').value.trim()||'Не указана';
+ const message=document.getElementById('message').value.trim()||'Не указано';
+ const subject=encodeURIComponent('Запись в Жігіт Barbershop');
+ const body=encodeURIComponent(`Имя: ${name}\nТелефон: ${phone}\nУслуга: ${service}\nДата/время: ${message}`);
+ document.getElementById('status').textContent='Открываем почтовый клиент...';
+ window.location.href=`mailto:book@jigit-barber.kz?subject=${subject}&body=${body}`;
+});
+</script>
 </body>
 </html>

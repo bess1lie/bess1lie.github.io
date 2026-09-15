@@ -1,97 +1,872 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Кофейня «Дәме» — Кофе со свежей обжарки в центре Алматы</title>
-<meta name="description" content="Небольшая кофейня в центре Алматы: варим кофе из зерна свежей обжарки, по утрам подаём завтраки, днём у нас тихо — можно поработать.">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кофейня «Дәме» — Кофе со свежей обжарки в центре Алматы</title>
+    <meta name="description" content="Небольшая кофейня в центре Алматы: варим кофе из зерна свежей обжарки, по утрам подаём завтраки, днём у нас тихо — можно поработать.">
+    
+    <!-- Шрифты: используем @import для соблюдения требования "один файл", с системными фоллбэками на случай строгой изоляции -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:opsz,wght@9..144,800&family=Manrope:wght@400;500;600&display=swap');
+
+        :root {
+            --cream: #fdf8f3;
+            --terracotta: #9a3412;
+            --caramel: #b45309;
+            --ink: #1c0f0a;
+            --line: #f0dcc8;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(28, 15, 10, 0.06);
+            --shadow-hover: 0 8px 30px rgba(28, 15, 10, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background-color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Типографика */
+        h1, h2, h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            line-height: 1.1;
+        }
+
+        h1 {
+            font-size: clamp(40px, 6vw, 72px);
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .accent {
+            font-family: 'Caveat', 'Brush Script MT', cursive;
+            font-weight: 600;
+            color: var(--caramel);
+            position: relative;
+            display: inline-block;
+            padding: 0 4px;
+        }
+
+        .accent::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: -4px;
+            right: -4px;
+            height: 35%;
+            background: rgba(180, 83, 9, 0.15);
+            border-radius: 4px;
+            z-index: -1;
+            transform: rotate(-1.5deg);
+        }
+
+        p {
+            font-size: 18px;
+            color: rgba(28, 15, 10, 0.8);
+        }
+
+        /* Навигация */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(253, 248, 243, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+            z-index: 100;
+            padding: 16px 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Fraunces', serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--terracotta);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--caramel);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            background-color: var(--cream);
+            background-image: 
+                radial-gradient(circle at 50% 0%, #fff5e6 0%, var(--cream) 70%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 1h40M1 0v40' stroke='%23b45309' stroke-width='0.5' opacity='0.12'/%3E%3C/svg%3E");
+            background-size: 100% 100%, 40px 40px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(180, 83, 9, 0.08);
+            border: 1px solid rgba(180, 83, 9, 0.15);
+            border-radius: 99px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--caramel);
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-desc {
+            max-width: 540px;
+            margin: 0 auto 40px;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .scroll-tape {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 16px 4px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-snap-type: x mandatory;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .scroll-tape::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tape-card {
+            flex: 0 0 160px;
+            height: 124px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            scroll-snap-align: start;
+            transition: transform 0.2s;
+        }
+
+        .tape-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .tape-card .name {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--ink);
+        }
+
+        .tape-card .price {
+            font-family: 'Fraunces', serif;
+            font-size: 20px;
+            color: var(--terracotta);
+            font-weight: 800;
+        }
+
+        /* Общие секции */
+        section {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Меню */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-card {
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid var(--line);
+            padding: 32px 24px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .menu-img {
+            width: 132px;
+            height: 132px;
+            background: var(--cream);
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-img svg {
+            width: 64px;
+            height: 64px;
+            stroke: var(--caramel);
+            opacity: 0.35;
+        }
+
+        .menu-card h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .menu-card .desc {
+            font-size: 15px;
+            color: rgba(28, 15, 10, 0.6);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .menu-card .price {
+            font-family: 'Fraunces', serif;
+            font-size: 24px;
+            color: var(--terracotta);
+            font-weight: 800;
+        }
+
+        /* История */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .facts {
+            list-style: none;
+            margin-top: 32px;
+        }
+
+        .facts li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 20px;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .facts li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            background: var(--caramel);
+            border-radius: 50%;
+        }
+
+        .quote-box {
+            position: relative;
+            padding: 40px;
+            background: var(--white);
+            border-radius: 24px;
+            border: 1px solid var(--line);
+        }
+
+        .quote-mark {
+            position: absolute;
+            top: 24px;
+            left: 32px;
+            font-family: 'Fraunces', serif;
+            font-size: 42px;
+            color: var(--caramel);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .quote-text {
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--ink);
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            margin-top: 24px;
+            font-weight: 600;
+            color: var(--terracotta);
+            font-size: 16px;
+        }
+
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gallery-item {
+            aspect-ratio: 4/3;
+            background: var(--line);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item svg {
+            width: 80px;
+            height: 80px;
+            stroke: var(--white);
+            opacity: 0.6;
+        }
+
+        .gallery-item:nth-child(1) { background: linear-gradient(135deg, #e6ccb2 0%, #ddb892 100%); }
+        .gallery-item:nth-child(2) { background: linear-gradient(135deg, #cb997e 0%, #b08968 100%); }
+        .gallery-item:nth-child(3) { background: linear-gradient(135deg, #9a3412 0%, #b45309 100%); }
+
+        /* Отзывы */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .review-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stars {
+            color: var(--caramel);
+            letter-spacing: 2px;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .review-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--ink);
+        }
+
+        .review-author {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--terracotta);
+        }
+
+        /* Контакты */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 17px;
+        }
+
+        .contact-detail svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--caramel);
+            flex-shrink: 0;
+        }
+
+        .contact-detail a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line);
+            transition: border-color 0.2s;
+        }
+
+        .contact-detail a:hover {
+            border-color: var(--caramel);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            border-color: var(--caramel);
+            color: var(--caramel);
+            transform: translateY(-2px);
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--cream);
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--caramel);
+            background: var(--white);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--terracotta);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--caramel);
+            transform: translateY(-1px);
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 48px 24px;
+            border-top: 1px solid var(--line);
+            color: var(--caramel);
+            font-size: 14px;
+            background: var(--cream);
+        }
+
+        footer a {
+            color: var(--terracotta);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        footer a:hover {
+            border-bottom-color: var(--terracotta);
+        }
+
+        /* Анимации появления */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-<header class="nav">
-  <div class="container nav__inner">
-    <a class="nav__brand" href="#top"><span class="brand-dot"></span> Дәме</a>
-    <nav><ul class="nav__list"><li><a href="#menu">Меню</a></li><li><a href="#story">История</a></li><li><a href="#gallery">Галерея</a></li><li><a href="#contacts">Контакты</a></li></ul></nav>
-  </div>
-</header>
-<main>
-<section id="top" class="hero">
-  <div class="container hero__inner">
-    <p class="hero__eyebrow">Алматы · центр · с 2021</p>
-    <h1>Кофе, <span class="hand">который запоминают</span></h1>
-    <p class="hero__desc">Небольшая кофейня в центре Алматы: варим кофе из зерна свежей обжарки, по утрам подаём завтраки, днём у нас тихо — можно поработать.</p>
-    <div class="hero__strip">
-      <div class="strip__item"><b>Капучино</b><span>1 300 ₸</span></div>
-      <div class="strip__item"><b>Латте</b><span>1 500 ₸</span></div>
-      <div class="strip__item"><b>Фильтр V60</b><span>1 100 ₸</span></div>
-      <div class="strip__item"><b>Сырники</b><span>2 000 ₸</span></div>
-    </div>
-    <div class="hero__actions">
-      <a class="btn btn--dark" href="tel:+77071112233">Позвонить</a>
-      <a class="btn btn--ghost" href="#menu">Посмотреть меню</a>
-    </div>
-    <p class="hero__note">Ежедневно 8:00–22:00 · Алматы, центр · Kaspi QR</p>
-  </div>
-</section>
 
-<section id="menu" class="section">
-  <div class="container">
-    <div class="section-head">
-      <h2>Меню</h2>
-      <p>Короткое, потому что всё готовим сами и каждый день</p>
-    </div>
-    <div class="menu-grid">
-      <article class="menu-card"><div class="menu-card__img" style="background: #fdf0e6"></div><h3>Эспрессо</h3><p>Тридцать миллилитров на зерне свежей обжарки. Двойной — 1 200 ₸.</p><b>900 ₸</b></article>
-      <article class="menu-card"><div class="menu-card__img" style="background: #fde8d0"></div><h3>Капучино</h3><p>Классический, на цельном молоке. Овсяное — без доплаты.</p><b>1 300 ₸</b></article>
-      <article class="menu-card"><div class="menu-card__img" style="background: #fce2c0"></div><h3>Латте</h3><p>Большая чашка с мягкой пеной. Горячим или со льдом.</p><b>1 500 ₸</b></article>
-      <article class="menu-card"><div class="menu-card__img" style="background: #fdeee0"></div><h3>Фильтр V60</h3><p>Однопроисходник, меняется каждые две недели.</p><b>1 100 ₸</b></article>
-      <article class="menu-card"><div class="menu-card__img" style="background: #fdf8f3"></div><h3>Завтраки</h3><p>Сырники, каша или сэндвич с яйцом — до 13:00.</p><b>от 2 000 ₸</b></article>
-      <article class="menu-card"><div class="menu-card__img" style="background: #fef3e8"></div><h3>Десерты дня</h3><p>Чизкейк, морковный торт — то, что приготовили сегодня.</p><b>1 200–2 000 ₸</b></article>
-    </div>
-  </div>
-</section>
+    <header>
+        <nav>
+            <a href="#top" class="logo">Дәме</a>
+            <ul class="nav-links">
+                <li><a href="#menu">Меню</a></li>
+                <li><a href="#story">История</a></li>
+                <li><a href="#gallery">Галерея</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<section id="story" class="section section--cream">
-  <div class="container story">
-    <div class="story__text">
-      <h2>Почему «Дәме»?</h2>
-      <p>«Дәме» открыли в 2021 году мы вдвоём — без инвесторов и громких вывесок. Зерно берём у алматинского обжарщика небольшими партиями, молоко — у местного поставщика. Меню короткое, потому что всё, что в нём есть, мы готовим сами и каждый день. К вечеру остаётся пара десертов, и мы их не доносим — так честнее.</p>
-      <ul class="story__facts"><li>Зерно свежей обжарки, небольшие партии</li><li>Молоко местного поставщика</li><li>Розетки у каждого столика, wi-fi держит</li></ul>
-    </div>
-    <div class="story__card">
-      <div class="story__quote">“Хожу почти каждый день — капучино стабильно вкусный. Персонал запоминает постоянных.”<br><small>— Айжан</small></div>
-    </div>
-  </div>
-</section>
+    <section id="hero">
+        <div class="eyebrow">Алматы · центр · с 2021</div>
+        <h1>Кофе, <span class="accent">который запоминают</span></h1>
+        <p class="hero-desc">Небольшая кофейня в центре Алматы: варим кофе из зерна свежей обжарки, по утрам подаём завтраки, днём у нас тихо — можно поработать.</p>
+        
+        <div class="scroll-tape">
+            <div class="tape-card">
+                <span class="name">Капучино</span>
+                <span class="price">1 300 ₸</span>
+            </div>
+            <div class="tape-card">
+                <span class="name">Латте</span>
+                <span class="price">1 500 ₸</span>
+            </div>
+            <div class="tape-card">
+                <span class="name">Фильтр V60</span>
+                <span class="price">1 100 ₸</span>
+            </div>
+            <div class="tape-card">
+                <span class="name">Сырники</span>
+                <span class="price">2 000 ₸</span>
+            </div>
+        </div>
+    </section>
 
-<section id="gallery" class="section">
-  <div class="container">
-    <div class="section-head"><h2>Галерея</h2></div>
-    <div class="gallery">
-      <img src="assets/images/cafe-1.svg" alt="капучино"><img src="assets/images/cafe-2.svg" alt="интерьер"><img src="assets/images/cafe-3.svg" alt="зерно"><img src="assets/images/cafe-4.svg" alt="завтрак"><img src="assets/images/cafe-5.svg" alt="бариста"><img src="assets/images/cafe-6.svg" alt="десерты">
-    </div>
-  </div>
-</section>
+    <section id="menu" class="fade-up">
+        <h2>Меню</h2>
+        <p style="text-align: center; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto;">Короткое, потому что всё готовим сами и каждый день</p>
+        
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-img">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                </div>
+                <h3>Эспрессо</h3>
+                <p class="desc">Тридцать миллилитров на зерне свежей обжарки. Двойной — 1 200 ₸.</p>
+                <div class="price">900 ₸</div>
+            </div>
 
-<section id="reviews" class="section section--cream">
-  <div class="container">
-    <h2>Отзывы</h2>
-    <div class="reviews">
-      <div class="review"><p>“Хожу почти каждый день — капучино стабильно вкусный, что для кофеен редкость.”</p><b>Айжан · ★★★★★</b></div>
-      <div class="review"><p>“Хороший фильтр и приятная атмосфера. В обед тесно, лучше до 11.”</p><b>Дамир · ★★★★☆</b></div>
-      <div class="review"><p>“Латте на овсяном без доплаты. Десерты реально свежие.”</p><b>Малика · ★★★★★</b></div>
-    </div>
-  </div>
-</section>
+            <div class="menu-card">
+                <div class="menu-img">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                </div>
+                <h3>Капучино</h3>
+                <p class="desc">Классический, на цельном молоке. Овсяное — без доплаты.</p>
+                <div class="price">1 300 ₸</div>
+            </div>
 
-<section id="contacts" class="section">
-  <div class="container contacts">
-    <div><h2>Контакты</h2><p>Алматы, центр · Ежедневно 8:00–22:00<br><a href="tel:+77071112233">+7 707 111 22 33</a> · hello@dame-coffee.kz</p><p><a class="btn btn--dark" href="https://wa.me/77071112233">WhatsApp</a> <a class="btn btn--ghost" href="https://t.me/dame_coffee">Telegram</a></p></div>
-    <form class="form"><h3>Оставить заявку</h3><input placeholder="Имя" required><input placeholder="Телефон" required><textarea placeholder="Сообщение"></textarea><button class="btn btn--dark">Отправить</button></form>
-  </div>
-</section>
-</main>
-<footer class="footer"><div class="container">Кофейня «Дәме» · Алматы, центр · Разработка: <a href="https://github.com/bess1lie">bess1lie</a></div></footer>
+            <div class="menu-card">
+                <div class="menu-img">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                </div>
+                <h3>Латте</h3>
+                <p class="desc">Большая чашка с мягкой пеной. Горячим или со льдом.</p>
+                <div class="price">1 500 ₸</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-img">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                </div>
+                <h3>Фильтр V60</h3>
+                <p class="desc">Однопроисходник, меняется каждые две недели.</p>
+                <div class="price">1 100 ₸</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-img">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+                </div>
+                <h3>Завтраки</h3>
+                <p class="desc">Сырники, каша или сэндвич с яйцом — до 13:00.</p>
+                <div class="price">от 2 000 ₸</div>
+            </div>
+
+            <div class="menu-card">
+                <div class="menu-img">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                </div>
+                <h3>Десерты дня</h3>
+                <p class="desc">Чизкейк, морковный торт — то, что приготовили сегодня.</p>
+                <div class="price">1 200–2 000 ₸</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="story" class="fade-up">
+        <h2>Почему «Дәме»?</h2>
+        <div class="story-grid">
+            <div>
+                <p style="margin-bottom: 24px;">«Дәме» открыли в 2021 году мы вдвоём — без инвесторов и громких вывесок. Зерно берём у алматинского обжарщика небольшими партиями, молоко — у местного поставщика.</p>
+                <p>Меню короткое, потому что всё, что в нём есть, мы готовим сами и каждый день. К вечеру остаётся пара десертов, и мы их не доносим — так честнее.</p>
+                
+                <ul class="facts">
+                    <li>Зерно свежей обжарки, небольшие партии</li>
+                    <li>Молоко местного поставщика</li>
+                    <li>Розетки у каждого столика, wi-fi держит</li>
+                </ul>
+            </div>
+            
+            <div class="quote-box">
+                <div class="quote-mark">"</div>
+                <p class="quote-text">Хожу почти каждый день — капучино стабильно вкусный. Персонал запоминает постоянных.</p>
+                <div class="quote-author">— Айжан</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="fade-up">
+        <h2>Галерея</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+            </div>
+            <div class="gallery-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+            </div>
+            <div class="gallery-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="fade-up">
+        <h2>Отзывы</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">“Хожу почти каждый день — капучино стабильно вкусный, что для кофеен редкость.”</p>
+                </div>
+                <div class="review-author">Айжан</div>
+            </div>
+
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">“Хороший фильтр и приятная атмосфера. В обед тесно, лучше до 11.”</p>
+                </div>
+                <div class="review-author">Дамир</div>
+            </div>
+
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">“Латте на овсяном без доплаты. Десерты реально свежие.”</p>
+                </div>
+                <div class="review-author">Малика</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts" class="fade-up">
+        <h2>Контакты</h2>
+        <div class="contacts-grid">
+            <div class="contact-info">
+                <h3>Ждём вас в гости</h3>
+                
+                <div class="contact-detail">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>Алматы, центр · Ежедневно 8:00–22:00</span>
+                </div>
+
+                <div class="contact-detail">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <a href="tel:+77071112233">+7 707 111 22 33</a>
+                </div>
+
+                <div class="contact-detail">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <a href="mailto:hello@dame-coffee.kz">hello@dame-coffee.kz</a>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://wa.me/77071112233" class="social-btn" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        WhatsApp
+                    </a>
+                    <a href="https://t.me/dame_coffee" class="social-btn" target="_blank" rel="noopener">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        Telegram
+                    </a>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Спасибо! Мы свяжемся с вами в ближайшее время.');">
+                <h3 style="font-size: 24px; margin-bottom: 24px;">Оставить заявку</h3>
+                <div class="form-group">
+                    <label for="name">Ваше имя</label>
+                    <input type="text" id="name" placeholder="Айжан" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" placeholder="+7 707 111 22 33" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea id="message" rows="4" placeholder="Хочу забронировать столик на 4 персоны..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Отправить</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>Кофейня «Дәме» · Алматы, центр</p>
+        <p style="margin-top: 8px;">Разработка: <a href="https://github.com/bess1lie" target="_blank" rel="noopener">bess1lie</a></p>
+    </footer>
+
+    <script>
+        // Простая анимация появления при скролле
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
