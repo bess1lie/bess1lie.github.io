@@ -15,3 +15,6 @@ h1,h2{font-family: Georgia, 'Times New Roman', serif; letter-spacing:-0.03em;}
 .menu-strip__item small{color:rgba(255,255,255,0.9); font-size:0.82rem;}
 .gallery__img{border-radius:18px; border: 1px solid #e8dcc8;}
 .service-card{border-radius:18px;}
+
+.accent-hand{font-family:'Caveat', cursive; font-weight:600; color:var(--accent); font-size:1.15em;}
+.service-card{border-radius:18px;}

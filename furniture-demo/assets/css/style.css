@@ -11,3 +11,7 @@ h1,h2{font-family: 'Trebuchet MS', sans-serif;}
 .service-card{display:flex; flex-direction:column; background:#fffdf7; border:1px solid #e8dcc8;}
 .service-card__title{font-size:1.05rem;}
 .gallery__img{border: 1px solid #e8dcc8;}
+
+.process-steps{list-style:none; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:0; margin:0;}
+.process-steps li{background:#fffdf7; border:1px solid #e8dcc8; border-radius:12px; padding:20px; box-shadow:0 6px 20px rgba(60,30,10,0.06);}
+.process-steps li strong{display:block; margin-bottom:6px; color:var(--primary);}
