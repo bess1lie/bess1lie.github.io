@@ -8,3 +8,12 @@ h1{font-family: 'Arial Black', Impact, sans-serif; text-transform: uppercase; le
 .nav{background: #0f172a;}
 .nav__brand, .nav__link{color:#e2e8f0;}
 
+
+/* Barber stage2: asymmetric dark, sharp, horizontal rule services */
+.hero__inner--barber{display:grid; grid-template-columns: 1.1fr 0.9fr; gap:24px; align-items:center; text-align:left; max-width:1000px;}
+.hero__left h1{text-transform: uppercase; letter-spacing:0.04em;}
+.hero__right{display:flex; align-items:center; justify-content:center;}
+.hero__big-num{font-size: clamp(80px, 14vw, 180px); font-weight:900; line-height:0.9; color:rgba(255,255,255,0.08); border: 3px solid rgba(255,255,255,0.12); padding: 20px 30px; border-radius:0;}
+.service-card{flex-direction:row; align-items:center; justify-content:space-between; border-radius:0; border-left: 0; border-right:0; border-top:0; border-bottom:1px solid var(--border); box-shadow:none; padding:18px 0;}
+.service-card__price{margin-left:16px; white-space:nowrap;}
+.gallery__img{filter: grayscale(20%) contrast(1.05); border-radius:0;}

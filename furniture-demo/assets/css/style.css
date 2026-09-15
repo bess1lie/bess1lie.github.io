@@ -5,3 +5,9 @@
 h1,h2{font-family: 'Trebuchet MS', sans-serif;}
 .service-card{background: #fffdf7;}
 
+
+/* Furniture stage2: catalog shop style, airy */
+.hero__catalog-hint{margin-top:10px; font-size:0.9rem; opacity:0.88; font-style:italic;}
+.service-card{display:flex; flex-direction:column; background:#fffdf7; border:1px solid #e8dcc8;}
+.service-card__title{font-size:1.05rem;}
+.gallery__img{border: 1px solid #e8dcc8;}
