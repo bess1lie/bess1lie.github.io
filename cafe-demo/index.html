@@ -93,7 +93,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(253, 248, 243, 0.9);
+            background: rgba(253, 248, 243, 0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--line);
             z-index: 100;
@@ -107,6 +107,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -116,6 +117,7 @@
             color: var(--terracotta);
             text-decoration: none;
             letter-spacing: -0.02em;
+            z-index: 101;
         }
 
         .nav-links {
@@ -136,9 +138,65 @@
             color: var(--caramel);
         }
 
+        /* Мобильное меню */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 101;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
             .nav-links {
-                display: none;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--cream);
+                flex-direction: column;
+                padding: 100px 32px 32px;
+                gap: 24px;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 30px rgba(28, 15, 10, 0.15);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+                font-weight: 600;
             }
         }
 
@@ -629,6 +687,11 @@
     <header>
         <nav>
             <a href="#top" class="logo">Дәме</a>
+            <button class="menu-toggle" aria-label="Меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="#menu">Меню</a></li>
                 <li><a href="#story">История</a></li>
@@ -848,6 +911,36 @@
     </footer>
 
     <script>
+        // Мобильное меню
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Закрытие меню при клике на ссылку
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Закрытие меню при клике вне его
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
         // Простая анимация появления при скролле
         const observerOptions = {
             root: null,
