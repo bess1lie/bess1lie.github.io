@@ -186,12 +186,15 @@
                 flex-direction: column;
                 padding: 100px 32px 32px;
                 gap: 24px;
-                transition: right 0.3s ease;
+                transition: right 0.3s ease, visibility 0s 0.3s;
+                visibility: hidden;
                 box-shadow: -5px 0 30px rgba(28, 15, 10, 0.15);
             }
 
             .nav-links.active {
                 right: 0;
+                visibility: visible;
+                transition: right 0.3s ease;
             }
 
             .nav-links a {
@@ -235,6 +238,30 @@
             font-size: 18px;
             line-height: 1.7;
         }
+
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+        }
+
+        .hero-cta .btn {
+            display: inline-flex;
+            align-items: center;
+            min-height: 52px;
+            padding: 0 30px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 15px;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .hero-cta .btn:hover { transform: translateY(-2px); }
+        .hero-cta .btn-primary { background: var(--terracotta); color: #fff; }
+        .hero-cta .btn-primary:hover { background: #7e2a0e; }
+        .hero-cta .btn-ghost { background: transparent; color: var(--terracotta); border: 1px solid var(--terracotta); }
 
         .scroll-tape {
             display: flex;
@@ -564,6 +591,7 @@
 
         .social-links {
             display: flex;
+            flex-wrap: wrap;
             gap: 16px;
             margin-top: 32px;
         }
@@ -687,12 +715,12 @@
     <header>
         <nav>
             <a href="#top" class="logo">Дәме</a>
-            <button class="menu-toggle" aria-label="Меню">
+            <button class="menu-toggle" aria-label="Меню" aria-expanded="false" aria-controls="mobileNav">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <ul class="nav-links">
+            <ul class="nav-links" id="mobileNav">
                 <li><a href="#menu">Меню</a></li>
                 <li><a href="#story">История</a></li>
                 <li><a href="#gallery">Галерея</a></li>
@@ -705,6 +733,11 @@
         <div class="eyebrow">Алматы · центр · с 2021</div>
         <h1>Кофе, <span class="accent">который запоминают</span></h1>
         <p class="hero-desc">Небольшая кофейня в центре Алматы: варим кофе из зерна свежей обжарки, по утрам подаём завтраки, днём у нас тихо — можно поработать.</p>
+
+        <div class="hero-cta">
+            <a class="btn btn-primary" href="#menu">Смотреть меню</a>
+            <a class="btn btn-ghost" href="#contacts">Как нас найти</a>
+        </div>
         
         <div class="scroll-tape">
             <div class="tape-card">
@@ -742,7 +775,7 @@
 
             <div class="menu-card">
                 <div class="menu-img">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M7 5.5c0-1 1-1 1-2s1-1 1-2M11 5.5c0-1 1-1 1-2s1-1 1-2"/></svg>
                 </div>
                 <h3>Капучино</h3>
                 <p class="desc">Классический, на цельном молоке. Овсяное — без доплаты.</p>
@@ -751,7 +784,7 @@
 
             <div class="menu-card">
                 <div class="menu-img">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l-1.5 18h-9Z"/><path d="M6.8 9h10.4"/><line x1="12" y1="9" x2="14.5" y2="3.5"/></svg>
                 </div>
                 <h3>Латте</h3>
                 <p class="desc">Большая чашка с мягкой пеной. Горячим или со льдом.</p>
@@ -760,7 +793,7 @@
 
             <div class="menu-card">
                 <div class="menu-img">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14l-7 12Z"/><path d="M9 20h6"/><path d="M12 16v4"/><path d="M9 8.5h6"/></svg>
                 </div>
                 <h3>Фильтр V60</h3>
                 <p class="desc">Однопроисходник, меняется каждые две недели.</p>
@@ -916,28 +949,31 @@
         const navLinks = document.querySelector('.nav-links');
 
         if (menuToggle && navLinks) {
+            const setOpen = (open) => {
+                menuToggle.classList.toggle('active', open);
+                navLinks.classList.toggle('active', open);
+                menuToggle.setAttribute('aria-expanded', String(open));
+                document.body.style.overflow = open ? 'hidden' : '';
+            };
             menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+                setOpen(!navLinks.classList.contains('active'));
             });
 
             // Закрытие меню при клике на ссылку
             navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
+                link.addEventListener('click', () => setOpen(false));
             });
 
             // Закрытие меню при клике вне его
             document.addEventListener('click', (e) => {
                 if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = '';
+                    setOpen(false);
                 }
+            });
+
+            // Закрытие по Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') setOpen(false);
             });
         }
 
