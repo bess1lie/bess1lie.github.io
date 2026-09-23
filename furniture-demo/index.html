@@ -81,9 +81,9 @@
     .header-cta { display: inline-flex; align-items: center; gap: 10px; color: var(--wood); font-weight: 800; font-size: 13px; }
     .header-cta .dot { width: 7px; height: 7px; background: var(--olive); border-radius: 50%; }
     .menu-toggle { display: none; background: transparent; width: 42px; height: 42px; }
-    .menu-toggle span { display: block; width: 20px; height: 1px; margin: 5px auto; background: var(--ink); }
+    .menu-toggle span { display: block; width: 20px; height: 1px; margin: 5px auto; background: var(--ink); transition: transform .25s ease, opacity .2s ease; }
 
-    .hero { padding: 92px 0 110px; position: relative; overflow: hidden; }
+    .hero { padding: 92px 0 110px; position: relative; overflow: clip; }
     .hero::after {
       content: ""; position: absolute; right: -120px; top: -100px; width: 58vw; max-width: 760px; height: 520px; opacity: .55; pointer-events: none;
       background:
@@ -124,7 +124,7 @@
         radial-gradient(circle at 18% 24%, rgba(255,255,255,.34), transparent 23%),
         repeating-linear-gradient(84deg, rgba(124,74,43,.16) 0 1px, transparent 1px 23px),
         repeating-linear-gradient(4deg, rgba(83,52,29,.09) 0 1px, transparent 1px 13px),
-        linear-gradient(120deg, #dbc5af, #8b5b39 48%, #d5bca4);
+        var(--tone, linear-gradient(120deg, #dbc5af, #8b5b39 48%, #d5bca4));
       mix-blend-mode: multiply;
     }
     .hero-image::after {
@@ -170,7 +170,7 @@
       padding: 13px 14px;
     }
     select:focus, input:focus, textarea:focus { border-color: var(--wood); box-shadow: 0 0 0 2px rgba(124,74,43,.08); }
-    input[type="range"] { width: 100%; accent-color: var(--wood); }
+    input[type="range"] { width: 100%; accent-color: var(--wood); margin: 0; }
     .range-output { font: 12px "Fragment Mono", Consolas, monospace; color: var(--wood); }
     .calc-price { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
     .calc-price span { display: block; color: var(--muted); font-size: 11px; }
@@ -210,7 +210,8 @@
     .faq-list { border-top: 1px solid var(--line); }
     .faq-item { border-bottom: 1px solid var(--line); }
     .faq-question { width: 100%; padding: 22px 0; background: transparent; display: flex; justify-content: space-between; gap: 24px; text-align: left; font-weight: 800; }
-    .faq-icon { color: var(--wood); font-size: 21px; line-height: 1; transition: transform .2s ease; }
+    .faq-question > span:first-child { min-width: 0; }
+    .faq-icon { color: var(--wood); font-size: 21px; line-height: 1; transition: transform .2s ease; flex-shrink: 0; }
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
     .faq-answer p { margin: -4px 0 22px; color: var(--muted); font-size: 14px; max-width: 620px; }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
@@ -245,10 +246,14 @@
       .container { width: min(calc(100% - 28px), var(--max)); }
       .site-header { position: sticky; }
       .nav { min-height: 68px; }
-      .nav-links { position: fixed; inset: 68px 0 0; background: var(--cream); padding: 30px 28px; flex-direction: column; align-items: flex-start; gap: 18px; transform: translateX(100%); transition: transform .25s ease; border-top: 1px solid var(--line); }
-      .nav-links.open { transform: translateX(0); }
+      .nav-links { position: fixed; inset: 68px 0 0; background: var(--cream); padding: 30px 28px; flex-direction: column; align-items: flex-start; gap: 18px; opacity: 0; visibility: hidden; transform: translateY(-12px); transition: opacity .25s ease, transform .25s ease, visibility 0s .25s; border-top: 1px solid var(--line); }
+      .nav-links.open { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity .25s ease, transform .25s ease; }
       .header-cta { display: none; }
-      .menu-toggle { display: block; }
+      .menu-toggle { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+      .menu-toggle span { margin: 0; }
+      .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+      .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+      .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
       .hero { padding: 60px 0 75px; }
       h1 { font-size: clamp(48px, 15vw, 78px); }
       .hero-copy { font-size: 16px; }
