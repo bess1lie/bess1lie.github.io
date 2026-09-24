@@ -37,8 +37,45 @@ Date: 2026-09-25. Sources: live production pages (fetched, not copied).
 
 ## What changes in this pass (evolution, not rewrite)
 
-Hero measure + two-line headline form; indexed kickers `01–06`; terminal session
-metadata + kbd hints; project cards get index + category label; evidence becomes
+## Content and positioning research (2026-09-25)
+
+-studied for copy, not visuals: rauno.me (one-line identity, no adjectives,
+work listed without pitch), Vercel/Linear (short hero, proof-led sections),
+GitHub security-researcher topics (anti-pattern confirmed: terminal/matrix-rain
+templates dominate — restraint is the differentiator).
+
+### Writing patterns adopted
+
+1. Identity in one clause: role + what you make, no mission statements.
+2. Second direction gets one line, never equal billing in the H1.
+3. Project cards answer what / why / what it demonstrates — two sentences max.
+4. "Available for" lists beat "let's build something amazing" CTAs.
+5. Numbers only when real (stars fetched live, nothing hand-written).
+6. Banned vocabulary: passionate, innovative, cutting-edge, next-generation,
+   world-class, seamless, robust, leveraging, unlock, elevate, mission, journey.
+7. Each positioning idea appears once: detection-first / scope-aware /
+   open-source live in Principles only.
+
+## Editorial pass findings (2026-09-25)
+
+- One connected thesis beats a skill list: "engineer who builds technical
+  products; security tooling is the specialty, web/AI shows breadth."
+- Hero density: H1 "Security engineer building security tooling." + one lede
+  covering the second line. No three-layer explanation up top.
+- Terminal: one hint mechanism (chips) is enough; extra kbd legends read as
+  documentation. Mobile shows 4 chips, rest via help.
+- Cards differentiate through purpose descriptors, not decoration; focus lists
+  stay single-column (2×2 harms scan in narrow cards).
+- Defensive headlines ("Real output, not mockups") rewritten as plain labels
+  ("Examples from apihunter").
+- No measured install time → no time promises ("Install from source").
+- Contact names both lines plainly, one CTA, no "let's build something amazing".
+- Footer reduced to copyright only; positioning lives in content, not chrome.
+
+## Prior pass (v3, kept)
+
+Hero measure + two-line headline form; indexed kickers; terminal session
+metadata + kbd hints; project cards with index + category label; evidence as
 `Fig.` case-study figures; differentiated vertical rhythm; light-theme polish;
 detail pass on borders, radii, hovers, icon sizes. Terminal logic, copy facts,
 links, and single-file architecture unchanged.
