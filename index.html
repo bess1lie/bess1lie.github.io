@@ -1,1373 +1,1039 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bess1lie · security tooling</title>
-    
-<!-- Preload critical fonts -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" as="style">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" media="print" onload="this.media='all'">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-
-<!-- Material Icons for additional icons -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>bess1lie — Security Engineer · Detection-First Tooling</title>
+<meta name="description" content="bess1lie — security engineer building detection-first, scope-aware open-source tooling for recon, API and GraphQL security: bounthunt, gqlhunter, apihunter." />
+<meta name="theme-color" content="#0e1218" />
+<link rel="canonical" href="https://bess1lie.github.io/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="bess1lie" />
+<meta property="og:title" content="bess1lie — Security Engineer · Detection-First Tooling" />
+<meta property="og:description" content="Detection-first, scope-aware open-source security tooling for recon, API and GraphQL security: bounthunt, gqlhunter, apihunter." />
+<meta property="og:url" content="https://bess1lie.github.io/" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
 <style>
-    /* --- CSS Variables (themes) --- */
-    :root {
-        /* Dark theme (primary) */
-        --bg-primary: #0d1117;
-        --bg-secondary: #161b22;
-        --bg-card: #1c2333;
-        --bg-hover: #2d3748;
-        --text-primary: #f0f6fc;
-        --text-secondary: #8b949e;
-        --text-muted: #6e7681;
-        --border-color: #30363d;
-        --accent-blue: #58a6ff;
-        --accent-green: #3fb950;
-        --accent-orange: #f0883e;
-        --accent-red: #f85149;
-        --accent-yellow: #d29922;
-        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
-        --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
-        --radius-sm: 4px;
-        --radius-md: 8px;
-        --radius-lg: 12px;
-        --radius-xl: 16px;
-        --radius-full: 9999px;
-        
-        /* Light theme overrides */
-        --light-bg-primary: #f6f8fa;
-        --light-bg-secondary: #ffffff;
-        --light-bg-card: #ffffff;
-        --light-bg-hover: #f0f3f6;
-        --light-text-primary: #1f2328;
-        --light-text-secondary: #57606a;
-        --light-text-muted: #8b949e;
-        --light-border-color: #d0d7de;
-        --light-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-        --light-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06);
-        --light-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08);
-        --light-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
-        --light-accent-blue: #0969da;
-        --light-accent-green: #1a7f37;
-        --light-accent-orange: #bd561d;
-        --light-accent-red: #cf222e;
-        --light-accent-yellow: #9a6700;
-    }
-    
-    /* Apply light theme */
-    [data-theme="light"] {
-        --bg-primary: var(--light-bg-primary);
-        --bg-secondary: var(--light-bg-secondary);
-        --bg-card: var(--light-bg-card);
-        --bg-hover: var(--light-bg-hover);
-        --text-primary: var(--light-text-primary);
-        --text-secondary: var(--light-text-secondary);
-        --text-muted: var(--light-text-muted);
-        --border-color: var(--light-border-color);
-        --shadow-sm: var(--light-shadow-sm);
-        --shadow-md: var(--light-shadow-md);
-        --shadow-lg: var(--light-shadow-lg);
-        --shadow-xl: var(--light-shadow-xl);
-        --accent-blue: var(--light-accent-blue);
-        --accent-green: var(--light-accent-green);
-        --accent-orange: var(--light-accent-orange);
-        --accent-red: var(--light-accent-red);
-        --accent-yellow: var(--light-accent-yellow);
-    }
-    
-    /* --- Reset & base --- */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 80px;
-    }
-    
-    body {
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        line-height: 1.6;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        overflow-x: hidden;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    
-    a {
-        color: var(--accent-blue);
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-    
-    a:hover {
-        color: var(--accent-orange);
-        text-decoration: none;
-    }
-    
-    h1, h2, h3 {
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-    }
-    
-    /* --- Animations --- */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.6; }
-    }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-    }
-    
-    @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-    }
-    
-    @keyframes countUp {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    
-    @keyframes ripple {
-        0% { transform: scale(0); opacity: 0.5; }
-        100% { transform: scale(2); opacity: 0; }
-    }
-    
-    /* --- Reusable classes --- */
-    .container {
-        max-width: 1200px;
-        width: 100%;
-        padding: 0 2rem;
-        margin: 0 auto;
-        position: relative;
-        z-index: 10;
-    }
-    
-    .section-header {
-        text-align: center;
-        margin-bottom: 3rem;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
+/* ============ Tokens · Graphite Console ============ */
+:root {
+  --page: #0e1218;
+  --header-bg: rgba(14, 18, 24, 0.88);
+  --panel: #141a23;
+  --card: #171e29;
+  --card-border: #26303f;
+  --terminal: #0a0d12;
+  --code-bg: #0a0d12;
+  --text: #e9eef5;
+  --text-2: #a5b1c2;
+  --muted: #6f7b8d;
+  --line: #232c3a;
+  --accent: #8ba3c7;
+  --accent-strong: #a9bedd;
+  --accent-dim: rgba(139, 163, 199, 0.12);
+  --violet: #a79fd1;
+  --violet-dim: rgba(167, 159, 209, 0.12);
+  --ok: #9db8a0;
+  --warn: #c2a98b;
+  --bad: #c99393;
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --max: 1080px;
+  --header-h: 60px;
+  --shadow-term: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+[data-theme="light"] {
+  --page: #eef1f5;
+  --header-bg: rgba(238, 241, 245, 0.9);
+  --panel: #ffffff;
+  --card: #ffffff;
+  --card-border: #d9dfe8;
+  --terminal: #10151d;
+  --code-bg: #e4e9f0;
+  --text: #1b2330;
+  --text-2: #4c5a6e;
+  --muted: #758194;
+  --line: #dde3ec;
+  --accent: #3d5a86;
+  --accent-strong: #2f4a73;
+  --accent-dim: rgba(61, 90, 134, 0.1);
+  --violet: #5f5491;
+  --violet-dim: rgba(95, 84, 145, 0.1);
+  --ok: #3f6b4a;
+  --warn: #8a6535;
+  --bad: #96454b;
+  --shadow-term: 0 14px 30px rgba(27, 35, 48, 0.12);
+}
+/* Light theme keeps a dark terminal console for readability */
+[data-theme="light"] .terminal-body,
+[data-theme="light"] .term-out,
+[data-theme="light"] .term-echo,
+[data-theme="light"] .term-input-line input {
+  color: #dfe7f2;
+}
 
-    .section-header.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .section-header h2 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-    
-    .section-header p {
-        font-size: 1.1rem;
-        color: var(--text-secondary);
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    
-    .badge {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: var(--radius-full);
-        font-size: 0.75rem;
-        font-weight: 600;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        transition: all 0.2s ease;
-    }
-    
-    .badge:hover {
-        border-color: var(--accent-blue);
-        transform: translateY(-2px);
-    }
-    
-    .badge-green { background: rgba(63, 185, 80, 0.1); color: var(--accent-green); border-color: rgba(63, 185, 80, 0.3); }
-    .badge-blue { background: rgba(88, 166, 255, 0.1); color: var(--accent-blue); border-color: rgba(88, 166, 255, 0.3); }
-    .badge-orange { background: rgba(240, 136, 62, 0.1); color: var(--accent-orange); border-color: rgba(240, 136, 62, 0.3); }
-    .badge-red { background: rgba(248, 81, 73, 0.1); color: var(--accent-red); border-color: rgba(248, 81, 73, 0.3); }
-    [data-theme="light"] .badge-green { background: rgba(26, 127, 55, 0.1); border-color: rgba(26, 127, 55, 0.25); }
-    [data-theme="light"] .badge-blue { background: rgba(9, 105, 218, 0.1); border-color: rgba(9, 105, 218, 0.25); }
-    [data-theme="light"] .badge-orange { background: rgba(189, 86, 29, 0.1); border-color: rgba(189, 86, 29, 0.25); }
-    [data-theme="light"] .badge-red { background: rgba(207, 34, 46, 0.1); border-color: rgba(207, 34, 46, 0.25); }
-    
-    /* --- Particle Background --- */
-    #particle-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        pointer-events: none;
-        background: transparent;
-    }
-    
-    [data-theme="light"] #particle-canvas {
-        opacity: 0.5;
-    }
-    
-    /* --- Theme Toggle --- */
-    .theme-toggle {
-        position: fixed;
-        top: 1.5rem;
-        right: 1.5rem;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-full);
-        width: 44px;
-        height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: var(--text-primary);
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        box-shadow: var(--shadow-md);
-    }
-    
-    .theme-toggle:hover {
-        transform: scale(1.1) rotate(180deg);
-        border-color: var(--accent-blue);
-    }
-    
-    /* --- Terminal Emulator --- */
-    .terminal-wrapper {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        box-shadow: var(--shadow-xl);
-        margin: 2rem 0;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
-    
-    .terminal-wrapper.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .terminal-header {
-        background: var(--bg-secondary);
-        padding: 0.75rem 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    .terminal-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        display: inline-block;
-    }
-    
-    .terminal-dot.red { background: #ff5f56; }
-    .terminal-dot.yellow { background: #ffbd2e; }
-    .terminal-dot.green { background: #27c93f; }
-    
-    .terminal-title {
-        color: var(--text-secondary);
-        font-size: 0.85rem;
-        margin-left: 0.5rem;
-        font-family: 'JetBrains Mono', monospace;
-    }
-    
-    .terminal-body {
-        padding: 1.5rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.9rem;
-        min-height: 200px;
-        max-height: 400px;
-        overflow-y: auto;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-        position: relative;
-    }
-    
-    .terminal-body::before {
-        content: "▸";
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
-        color: var(--text-muted);
-        font-size: 0.8rem;
-        animation: pulse 2s infinite;
-    }
-    
-    .terminal-body .prompt {
-        color: var(--accent-green);
-        font-weight: 600;
-    }
-    
-    .terminal-body .command {
-        color: var(--text-primary);
-    }
-    
-    .terminal-body .output {
-        color: var(--text-secondary);
-        white-space: pre-wrap;
-        margin: 0.3rem 0 0.8rem 1.2rem;
-        border-left: 2px solid var(--border-color);
-        padding-left: 1rem;
-        font-size: 0.85rem;
-    }
-    
-    .terminal-body .output .highlight {
-        color: var(--accent-blue);
-        font-weight: 600;
-    }
-    
-    .terminal-body .output .success {
-        color: var(--accent-green);
-        font-weight: 600;
-    }
-    
-    .terminal-body .output .error {
-        color: var(--accent-red);
-    }
-    
-    .typing-text {
-        color: var(--text-primary);
-        position: relative;
-    }
-    
-    .typing-text::after {
-        content: "|";
-        position: absolute;
-        right: -8px;
-        color: var(--accent-green);
-        font-weight: 600;
-        animation: pulse 1s infinite;
-    }
-    
-    .terminal-input-line {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid var(--border-color);
-    }
-    
-    .terminal-input-line span {
-        color: var(--accent-green);
-        font-weight: 600;
-    }
-    
-    .terminal-input-line input {
-        background: transparent;
-        border: none;
-        color: var(--text-primary);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.9rem;
-        outline: none;
-        width: 100%;
-        padding: 0.5rem 0;
-        caret-color: var(--accent-green);
-    }
-    
-    .terminal-input-line input::placeholder {
-        color: var(--text-muted);
-    }
-    
-    /* --- Tools Grid --- */
-    .tools-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 2rem;
-        margin: 3rem 0;
-    }
-    
-    .tool-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        padding: 2rem;
-        transition: transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-        position: relative;
-        overflow: hidden;
-    }
+/* ============ Base ============ */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+body {
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-strong); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; font-weight: 700; }
+img { max-width: 100%; }
+::selection { background: var(--accent); color: #0d1219; }
+[data-theme="light"] ::selection { color: #fff; }
 
-    .tool-card.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .tool-card:hover {
-        border-color: var(--accent-blue);
-        box-shadow: var(--shadow-xl);
-    }
-    
-    .tool-card .icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        display: inline-block;
-        transition: transform 0.3s ease;
-    }
-    
-    .tool-card:hover .icon {
-        transform: scale(1.1) rotate(5deg);
-    }
-    
-    .tool-card h3 {
-        font-size: 1.5rem;
-        margin: 0.5rem 0;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .tool-card .new-badge {
-        background: var(--accent-orange);
-        color: #0d1117;
-        font-size: 0.6rem;
-        font-weight: 700;
-        padding: 0.25rem 0.6rem;
-        border-radius: var(--radius-full);
-        margin-left: 0.5rem;
-        vertical-align: middle;
-        text-transform: uppercase;
-        animation: pulse 2s infinite;
-    }
-    
-    [data-theme="light"] .tool-card .new-badge {
-        color: #ffffff;
-    }
-    
-    .tool-card p {
-        color: var(--text-secondary);
-        font-size: 0.95rem;
-        margin: 1rem 0;
-        line-height: 1.6;
-    }
-    
-    .tool-card .feature-list {
-        list-style: none;
-        padding: 0;
-        margin: 1rem 0;
-    }
-    
-    .tool-card .feature-list li {
-        padding: 0.4rem 0;
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-    }
-    
-    .tool-card .feature-list li i {
-        color: var(--accent-green);
-        width: 1.2rem;
-        font-size: 1rem;
-    }
-    
-    .tool-card .stats {
-        display: flex;
-        gap: 1rem;
-        margin: 1rem 0;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-    }
-    
-    .tool-card .stats i {
-        margin-right: 0.4rem;
-    }
-    
-    .tool-card .link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-        font-weight: 600;
-        color: var(--accent-blue);
-        font-size: 0.95rem;
-    }
-    
-    .tool-card .link i {
-        transition: transform 0.3s ease;
-    }
-    
-    .tool-card .link:hover i {
-        transform: translateX(4px);
-    }
-    
-    /* --- Philosophy --- */
-    .philosophy {
-        background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-        border-left: 4px solid var(--accent-blue);
-        padding: 2.5rem;
-        border-radius: var(--radius-lg);
-        margin: 3rem 0;
-        box-shadow: var(--shadow-lg);
-        position: relative;
-        overflow: hidden;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
-    
-    .philosophy.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .philosophy::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, transparent, rgba(88, 166, 255, 0.05), transparent);
-        animation: shimmer 3s infinite;
-    }
-    
-    .philosophy > * {
-        position: relative;
-        z-index: 2;
-    }
-    
-    .philosophy p {
-        margin: 1rem 0;
-        color: var(--text-secondary);
-        font-size: 1.05rem;
-        line-height: 1.8;
-    }
-    
-    .philosophy strong {
-        color: var(--text-primary);
-        font-weight: 600;
-    }
-    
-    /* --- Screenshots --- */
-    .screenshots-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        margin: 3rem 0;
-    }
-    
-    .screenshot-item {
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        border: 1px solid var(--border-color);
-        transition: all 0.4s ease;
-        cursor: pointer;
-        position: relative;
-        box-shadow: var(--shadow-md);
-        opacity: 0;
-        transform: translateY(30px);
-    }
+.skip-link {
+  position: absolute; left: 1rem; top: -100px; z-index: 2000;
+  background: var(--panel); color: var(--text);
+  border: 1px solid var(--card-border); border-radius: var(--radius-s);
+  padding: 0.6rem 1rem; font-size: 0.9rem; transition: top 0.15s ease;
+}
+.skip-link:focus { top: 0.75rem; }
 
-    .screenshot-item.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .screenshot-item::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-    }
-    
-    .screenshot-item:hover {
-        transform: translateY(-5px) scale(1.02);
-        border-color: var(--accent-blue);
-        box-shadow: var(--shadow-xl);
-    }
-    
-    .screenshot-item:hover::after {
-        opacity: 1;
-    }
-    
-    .screenshot-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    
-    .screenshot-item:hover img {
-        transform: scale(1.05);
-    }
-    
-    .screenshot-item figcaption {
-        padding: 1rem;
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        background: var(--bg-card);
-        text-align: center;
-        border-top: 1px solid var(--border-color);
-        position: relative;
-        z-index: 2;
-    }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
-    .screenshot-fallback {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 3rem 1rem;
-        background: var(--bg-card);
-        color: var(--text-muted);
-        font-size: 3rem;
-        gap: 1rem;
-        min-height: 200px;
-    }
+.container { max-width: var(--max); width: 100%; margin: 0 auto; padding: 0 1.5rem; }
+main { display: block; }
 
-    .screenshot-fallback p {
-        font-size: 1rem;
-        color: var(--text-secondary);
-        margin: 0;
-    }
-    
-    /* --- Lightbox --- */
-    .lightbox {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.85);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-        animation: fadeIn 0.3s ease;
-    }
-    
-    .lightbox.active {
-        display: flex;
-    }
-    
-    .lightbox img {
-        max-width: 90%;
-        max-height: 90%;
-        border-radius: var(--radius-lg);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        border: 2px solid var(--border-color);
-    }
-    
-    .lightbox .close {
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        font-size: 2rem;
-        color: #fff;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0,0,0,0.5);
-        border-radius: 50%;
-    }
-    
-    .lightbox .close:hover {
-        transform: rotate(90deg) scale(1.1);
-    }
-    
-    /* --- Quick install --- */
-    .install-code {
-        background: var(--bg-primary);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-md);
-        padding: 1.5rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.9rem;
-        overflow-x: auto;
-        white-space: pre;
-        box-shadow: var(--shadow-sm);
-        position: relative;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
+/* ============ Header / nav ============ */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--header-h);
+  background: var(--header-bg);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .container {
+  height: var(--header-h);
+  display: flex; align-items: center; gap: 1rem;
+}
+.brand { display: flex; align-items: baseline; gap: 0.6rem; color: var(--text); font-weight: 700; }
+.brand:hover { text-decoration: none; }
+.brand-name { font-family: var(--font-mono); font-size: 1.02rem; font-weight: 600; letter-spacing: -0.01em; }
+.brand-tag {
+  font-size: 0.7rem; font-weight: 500; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.12rem 0.6rem;
+  white-space: nowrap;
+}
+.site-nav { margin-left: auto; display: flex; align-items: center; gap: 0.25rem; }
+.site-nav a {
+  color: var(--text-2); font-size: 0.9rem; font-weight: 500;
+  padding: 0.55rem 0.8rem; border-radius: var(--radius-s);
+}
+.site-nav a:hover { color: var(--text); text-decoration: none; background: var(--accent-dim); }
+.nav-github {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  border: 1px solid var(--card-border); border-radius: var(--radius-s);
+  margin-left: 0.5rem; color: var(--text) !important; font-size: 0.85rem !important;
+}
+.nav-github:hover { border-color: var(--accent); background: transparent !important; }
+.nav-github svg { width: 16px; height: 16px; }
+.theme-toggle {
+  flex: none; width: 40px; height: 40px; margin-left: 0.5rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--card-border);
+  border-radius: var(--radius-s); color: var(--text-2); cursor: pointer;
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+.theme-toggle svg { width: 17px; height: 17px; }
+.nav-toggle {
+  display: none; flex: none; width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--card-border);
+  border-radius: var(--radius-s); color: var(--text); cursor: pointer;
+}
+.nav-toggle svg { width: 20px; height: 20px; }
 
-    .install-code.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .install-code::before {
-        content: "⌨️";
-        position: absolute;
-        top: 0.5rem;
-        left: 0.75rem;
-        color: var(--accent-green);
-        font-size: 1.2rem;
-    }
-    
-    .install-code pre {
-        margin: 0;
-        padding-left: 2rem;
-        color: var(--text-primary);
-    }
-    
-    /* --- Footer --- */
-    .footer {
-        margin-top: 4rem;
-        padding-top: 2rem;
-        border-top: 1px solid var(--border-color);
-        text-align: center;
-        color: var(--text-secondary);
-        font-size: 0.95rem;
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
+/* ============ Hero ============ */
+.hero { padding: 5.5rem 0 2.75rem; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-mono); font-size: 0.76rem; font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--violet); background: var(--violet-dim);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 0.32rem 0.9rem; margin-bottom: 1.5rem;
+}
+.eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--violet); flex: none; }
+.hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  max-width: 18ch;
+  margin-bottom: 1.2rem;
+}
+.hero h1 .hl { color: var(--accent-strong); }
+.lede { font-size: clamp(1rem, 1.5vw, 1.1rem); color: var(--text-2); max-width: 58ch; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-size: 0.92rem; font-weight: 600;
+  padding: 0.7rem 1.25rem; border-radius: var(--radius-m);
+  border: 1px solid var(--card-border);
+  min-height: 44px;
+}
+.btn:hover { text-decoration: none; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #0d1219; }
+.btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+[data-theme="light"] .btn-primary { color: #fff; }
+.btn-ghost { color: var(--text); background: transparent; }
+.btn-ghost:hover { border-color: var(--accent); }
+.btn svg { width: 16px; height: 16px; flex: none; }
+.hero-meta {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0.5rem 0;
+  margin-top: 2rem; padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted);
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.hero-meta span + span { margin-left: 1.25rem; padding-left: 1.25rem; border-left: 1px solid var(--line); }
+.hero-meta svg { width: 14px; height: 14px; }
 
-    .footer.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .footer a {
-        color: var(--text-muted);
-        transition: color 0.2s ease;
-    }
-    
-    .footer a:hover {
-        color: var(--accent-blue);
-    }
-    
-    .footer .social {
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-        margin: 1.5rem 0;
-        font-size: 1.5rem;
-    }
-    
-    .footer .social a {
-        color: var(--text-secondary);
-        transition: all 0.3s ease;
-    }
-    
-    .footer .social a:hover {
-        color: var(--accent-blue);
-        transform: translateY(-3px);
-    }
-    
-    /* --- About Section --- */
-    .about-section {
-        background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-        padding: 3rem;
-        border-radius: var(--radius-lg);
-        margin: 4rem 0;
-        text-align: center;
-        border: 1px solid var(--border-color);
-        border-left: 4px solid var(--accent-blue);
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
+/* ============ Terminal ============ */
+.console-index {
+  font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 0.9rem;
+}
+.terminal-section { padding: 0 0 1rem; }
+.terminal {
+  background: var(--terminal);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-term);
+  overflow: hidden;
+}
+.terminal-bar {
+  display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.7rem 1rem;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.term-dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+.term-dot.r { background: #c96a63; }
+.term-dot.y { background: #bfa06a; }
+.term-dot.g { background: #7d9b80; }
+.terminal-title { font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); margin-left: 0.4rem; }
+.terminal-session {
+  margin-left: auto; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
+  display: inline-flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+}
+.terminal-session .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); flex: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .terminal-session .pulse { animation: pulse 2.4s ease-in-out infinite; }
+  .reveal { transition: opacity 0.5s ease, transform 0.5s ease; }
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.terminal-body {
+  padding: 1.25rem 1.25rem 0.75rem;
+  font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.7;
+  min-height: 264px; max-height: 420px; overflow-y: auto;
+  color: #dfe7f2;
+  scrollbar-width: thin;
+  scrollbar-color: #2b3648 transparent;
+}
+.terminal-body::-webkit-scrollbar { width: 8px; }
+.terminal-body::-webkit-scrollbar-thumb { background: #2b3648; border-radius: 4px; }
+.term-line { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0.15rem 0; }
+.term-echo { color: #dfe7f2; }
+.term-echo .prompt { color: var(--accent-strong); font-weight: 600; }
+.term-out { color: #9fb0c6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.term-err { color: var(--bad); }
+.term-dim { color: #67748a; }
+.terminal-suggest {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem;
+  padding: 0.7rem 1.25rem 0;
+}
+.terminal-suggest .try { font-family: var(--font-mono); font-size: 0.72rem; color: #67748a; }
+.chip {
+  font-family: var(--font-mono); font-size: 0.75rem; color: #c3cfdf;
+  background: transparent; border: 1px solid #2b3648; border-radius: 999px;
+  padding: 0.3rem 0.75rem; cursor: pointer; min-height: 32px;
+}
+.chip:hover { border-color: var(--accent); color: #fff; }
+.term-kbd-hint {
+  margin-left: auto; font-family: var(--font-mono); font-size: 0.7rem; color: #525f75;
+  white-space: nowrap;
+}
+.term-input-line {
+  display: flex; align-items: center; gap: 0.65rem;
+  padding: 0.6rem 1.25rem 1.1rem;
+  border-top: 1px solid #1c2534; margin-top: 0.75rem;
+}
+.term-input-line .prompt { color: var(--accent-strong); font-family: var(--font-mono); font-weight: 600; font-size: 0.9rem; }
+.term-input-wrap { position: relative; flex: 1; display: flex; }
+.term-input-line input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: #eef3fa; font-family: var(--font-mono); font-size: 16px;
+  padding: 0.55rem 0; caret-color: var(--accent-strong); min-width: 0;
+}
+.term-input-line input::placeholder { color: #5b6a81; font-size: 0.82rem; }
 
-    .about-section.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ============ Sections ============ */
+section.block { padding: 4rem 0 0.5rem; }
+.sec-kicker {
+  font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 0.7rem;
+}
+.sec-title { font-size: clamp(1.4rem, 2.8vw, 1.9rem); margin-bottom: 0.6rem; max-width: 24ch; }
+.sec-sub { color: var(--text-2); max-width: 62ch; font-size: 1rem; }
+.sec-head { margin-bottom: 1.75rem; }
 
-    .about-section h2 {
-        margin-bottom: 1.5rem;
-    }
+.reveal { opacity: 0; transform: translateY(14px); }
+.reveal.visible { opacity: 1; transform: none; }
 
-    .about-section p {
-        color: var(--text-secondary);
-        font-size: 1.1rem;
-        max-width: 700px;
-        margin: 0 auto;
-        line-height: 1.8;
-    }
-    
-    /* --- Utility Classes --- */
-    .text-gradient {
-        background: linear-gradient(135deg, var(--accent-blue), var(--accent-orange));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        display: inline-block;
-    }
-    
-    .shimmer {
-        background: linear-gradient(90deg, 
-            rgba(255,255,255,0) 0%, 
-            rgba(255,255,255,0.1) 50%, 
-            rgba(255,255,255,0) 100%);
-        background-size: 200% 100%;
-        animation: shimmer 3s infinite;
-    }
-    
-    .count-up {
-        font-variant-numeric: tabular-nums;
-        font-weight: 600;
-        color: var(--accent-blue);
-    }
-    
-    /* --- Sections Counter --- */
-    section {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s ease-out;
-    }
-    
-    section.active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    /* --- Mobile responsiveness --- */
-    @media (max-width: 768px) {
-        .tools-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .screenshots-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-        }
-        
-        .section-header h2 {
-            font-size: 1.8rem;
-        }
-        
-        .tool-card {
-            padding: 1.5rem;
-        }
-        
-        .terminal-body {
-            font-size: 0.8rem;
-        }
+/* ============ Projects ============ */
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.tool-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: var(--radius-l); padding: 1.75rem;
+  display: flex; flex-direction: column;
+}
+.tool-card:hover { border-color: var(--accent); }
+.tool-index {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  color: var(--muted); text-transform: uppercase;
+  padding-bottom: 0.9rem; margin-bottom: 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+.tool-index .n { color: var(--violet); font-weight: 600; }
+.tool-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.7rem; }
+.tool-icon {
+  width: 40px; height: 40px; flex: none; border-radius: var(--radius-m);
+  background: var(--accent-dim); border: 1px solid var(--line);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--accent-strong);
+}
+.tool-icon svg { width: 19px; height: 19px; }
+.tool-card h3 { font-size: 1.2rem; font-family: var(--font-mono); letter-spacing: -0.01em; }
+.tool-purpose { color: var(--text-2); font-size: 0.95rem; margin-bottom: 1rem; }
+.tool-focus-label { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.tool-focus { list-style: none; margin-bottom: 1.1rem; }
+.tool-focus li {
+  display: flex; align-items: flex-start; gap: 0.55rem;
+  font-size: 0.9rem; color: var(--text-2); padding: 0.22rem 0;
+}
+.tool-focus svg { width: 14px; height: 14px; flex: none; margin-top: 0.32rem; color: var(--accent); }
+.tool-meta {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+.tool-meta .pill { border: 1px solid var(--line); border-radius: 999px; padding: 0.15rem 0.65rem; }
+.tool-meta .pill[data-stars]:not([data-stars=""]) { color: var(--text-2); }
+.tool-link {
+  margin-top: auto; display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; font-weight: 600; color: var(--text);
+  border: 1px solid var(--card-border); border-radius: var(--radius-m);
+  padding: 0.6rem 1rem; min-height: 44px; align-self: flex-start;
+}
+.tool-link:hover { border-color: var(--accent); text-decoration: none; }
+.tool-link svg { width: 15px; height: 15px; }
 
-        .about-section {
-            padding: 2rem 1.5rem;
-        }
-    }
+/* ============ Evidence ============ */
+.evidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.evidence-item {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: var(--radius-l); overflow: hidden; margin: 0;
+  padding: 0; cursor: pointer; font: inherit; color: inherit; text-align: left;
+  display: block; width: 100%;
+}
+button.evidence-item { appearance: none; }
+.evidence-item:hover { border-color: var(--accent); }
+.evidence-shot { background: var(--terminal); aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--line); }
+.evidence-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.evidence-item figcaption { padding: 1rem 1.2rem 1.1rem; }
+.evidence-item figcaption strong { display: block; font-size: 0.92rem; margin-bottom: 0.2rem; }
+.evidence-item figcaption strong .fig { font-family: var(--font-mono); font-size: 0.74rem; color: var(--violet); font-weight: 600; margin-right: 0.5rem; }
+.evidence-item figcaption span { font-size: 0.84rem; color: var(--muted); }
+.evidence-fallback {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem;
+  height: 100%; min-height: 160px; color: var(--muted);
+  font-family: var(--font-mono); font-size: 0.8rem;
+}
+.evidence-fallback svg { width: 26px; height: 26px; }
+.evidence-note { margin-top: 1rem; font-size: 0.86rem; color: var(--muted); }
+
+/* ============ Lightbox ============ */
+.lightbox {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(5, 8, 12, 0.88);
+  display: none; align-items: center; justify-content: center; padding: 1.5rem;
+}
+.lightbox.open { display: flex; }
+.lightbox figure { max-width: min(1000px, 94vw); margin: 0; }
+.lightbox img {
+  max-width: 100%; max-height: 78vh; display: block;
+  border: 1px solid var(--card-border); border-radius: var(--radius-m);
+  background: var(--terminal);
+}
+.lightbox figcaption { color: #c3cfdf; font-size: 0.88rem; text-align: center; margin-top: 0.75rem; }
+.lightbox-close {
+  position: absolute; top: 1rem; right: 1rem;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff; font-size: 1.3rem; cursor: pointer; line-height: 1;
+}
+.lightbox-close:hover { background: rgba(255, 255, 255, 0.16); }
+
+/* ============ Two-col (about / focus) ============ */
+.two-col { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.25rem; }
+.panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-l); padding: 1.75rem;
+}
+.panel h2 { font-size: 1.25rem; margin-bottom: 0.8rem; }
+.panel p { color: var(--text-2); font-size: 0.96rem; }
+.panel p + p { margin-top: 0.8rem; }
+.focus-list { list-style: none; margin-top: 1rem; }
+.focus-list li { padding: 0.7rem 0; border-top: 1px solid var(--line); font-size: 0.93rem; }
+.focus-list li:first-child { border-top: none; padding-top: 0; }
+.focus-list strong { display: block; font-size: 0.82rem; color: var(--text); margin-bottom: 0.15rem; }
+.focus-list span { color: var(--text-2); font-size: 0.9rem; }
+
+/* ============ Principles / stack ============ */
+.principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.principle {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-l); padding: 1.5rem 1.6rem;
+  border-top: 2px solid var(--accent);
+}
+.principle .p-index { font-family: var(--font-mono); font-size: 0.72rem; color: var(--violet); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+.principle h3 { font-size: 1.02rem; margin-bottom: 0.4rem; }
+.principle p { color: var(--text-2); font-size: 0.92rem; }
+.stack-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.stack-row span {
+  font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-2);
+  border: 1px solid var(--line); background: var(--panel);
+  border-radius: var(--radius-s); padding: 0.35rem 0.75rem;
+}
+
+/* ============ Install ============ */
+.install-code {
+  background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: var(--radius-m); overflow: hidden;
+}
+.install-head {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.65rem 1rem; border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted);
+}
+.install-head button {
+  margin-left: auto; font-family: var(--font-mono); font-size: 0.74rem;
+  background: transparent; border: 1px solid var(--line); color: var(--text-2);
+  border-radius: var(--radius-s); padding: 0.35rem 0.7rem; cursor: pointer; min-height: 32px;
+}
+.install-head button:hover { border-color: var(--accent); color: var(--text); }
+.install-code pre {
+  padding: 1.1rem 1.2rem; overflow-x: auto;
+  font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.75; color: var(--text);
+}
+[data-theme="dark"] .install-code pre { color: #c9d5e6; }
+.install-code .c { color: var(--muted); }
+
+/* ============ Contact / footer ============ */
+.contact-panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius-l); padding: 2rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem;
+}
+.contact-panel .grow { flex: 1 1 260px; }
+.contact-panel h2 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+.contact-panel p { color: var(--text-2); font-size: 0.95rem; max-width: 52ch; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.site-footer {
+  margin-top: 4rem; border-top: 1px solid var(--line);
+  padding: 1.75rem 0 2.5rem;
+}
+.site-footer .container {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.5rem;
+}
+.site-footer p { color: var(--muted); font-size: 0.83rem; }
+.site-footer nav { margin-left: auto; display: flex; gap: 1.1rem; }
+.site-footer nav a { color: var(--muted); font-size: 0.85rem; }
+.site-footer nav a:hover { color: var(--text); }
+
+/* ============ Responsive ============ */
+@media (max-width: 900px) {
+  .tools-grid, .evidence-grid, .principles { grid-template-columns: 1fr 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .term-kbd-hint { display: none; }
+}
+@media (max-width: 640px) {
+  .tools-grid, .evidence-grid, .principles { grid-template-columns: 1fr; }
+  .hero { padding: 3.25rem 0 2rem; }
+  section.block { padding: 2.25rem 0 0.25rem; }
+  .nav-toggle { display: inline-flex; }
+  .site-nav {
+    display: none;
+    position: absolute; top: var(--header-h); left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--panel); border-bottom: 1px solid var(--line);
+    padding: 0.5rem;
+  }
+  .site-nav.open { display: flex; }
+  .site-nav a { padding: 0.8rem 1rem; font-size: 1rem; }
+  .nav-github { margin: 0.25rem 0 0; justify-content: center; }
+  .theme-toggle { margin-left: auto; }
+  .brand-tag { display: none; }
+  .terminal-body { font-size: 0.8rem; padding: 1rem 1rem 0.5rem; min-height: 220px; }
+  .hero-meta span + span { margin-left: 0.9rem; padding-left: 0.9rem; }
+  .contact-panel { padding: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .terminal-session .pulse { animation: none !important; }
+  * { transition-duration: 0.01ms !important; }
+}
 </style>
 </head>
 <body>
-<!-- Particle Background -->
-<canvas id="particle-canvas"></canvas>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<!-- Theme Toggle -->
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-    <i class="fas fa-moon" id="themeIcon"></i>
-</button>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="bess1lie — home">
+      <span class="brand-name">bess1lie</span>
+      <span class="brand-tag">security tooling</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Open navigation">
+      <svg id="navIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg id="navIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="display:none"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <nav class="site-nav" id="siteNav" aria-label="Primary">
+      <a href="#top">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-github" href="https://github.com/bess1lie" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Switch to light theme">
+      <svg id="themeIconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      <svg id="themeIconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-    <span class="close" id="lightboxClose">×</span>
-    <img id="lightboxImg" src="" alt="screenshot" />
-</div>
+<main id="main">
+<div class="container" id="top">
 
-<div class="container">
-
-    <!-- Header -->
-    <header class="header reveal">
-        <h1>bess1lie</h1>
-        <div class="tagline">detection-only · scope-aware</div>
-        <div class="badges">
-            <span class="badge"><i class="fas fa-shield-alt"></i> Security Tooling</span>
-            <span class="badge"><i class="fas fa-code"></i> Open Source</span>
-            <span class="badge"><i class="fas fa-rocket"></i> 3 tools</span>
-            <span class="badge"><i class="fas fa-star"></i> <span id="totalStars">0</span></span>
-        </div>
-    </header>
-
-    <!-- Terminal Emulator -->
-    <div class="terminal-wrapper reveal">
-        <div class="terminal-header">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
-            <span class="terminal-title">bess1lie@terminal — bash</span>
-        </div>
-        <div class="terminal-body" id="terminalBody">
-            <!-- Terminal content will be injected via JS -->
-        </div>
-        <div class="terminal-input-line">
-            <span>$</span>
-            <input type="text" id="terminalInput" placeholder="Type a command (discover, scan, report, help, clear)" autofocus />
-        </div>
+  <!-- Hero -->
+  <div class="hero">
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Security engineer · open-source tooling</span>
+    <h1>Security engineer building <span class="hl">detection-first tooling</span> for recon, API and GraphQL security.</h1>
+    <p class="lede">Practical command-line tools for attack-surface discovery, validation and reporting — scope-aware, MIT-licensed.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        View projects
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/bess1lie" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        GitHub
+      </a>
+      <a class="btn btn-ghost" href="#contact">Contact</a>
     </div>
-
-    <!-- Tools -->
-    <div class="section-header reveal" id="tools-section">
-        <h2><i class="fas fa-tools"></i> The tools</h2>
-        <p>Professional security tools for bug hunters and security researchers</p>
+    <div class="hero-meta" aria-label="Technical focus">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3"/></svg>Python · CLI</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Recon · REST API · GraphQL</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/></svg>MIT · open-source</span>
     </div>
-    
+  </div>
+
+  <!-- 01 · Console -->
+  <section class="terminal-section" aria-labelledby="terminal-heading">
+    <div class="console-index">01 — Console · interactive</div>
+    <h2 id="terminal-heading" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Interactive console</h2>
+    <div class="terminal" id="terminal">
+      <div class="terminal-bar" aria-hidden="true">
+        <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+        <span class="terminal-title">bess1lie — console</span>
+        <span class="terminal-session"><span class="pulse"></span>bash · utf-8</span>
+      </div>
+      <div class="terminal-body" id="terminalBody" role="log" aria-live="polite" aria-label="Terminal output" tabindex="0"></div>
+      <div class="terminal-suggest" aria-label="Suggested commands">
+        <span class="try">try:</span>
+        <button class="chip" data-cmd="whoami">whoami</button>
+        <button class="chip" data-cmd="projects">projects</button>
+        <button class="chip" data-cmd="discover">discover</button>
+        <button class="chip" data-cmd="scan">scan</button>
+        <button class="chip" data-cmd="report">report</button>
+        <button class="chip" data-cmd="contact">contact</button>
+        <span class="term-kbd-hint">↑↓ history · tab complete</span>
+      </div>
+      <div class="term-input-line">
+        <span class="prompt" aria-hidden="true">$</span>
+        <div class="term-input-wrap">
+          <input type="text" id="terminalInput" aria-label="Terminal input — type help to list commands"
+                 placeholder="Type a command — try: help" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · Selected tools -->
+  <section class="block reveal" id="projects" aria-labelledby="projects-title">
+    <div class="sec-head">
+      <div class="sec-kicker">02 — Selected tools</div>
+      <h2 class="sec-title" id="projects-title">Three CLIs, one workflow: discover → validate → report.</h2>
+      <p class="sec-sub">Each tool covers one stage of practical security research. Built in Python, MIT-licensed, usable independently.</p>
+    </div>
     <div class="tools-grid">
-        <!-- bounthunt -->
-        <div class="tool-card reveal" data-tilt>
-            <span class="icon">🎯</span>
-            <h3>bounthunt</h3>
-            <p>Bug bounty reconnaissance & automation.</p>
-            <ul class="feature-list">
-                <li><i class="fas fa-check-circle"></i> Subdomain enumeration</li>
-                <li><i class="fas fa-check-circle"></i> Endpoint discovery</li>
-                <li><i class="fas fa-check-circle"></i> Parameter brute‑forcing</li>
-                <li><i class="fas fa-check-circle"></i> Automated reporting</li>
-            </ul>
-            <div class="stats">
-                <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="bounthunt">0</span></span>
-                <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="bounthunt">0</span></span>
-            </div>
-            <a class="link" href="https://github.com/bess1lie/bounthunt">→ GitHub <i class="fas fa-arrow-right"></i></a>
+      <article class="tool-card">
+        <div class="tool-index"><span class="n">01</span><span>Recon</span></div>
+        <div class="tool-top">
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+          <h3>bounthunt</h3>
         </div>
-
-        <!-- gqlhunter -->
-        <div class="tool-card reveal" data-tilt>
-            <span class="icon">🚀</span>
-            <h3>gqlhunter</h3>
-            <p>GraphQL security testing & introspection.</p>
-            <ul class="feature-list">
-                <li><i class="fas fa-check-circle"></i> Introspection extraction</li>
-                <li><i class="fas fa-check-circle"></i> Field fuzzing</li>
-                <li><i class="fas fa-check-circle"></i> Depth & complexity analysis</li>
-                <li><i class="fas fa-check-circle"></i> Persisted queries support</li>
-            </ul>
-            <div class="stats">
-                <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="gqlhunter">0</span></span>
-                <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="gqlhunter">0</span></span>
-            </div>
-            <a class="link" href="https://github.com/bess1lie/gqlhunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
+        <p class="tool-purpose">Recon automation for bug bounty workflows.</p>
+        <div class="tool-focus-label">Focus</div>
+        <ul class="tool-focus">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Subdomain discovery</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Endpoint discovery</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Parameter analysis</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Reporting</li>
+        </ul>
+        <div class="tool-meta"><span class="pill">Python</span><span class="pill">MIT</span><span class="pill" data-stars="bounthunt">★ —</span></div>
+        <a class="tool-link" href="https://github.com/bess1lie/bounthunt" target="_blank" rel="noopener">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="tool-card">
+        <div class="tool-index"><span class="n">02</span><span>GraphQL</span></div>
+        <div class="tool-top">
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H4v4M16 3h4v4M8 21H4v-4M16 21h4v-4M7 12h10"/></svg></span>
+          <h3>gqlhunter</h3>
         </div>
-
-        <!-- apihunter (NEW) -->
-        <div class="tool-card reveal" data-tilt style="border-color: var(--accent-orange);">
-            <span class="icon">🔍</span>
-            <h3>apihunter <span class="new-badge">NEW</span></h3>
-            <p>Professional REST API security testing CLI.</p>
-            <ul class="feature-list">
-                <li><i class="fas fa-check-circle"></i> OpenAPI / Swagger discovery</li>
-                <li><i class="fas fa-check-circle"></i> Heuristic scanning (IDOR, CORS)</li>
-                <li><i class="fas fa-check-circle"></i> Authentication auditing</li>
-                <li><i class="fas fa-check-circle"></i> HTML / Markdown / SARIF reports</li>
-            </ul>
-            <div class="stats">
-                <span><i class="fas fa-star"></i> <span class="gh-stars" data-repo="apihunter">0</span></span>
-                <span><i class="fas fa-code-fork"></i> <span class="gh-forks" data-repo="apihunter">0</span></span>
-            </div>
-            <a class="link" href="https://github.com/bess1lie/apihunter">→ GitHub <i class="fas fa-arrow-right"></i></a>
+        <p class="tool-purpose">GraphQL security testing and introspection.</p>
+        <div class="tool-focus-label">Focus</div>
+        <ul class="tool-focus">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Introspection extraction</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Field fuzzing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Depth &amp; complexity analysis</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Auth analysis &amp; risk classification</li>
+        </ul>
+        <div class="tool-meta"><span class="pill">Python</span><span class="pill">MIT</span><span class="pill" data-stars="gqlhunter">★ —</span></div>
+        <a class="tool-link" href="https://github.com/bess1lie/gqlhunter" target="_blank" rel="noopener">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="tool-card">
+        <div class="tool-index"><span class="n">03</span><span>REST API</span></div>
+        <div class="tool-top">
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9.5 12l2 2 3.5-4"/></svg></span>
+          <h3>apihunter</h3>
         </div>
+        <p class="tool-purpose">REST API security testing CLI.</p>
+        <div class="tool-focus-label">Focus</div>
+        <ul class="tool-focus">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>OpenAPI / Swagger discovery</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Heuristic checks (IDOR, CORS)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Authentication auditing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>HTML / Markdown / SARIF reports</li>
+        </ul>
+        <div class="tool-meta"><span class="pill">Python</span><span class="pill">MIT</span><span class="pill" data-stars="apihunter">★ —</span></div>
+        <a class="tool-link" href="https://github.com/bess1lie/apihunter" target="_blank" rel="noopener">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
     </div>
+  </section>
 
-    <!-- Philosophy -->
-    <div class="philosophy reveal">
-        <h2><i class="fas fa-brain"></i> Why these tools?</h2>
-        <p><strong>Detection only, never exploitation.</strong> Every tool in this suite is built to <strong>identify</strong> security issues without causing harm. We believe in empowering security researchers and developers with clear, actionable findings — not in automating attacks.</p>
-        <p><strong>Scope‑aware by design.</strong> All tools respect configuration boundaries, so you can safely run them against production‑like environments without worrying about accidental damage.</p>
-        <p><strong>Open source, forever.</strong> MIT licensed, community‑driven, and built with modern Python.</p>
+  <!-- 03 · Evidence -->
+  <section class="block reveal" id="evidence" aria-labelledby="evidence-title">
+    <div class="sec-head">
+      <div class="sec-kicker">03 — Evidence</div>
+      <h2 class="sec-title" id="evidence-title">Real output, not mockups.</h2>
+      <p class="sec-sub">Screenshots from apihunter — discovery, heuristic scan and the generated HTML report. Select any image to inspect it.</p>
     </div>
+    <div class="evidence-grid">
+      <button class="evidence-item" data-full="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" data-caption="apihunter — OpenAPI endpoint discovery" aria-label="Enlarge screenshot: OpenAPI endpoint discovery">
+        <span class="evidence-shot"><img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" alt="apihunter terminal output showing discovered OpenAPI endpoints" loading="lazy" width="800" height="500" /></span>
+        <figcaption><strong><span class="fig">Fig. 01</span>OpenAPI discovery</strong><span>Endpoint enumeration with auth mapping</span></figcaption>
+      </button>
+      <button class="evidence-item" data-full="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" data-caption="apihunter — heuristic security scan" aria-label="Enlarge screenshot: heuristic security scan">
+        <span class="evidence-shot"><img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" alt="apihunter terminal output showing heuristic security findings" loading="lazy" width="800" height="500" /></span>
+        <figcaption><strong><span class="fig">Fig. 02</span>Heuristic scan</strong><span>IDOR, auth and misconfiguration checks</span></figcaption>
+      </button>
+      <button class="evidence-item" data-full="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" data-caption="apihunter — HTML report with severity badges" aria-label="Enlarge screenshot: HTML report">
+        <span class="evidence-shot"><img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" alt="apihunter generated HTML report with severity badges" loading="lazy" width="800" height="500" /></span>
+        <figcaption><strong><span class="fig">Fig. 03</span>HTML report</strong><span>Severity badges, shareable findings</span></figcaption>
+      </button>
+    </div>
+    <p class="evidence-note">More screenshots live in each repository's <code>docs/screenshots</code>. If an image fails to load, the repository remains the source of truth.</p>
+  </section>
 
-    <!-- Screenshots -->
-    <div class="section-header reveal" id="screenshots-section">
-        <h2><i class="fas fa-images"></i> Screenshots</h2>
-        <p>Visual overview of what each tool can do</p>
+  <!-- 04 · About + focus -->
+  <section class="block reveal" id="about" aria-labelledby="about-title">
+    <div class="two-col">
+      <div class="panel">
+        <div class="sec-kicker">04 — About</div>
+        <h2 id="about-title">Security engineer, tooling builder.</h2>
+        <p>I'm bess1lie. I work on detection-first, scope-aware security CLIs for bug hunters and security engineers — currently apihunter, bounthunt and gqlhunter.</p>
+        <p>My approach is deliberately narrow: small tools that do one stage well, respect configuration boundaries, and produce findings a human can act on. Open source, MIT-licensed, built with modern Python.</p>
+      </div>
+      <div class="panel" aria-labelledby="focus-title">
+        <div class="sec-kicker">Current focus</div>
+        <h2 id="focus-title" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Current focus</h2>
+        <ul class="focus-list">
+          <li><strong>Currently building</strong><span>Practical security CLIs: recon orchestration, API discovery and security heuristics.</span></li>
+          <li><strong>Research focus</strong><span>Attack-surface discovery, finding validation and actionable reporting within safe research boundaries.</span></li>
+        </ul>
+      </div>
     </div>
-    
-    <div class="screenshots-grid">
-        <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg">
-            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/discover.svg" alt="apihunter discover" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=screenshot-fallback><i class=\'fas fa-search\'></i><p>OpenAPI Discovery</p></div>'" />
-            <figcaption>🔍 Discovery of OpenAPI endpoints</figcaption>
-        </figure>
-        <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg">
-            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/scan.svg" alt="apihunter scan" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=screenshot-fallback><i class=\'fas fa-shield-alt\'></i><p>Security Scan</p></div>'" />
-            <figcaption>🛡️ Heuristic security scanning</figcaption>
-        </figure>
-        <figure class="screenshot-item reveal" data-src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg">
-            <img src="https://raw.githubusercontent.com/bess1lie/apihunter/main/docs/screenshots/report-html.svg" alt="apihunter HTML report" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=screenshot-fallback><i class=\'fas fa-file-alt\'></i><p>HTML Report</p></div>'" />
-            <figcaption>📊 HTML report with severity badges</figcaption>
-        </figure>
-    </div>
+  </section>
 
-    <!-- About Section -->
-    <section class="about-section reveal">
-        <h2><i class="fas fa-user"></i> About Me</h2>
-        <p>Security engineer specializing in detection‑first, scope‑aware security CLIs for bug hunters and security engineers. Creator of apihunter, bounthunt, and gqlhunter. Open source advocate.</p>
-    </section>
-
-    <!-- Quick install -->
-    <div class="section-header reveal" id="install-section">
-        <h2><i class="fas fa-terminal"></i> Quick Install</h2>
-        <p>Get started in seconds</p>
+  <!-- 05 · Principles + stack -->
+  <section class="block reveal" id="principles" aria-labelledby="principles-title">
+    <div class="sec-head">
+      <div class="sec-kicker">05 — Principles</div>
+      <h2 class="sec-title" id="principles-title">How the tools are built.</h2>
     </div>
-    
-    <div class="install-code reveal">
-        <pre># Install from source (Python ≥ 3.11)
+    <div class="principles">
+      <div class="principle"><div class="p-index">P·01</div><h3>Detection-first</h3><p>Identify issues and report them clearly — no exploitation automation.</p></div>
+      <div class="principle"><div class="p-index">P·02</div><h3>Scope-aware</h3><p>Every run respects configuration boundaries, so production-like targets stay safe.</p></div>
+      <div class="principle"><div class="p-index">P·03</div><h3>Open-source</h3><p>MIT-licensed and community-driven; the code is the documentation.</p></div>
+    </div>
+    <div class="stack-row" aria-label="Technical stack">
+      <span>Python</span><span>Security tooling</span><span>REST API</span><span>GraphQL</span><span>Automation</span><span>CLI</span><span>Reporting</span><span>Git / GitHub</span>
+    </div>
+  </section>
+
+  <!-- 06 · Install -->
+  <section class="block reveal" id="install" aria-labelledby="install-title">
+    <div class="sec-head">
+      <div class="sec-kicker">06 — Install</div>
+      <h2 class="sec-title" id="install-title">Running in under a minute.</h2>
+      <p class="sec-sub">Python ≥ 3.11. Each tool installs from source and runs independently.</p>
+    </div>
+    <div class="install-code">
+      <div class="install-head"><span>bash</span><button id="copyInstall" type="button">Copy</button></div>
+<pre id="installPre"><span class="c"># Install from source (Python ≥ 3.11)</span>
 git clone https://github.com/bess1lie/apihunter.git
-cd apihunter && pip install .
+cd apihunter &amp;&amp; pip install .
 
 git clone https://github.com/bess1lie/bounthunt.git
-cd bounthunt && pip install .
+cd bounthunt &amp;&amp; pip install .
 
 git clone https://github.com/bess1lie/gqlhunter.git
-cd gqlhunter && pip install .
+cd gqlhunter &amp;&amp; pip install .
 
-# Run your first scan
+<span class="c"># First run (example targets)</span>
 apihunter discover https://api.example.com
 bounthunt scan scope.yaml
 gqlhunter discover https://example.com/graphql</pre>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer reveal">
-        <div class="social-links">
-            <a href="https://github.com/bess1lie" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://bess1lie.github.io" target="_blank"><i class="fas fa-globe"></i></a>
+  <!-- 07 · Contact -->
+  <section class="block reveal" id="contact" aria-labelledby="contact-title">
+    <div class="contact-panel">
+      <div class="grow">
+        <div class="sec-kicker">07 — Contact</div>
+        <h2 id="contact-title">Questions, feedback, contributions.</h2>
+        <p>The fastest way to reach me is GitHub — open an issue on any repository or follow the work there.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="https://github.com/bess1lie" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          github.com/bess1lie
+        </a>
+        <a class="btn btn-ghost" href="#top">Back to top</a>
+      </div>
+    </div>
+  </section>
 
-        </div>
-        <p>MIT licensed · detection‑only security tooling</p>
-    </footer>
+</div><!-- /container -->
+</main>
 
+<footer class="site-footer">
+  <div class="container">
+    <p>© bess1lie · MIT-licensed, detection-only security tooling. Pure HTML / CSS / vanilla JS.</p>
+    <nav aria-label="Footer">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/bess1lie" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close viewer">×</button>
+  <figure>
+    <img id="lightboxImg" src="" alt="" />
+    <figcaption id="lightboxCaption"></figcaption>
+  </figure>
 </div>
 
 <script>
-    /* --- Theme Toggle --- */
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const html = document.documentElement;
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function setTheme(theme) {
-        html.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+  /* ---------- Theme ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeToggle');
+  var iconMoon = document.getElementById('themeIconMoon');
+  var iconSun = document.getElementById('themeIconSun');
+  function setTheme(t) {
+    root.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme', t); } catch (e) {}
+    var dark = t === 'dark';
+    iconMoon.style.display = dark ? '' : 'none';
+    iconSun.style.display = dark ? 'none' : '';
+    themeBtn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  setTheme(saved === 'light' ? 'light' : 'dark');
+  themeBtn.addEventListener('click', function () {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- Mobile nav ---------- */
+  var navToggle = document.getElementById('navToggle');
+  var siteNav = document.getElementById('siteNav');
+  var iconOpen = document.getElementById('navIconOpen');
+  var iconClose = document.getElementById('navIconClose');
+  function setNav(open) {
+    siteNav.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    iconOpen.style.display = open ? 'none' : '';
+    iconClose.style.display = open ? '' : 'none';
+  }
+  navToggle.addEventListener('click', function () {
+    setNav(!siteNav.classList.contains('open'));
+  });
+  siteNav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setNav(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && siteNav.classList.contains('open')) { setNav(false); navToggle.focus(); }
+  });
+
+  /* ---------- Reveal on scroll ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('visible'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- Terminal (business logic frozen — chrome only) ---------- */
+  var body = document.getElementById('terminalBody');
+  var input = document.getElementById('terminalInput');
+  var history = [];
+  var hIndex = -1;
+
+  var OUT = {
+    discover: 'discover :: openapi enumeration\n  found 4 endpoints\n  GET  /v1/users     auth: jwt\n  POST /v1/users     auth: jwt\n  POST /v1/login     auth: none\n  GET  /v1/admin     403 (rbac enforced)',
+    scan: 'scan :: heuristic checks\n  [CRITICAL] possible IDOR on /v1/users/{id}\n  [HIGH]     missing rate limiting on /v1/login\n  [OK]       no SQL injection patterns observed\n  completed in 12.3s — detection only, nothing exploited',
+    report: 'report :: findings bundle\n  [OK] report_<run_id>.html written\n  open it in a browser for severity-grouped findings',
+    whoami: 'bess1lie :: security engineer\n  building detection-first tooling for recon, API and GraphQL security',
+    projects: 'projects ::\n  bounthunt  recon automation for bug bounty workflows\n  gqlhunter  graphql security testing and introspection\n  apihunter  rest api security testing cli',
+    contact: 'contact ::\n  github   https://github.com/bess1lie\n  issues   open an issue on any repository — fastest response',
+    help: 'commands ::\n  whoami     who is behind these tools\n  projects   list the three tools\n  discover   find openapi endpoints\n  scan       run security heuristics\n  report     generate an html report\n  contact    where to reach me\n  clear      clear this console'
+  };
+  var SLOW = { discover: true, scan: true, report: true };
+
+  function addEcho(raw) {
+    var div = document.createElement('div');
+    div.className = 'term-line term-echo';
+    var p = document.createElement('span');
+    p.className = 'prompt'; p.textContent = '$ ';
+    var c = document.createElement('span');
+    c.textContent = raw;
+    div.appendChild(p); div.appendChild(c);
+    body.appendChild(div);
+  }
+  function addOut(text, cls) {
+    var div = document.createElement('div');
+    div.className = 'term-line ' + (cls || 'term-out');
+    div.textContent = text;
+    body.appendChild(div);
+  }
+  function scrollDown() { body.scrollTop = body.scrollHeight; }
+
+  function runResponse(key, done) {
+    if (SLOW[key] && !reduceMotion) {
+      addOut('… working', 'term-line term-dim');
+      scrollDown();
+      setTimeout(function () {
+        body.removeChild(body.lastChild);
+        addOut(OUT[key]);
+        scrollDown();
+        if (done) done();
+      }, 350);
+    } else {
+      addOut(OUT[key]);
+      scrollDown();
+      if (done) done();
     }
+  }
 
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
+  function process(raw) {
+    var trimmed = raw.trim();
+    if (!trimmed) return;
+    addEcho(trimmed);
+    var lower = trimmed.toLowerCase().replace(/\s+/g, ' ');
+    if (lower === 'clear' || lower === 'cls') { body.innerHTML = ''; printWelcome(false); scrollDown(); return; }
+    var cmd = lower;
+    if (cmd.indexOf('apihunter ') === 0) cmd = cmd.slice(9).trim();
+    cmd = cmd.split(' ')[0];
+    if (OUT[cmd]) { runResponse(cmd); return; }
+    addOut("command not found: '" + trimmed + "' — try: help", 'term-line term-err');
+    scrollDown();
+  }
 
-    themeToggle.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        setTheme(current === 'dark' ? 'light' : 'dark');
+  function printWelcome(withHint) {
+    addOut('bess1lie console — detection-only security tooling', 'term-line term-dim');
+    addOut("type 'help' to list commands. Up/Down recalls history, Tab completes.", 'term-line term-dim');
+  }
+  printWelcome();
+  scrollDown();
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      var v = input.value;
+      if (v.trim()) { history.push(v); hIndex = history.length; }
+      process(v);
+      input.value = '';
+    } else if (e.key === 'ArrowUp') {
+      if (!history.length) return;
+      e.preventDefault();
+      hIndex = Math.max(0, hIndex - 1);
+      input.value = history[hIndex] || '';
+      requestAnimationFrame(function () { input.setSelectionRange(input.value.length, input.value.length); });
+    } else if (e.key === 'ArrowDown') {
+      if (!history.length) return;
+      e.preventDefault();
+      hIndex = Math.min(history.length, hIndex + 1);
+      input.value = hIndex >= history.length ? '' : history[hIndex];
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      var cur = input.value.trim().toLowerCase();
+      if (!cur) return;
+      var names = Object.keys(OUT).concat(['clear']);
+      var hit = names.filter(function (n) { return n.indexOf(cur) === 0; });
+      if (hit.length === 1) input.value = hit[0];
+      else if (hit.length > 1) { addEcho(cur); addOut(hit.join('   '), 'term-line term-dim'); scrollDown(); }
+    } else if (e.key === 'l' && e.ctrlKey) {
+      e.preventDefault();
+      body.innerHTML = ''; printWelcome(false); scrollDown();
+    }
+  });
+  document.querySelectorAll('.chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var cmd = chip.getAttribute('data-cmd');
+      if (history[history.length - 1] !== cmd) { history.push(cmd); }
+      hIndex = history.length;
+      process(cmd);
+      input.focus();
     });
+  });
+  document.getElementById('terminal').addEventListener('click', function (e) {
+    if (e.target.closest('button, a, input')) return;
+    input.focus();
+  });
 
-    /* --- Particle Background --- */
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height, particles = [];
-
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        initParticles();
-    }
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.4;
-            this.vy = (Math.random() - 0.5) * 0.4;
-            this.size = Math.random() * 2 + 1;
-            this.opacity = Math.random() * 0.4 + 0.1;
-        }
-        update() {
-            this.x += this.vx; this.y += this.vy;
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
-        }
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = html.getAttribute('data-theme') === 'dark' ? `rgba(88, 166, 255, ${this.opacity})` : `rgba(0, 0, 0, ${this.opacity})`;
-            ctx.fill();
-        }
-    }
-
-    function initParticles() {
-        particles = [];
-        const count = Math.min(Math.floor((width * height) / 15000), 120);
-        for (let i = 0; i < count; i++) particles.push(new Particle());
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', resize);
-    resize();
-    animate();
-
-    /* --- Terminal Emulator --- */
-    const terminalBody = document.getElementById('terminalBody');
-    const terminalInput = document.getElementById('terminalInput');
-
-    const commands = {
-        discover: () => `🔍 Discovering OpenAPI endpoints...\n  Found 4 endpoints\n  GET  /v1/users     → JWT\n  POST /v1/users     → JWT\n  POST /v1/login     → None\n  GET  /v1/admin     → 403 (RBAC)`,
-        scan: () => `🛡️ Running security scan...\n  ⚡ Scan completed in 12.3s\n  ❌ CRITICAL IDOR on /v1/users/{id}\n  ⚠️ HIGH Missing rate limiting on /v1/login\n  ✅ No SQL injection detected`,
-        report: () => `📊 Generating HTML report...\n  ✅ Report saved to report_<run_id>.html\n  Open it in your browser to see detailed findings.`,
-        help: () => `Available commands:\n  discover  — find OpenAPI endpoints\n  scan      — run security heuristics\n  report    — generate HTML report\n  clear     — clear terminal\n  help      — show this message`,
-        clear: () => { terminalBody.innerHTML = ''; return ''; }
-    };
-
-    function appendOutput(text, isCommand = false) {
-        const div = document.createElement('div');
-        if (isCommand) {
-            div.innerHTML = `<span class="prompt">$</span> <span class="command">${text}</span>`;
-        } else {
-            div.className = 'output';
-            div.textContent = text;
-        }
-        terminalBody.appendChild(div);
-        terminalBody.scrollTop = terminalBody.scrollHeight;
-    }
-
-    function processCommand(cmd) {
-        const trimmed = cmd.trim();
-        if (!trimmed) return;
-        appendOutput(trimmed, true);
-        if (trimmed === 'clear') return;
-        const lower = trimmed.toLowerCase();
-        let response = '';
-        if (lower === 'help') response = commands.help();
-        else if (lower === 'discover') response = commands.discover();
-        else if (lower === 'scan') response = commands.scan();
-        else if (lower === 'report') response = commands.report();
-        else if (lower.startsWith('apihunter')) {
-            if (lower.includes('discover')) response = commands.discover();
-            else if (lower.includes('scan')) response = commands.scan();
-            else if (lower.includes('report')) response = commands.report();
-            else response = `❌ Unknown apihunter subcommand. Try: discover, scan, report`;
-        } else {
-            response = `❌ Command not found: ${trimmed}. Try: help, discover, scan, report, clear`;
-        }
-        if (response) {
-            setTimeout(() => {
-                const outputDiv = document.createElement('div');
-                outputDiv.className = 'output';
-                outputDiv.style.whiteSpace = 'pre-wrap';
-                outputDiv.textContent = response;
-                terminalBody.appendChild(outputDiv);
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-            }, 100);
-        }
-    }
-
-    // Typewriter Effect
-    function typeWriter(element, text, speed = 30) {
-        let i = 0;
-        element.innerHTML = '';
-        const interval = setInterval(() => {
-            element.innerHTML += text.charAt(i);
-            i++;
-            if (i >= text.length) clearInterval(interval);
-        }, speed);
-    }
-
-    // Initial demo
-    window.addEventListener('load', () => {
-        const demoLines = [
-            { type: 'cmd', text: 'echo "Welcome to bess1lie security tools"' },
-            { type: 'out', text: 'Welcome to bess1lie security tools' },
-            { type: 'cmd', text: 'apihunter discover https://api.example.com' },
-            { type: 'out', text: '🔍 Discovered 4 endpoints\nGET  /v1/users     → JWT\nPOST /v1/users     → JWT' }
-        ];
-        
-        let lineIdx = 0;
-        function runDemo() {
-            if (lineIdx < demoLines.length) {
-                const line = demoLines[lineIdx];
-                if (line.type === 'cmd') {
-                    const div = document.createElement('div');
-                    div.innerHTML = `<span class="prompt">$</span> <span class="command" id="demo-cmd-${lineIdx}"></span>`;
-                    terminalBody.appendChild(div);
-                    typeWriter(document.getElementById(`demo-cmd-${lineIdx}`), line.text);
-                } else {
-                    const div = document.createElement('div');
-                    div.className = 'output';
-                    div.textContent = line.text;
-                    terminalBody.appendChild(div);
-                }
-                lineIdx++;
-                setTimeout(runDemo, 1000);
-            }
-        }
-        runDemo();
+  /* ---------- GitHub stars (quiet, honest) ---------- */
+  function setStars(repo, n) {
+    document.querySelectorAll('[data-stars="' + repo + '"]').forEach(function (el) {
+      el.textContent = '★ ' + n;
     });
+  }
+  ['bounthunt', 'gqlhunter', 'apihunter'].forEach(function (repo) {
+    fetch('https://api.github.com/repos/bess1lie/' + repo)
+      .then(function (r) { if (!r.ok) throw new Error('gh'); return r.json(); })
+      .then(function (d) {
+        if (typeof d.stargazers_count === 'number') setStars(repo, d.stargazers_count);
+        else throw new Error('gh');
+      })
+      .catch(function () {
+        document.querySelectorAll('[data-stars="' + repo + '"]').forEach(function (el) { el.style.display = 'none'; });
+      });
+  });
 
-    terminalInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            processCommand(terminalInput.value);
-            terminalInput.value = '';
-        }
+  /* ---------- Lightbox ---------- */
+  var lightbox = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightboxImg');
+  var lbCap = document.getElementById('lightboxCaption');
+  var lbClose = document.getElementById('lightboxClose');
+  var lastFocus = null;
+  document.querySelectorAll('.evidence-item').forEach(function (item) {
+    item.addEventListener('click', function () {
+      lastFocus = document.activeElement;
+      var img = item.querySelector('img');
+      lbImg.src = item.getAttribute('data-full');
+      lbImg.alt = img ? img.alt : item.getAttribute('data-caption');
+      lbCap.textContent = item.getAttribute('data-caption');
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
     });
-
-    /* --- GitHub Stats --- */
-    async function fetchGitHubStats() {
-        const repos = ['apihunter', 'bounthunt', 'gqlhunter'];
-        const baseUrl = 'https://api.github.com/repos/bess1lie';
-        for (const repo of repos) {
-            try {
-                const resp = await fetch(`${baseUrl}/${repo}`);
-                if (!resp.ok) throw new Error();
-                const data = await resp.json();
-                document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.stargazers_count || 0, 1000));
-                document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => animateValue(el, 0, data.forks_count || 0, 1000));
-            } catch (e) {
-                document.querySelectorAll(`.gh-stars[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
-                document.querySelectorAll(`.gh-forks[data-repo="${repo}"]`).forEach(el => el.textContent = '0');
-            }
-        }
-        const totalStars = document.querySelectorAll('.gh-stars');
-        let total = 0;
-        totalStars.forEach(el => {
-            const val = parseInt(el.textContent);
-            if (!isNaN(val)) total += val;
-        });
-        const totalEl = document.getElementById('totalStars');
-        if (totalEl) animateValue(totalEl, 0, total, 1200);
+    var img = item.querySelector('img');
+    if (img) {
+      img.addEventListener('error', function () {
+        var shot = item.querySelector('.evidence-shot');
+        shot.innerHTML = '<div class="evidence-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/></svg><span>Screenshot unavailable — see the repository</span></div>';
+      }, { once: true });
     }
+  });
+  function closeLb() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  lbClose.addEventListener('click', closeLb);
+  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLb(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLb();
+  });
 
-    function animateValue(el, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const val = Math.floor(progress * (end - start) + start);
-            el.textContent = `${val}`;
-            if (progress < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
+  /* ---------- Copy install ---------- */
+  var copyBtn = document.getElementById('copyInstall');
+  copyBtn.addEventListener('click', function () {
+    var text = document.getElementById('installPre').innerText;
+    function ok() { copyBtn.textContent = 'Copied'; setTimeout(function () { copyBtn.textContent = 'Copy'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, function () { copyBtn.textContent = 'Copy failed'; });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ok(); } catch (e) { copyBtn.textContent = 'Copy failed'; }
+      document.body.removeChild(ta);
     }
-    fetchGitHubStats();
-
-    /* --- 3D Tilt Effect --- */
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 15;
-            const rotateY = (centerX - x) / 15;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
-        });
-    });
-
-    /* --- Lightbox --- */
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxClose = document.getElementById('lightboxClose');
-
-    document.querySelectorAll('.screenshot-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const src = item.getAttribute('data-src');
-            if (src) {
-                lightboxImg.src = src;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    });
-
-    lightboxClose.addEventListener('click', () => {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    });
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    /* --- Intersection Observer (Scroll Reveal) --- */
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('active');
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal, .tool-card, .section-header, .philosophy, .screenshots-grid, .install-code, .footer, .about-section').forEach(el => {
-        observer.observe(el);
-    });
-
-    /* --- Keyboard Support --- */
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
+  });
+})();
 </script>
 </body>
 </html>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bess1lie.github.io/sitemap.xml
