@@ -72,7 +72,16 @@ templates dominate — restraint is the differentiator).
 - Contact names both lines plainly, one CTA, no "let's build something amazing".
 - Footer reduced to copyright only; positioning lives in content, not chrome.
 
-## Prior pass (v3, kept)
+## Unified profile pass (2026-09-25)
+
+GitHub profile + site tell one story: security tooling first, web/AI second.
+GitHub Docs: profile README = about + proud contributions + contact — nothing
+else earns space. antfu pattern: links beat decoration; zero external images.
+
+- Demo links removed from both surfaces; one portfolio CTA instead
+  (developer-portfolio vercel URL, verified 200). Demos stay on disk, unlinked.
+- AI-admin: visible project, no domain/repo anywhere (swept HTML/MD/href/meta).
+- Contact paths identical on both: site, email, Telegram, GitHub.
 
 Hero measure + two-line headline form; indexed kickers; terminal session
 metadata + kbd hints; project cards with index + category label; evidence as
