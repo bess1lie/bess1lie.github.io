@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0a0f1e">
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon-barbershop.svg">
 <title>Жігіт | Barbershop Алматы</title>
 <meta name="description" content="Барбершоп Жігіт, Алматы, пр. Абая 44/2. Мужские стрижки, борода, бритьё. Запись за 30 секунд.">
 <style>
@@ -25,7 +26,8 @@
 .faq{border-top:1px solid var(--line)}details{border-bottom:1px solid var(--line);padding:22px 0}summary{cursor:pointer;font-weight:800;font-size:16px;list-style:none;display:flex;justify-content:space-between}summary::-webkit-details-marker{display:none}summary:after{content:"+";font-family:"Courier New",monospace;color:var(--gold);font-size:22px}details[open] summary:after{content:"−"}details p{color:var(--muted);max-width:800px;padding-right:50px}
 .footer{background:#060a14;color:#778196;padding:30px 0 80px;font-size:12px}.footer .inner{display:flex;justify-content:space-between;gap:20px}
 .sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#0a0f1ef0;backdrop-filter:blur(8px);border-top:1px solid rgba(200,169,106,.35);padding:10px 14px;display:none}.sticky .inner{display:flex;align-items:center;justify-content:space-between;gap:12px}.sticky small{color:#bbc3d1}.sticky .btn{padding:12px 15px}
-@media(max-width:900px){.navlinks{display:none}.menu{display:none}.menu-toggle{display:flex}.navlinks.open{position:fixed;left:0;right:0;top:76px;bottom:0;background:#0a0f1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;z-index:15}.navlinks.open a{font-size:18px;color:#fff}.hero .grid{grid-template-columns:1fr}.hero{min-height:auto}.hero .grid{min-height:auto;padding-top:90px;padding-bottom:100px}.hero .big-num{text-align:left;font-size:180px}.num-label{text-align:left}.price-grid{grid-template-columns:1fr}.about,.contactgrid{grid-template-columns:1fr;gap:45px}.work:nth-child(n){grid-column:span 6}.cta .inner{flex-direction:column;align-items:flex-start}.sticky{display:block}}
+section[id]{scroll-margin-top:90px}
+@media(max-width:900px){.navlinks{display:none}.menu{display:none}.menu-toggle{display:flex}.navlinks.open{position:fixed;left:0;right:0;top:76px;bottom:0;background:#0a0f1e;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;z-index:15}.navlinks.open a{font-size:18px;color:#fff;min-height:44px;display:flex;align-items:center;padding:6px 0}.hero .grid{grid-template-columns:1fr}.hero{min-height:auto}.hero .grid{min-height:auto;padding-top:90px;padding-bottom:100px}.hero .big-num{text-align:left;font-size:180px}.num-label{text-align:left}.price-grid{grid-template-columns:1fr}.about,.contactgrid{grid-template-columns:1fr;gap:45px}.work:nth-child(n){grid-column:span 6}.cta .inner{flex-direction:column;align-items:flex-start}.sticky{display:block}}
 @media(max-width:620px){.topbar .inner{min-height:34px;font-size:10px}.topbar .right{display:none}:root{--pad:16px}.nav .inner{height:66px;gap:12px}.brand{font-size:11px;letter-spacing:.05em;white-space:nowrap}.navcta{padding:10px 12px;font-size:10px;white-space:nowrap}.menu-toggle{padding:6px 8px}.menu-toggle::before{content:"";position:absolute;inset:-8px}.navlinks.open{top:66px}.hero .grid{padding-top:70px}.hero h1{font-size:clamp(34px,11vw,54px)}.actions{flex-direction:column;align-items:stretch}.actions .btn{width:100%}.section{padding:65px 0}.sectionhead{display:block;margin-bottom:32px}.sectionhead p{margin-top:15px}.price-title{display:grid;grid-template-columns:1fr auto;gap:5px}.price-title:after{grid-column:1 / -1;order:3}.price-card{min-height:0}.works-grid{gap:7px}.work:nth-child(n){grid-column:span 12;min-height:230px}.chairs{grid-template-columns:1fr 1fr}.chair{height:260px}.team,.reviews,.form-row{grid-template-columns:1fr}.portrait{height:310px}.footer .inner{display:block}.footer .inner span{display:block;margin-top:8px}.sticky small{font-size:10px}.sticky .btn{font-size:11px;padding:11px 12px}.contactgrid{gap:35px}}
 </style>
 </head>
@@ -127,6 +129,7 @@ if(menuToggle){
 }
 
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('click',e=>{if(nav.classList.contains('open')&&!nav.contains(e.target)&&e.target!==menuToggle&&!menuToggle.contains(e.target))setMenu(false);});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false);});
 
 document.getElementById('booking').addEventListener('submit',e=>{
