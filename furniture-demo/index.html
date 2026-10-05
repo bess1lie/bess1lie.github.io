@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fdfcf8">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon-furniture.svg">
   <meta name="description" content="Ағаш, столярная мастерская в Алматы. Мебель из массива берёзы, дуба и ясеня по вашим размерам. Свой цех, с 2016 года.">
   <meta property="og:title" content="Ағаш, мебель, которая переживет ремонт">
   <meta property="og:description" content="Мебель из массива дерева по вашим размерам. Алматы, свой цех, фиксированная цена в договоре.">
@@ -209,8 +210,8 @@
     .faq-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; }
     .faq-list { border-top: 1px solid var(--line); }
     .faq-item { border-bottom: 1px solid var(--line); }
-    .faq-question { width: 100%; padding: 22px 0; background: transparent; display: flex; justify-content: space-between; gap: 24px; text-align: left; font-weight: 800; }
-    .faq-question > span:first-child { min-width: 0; }
+    .faq-question { width: 100%; padding: 22px 0; background: transparent; display: flex; justify-content: space-between; align-items: center; gap: 24px; text-align: left; font-weight: 800; }
+    .faq-question > span:first-child { min-width: 0; flex: 1; }
     .faq-icon { color: var(--wood); font-size: 21px; line-height: 1; transition: transform .2s ease; flex-shrink: 0; }
     .faq-answer { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
     .faq-answer p { margin: -4px 0 22px; color: var(--muted); font-size: 14px; max-width: 620px; }
@@ -248,6 +249,8 @@
       .nav { min-height: 68px; }
       .nav-links { position: fixed; top: 100%; left: 0; right: 0; height: calc(100vh - 68px); height: calc(100svh - 68px); background: var(--cream); padding: 30px 28px; flex-direction: column; align-items: flex-start; gap: 18px; opacity: 0; visibility: hidden; transform: translateY(-12px); transition: opacity .25s ease, transform .25s ease, visibility 0s .25s; border-top: 1px solid var(--line); }
       .nav-links.open { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity .25s ease, transform .25s ease; }
+      .nav-links.open a { min-height: 44px; display: flex; align-items: center; }
+      section[id] { scroll-margin-top: 84px; }
       .header-cta { display: none; }
       .menu-toggle { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
       .menu-toggle span { margin: 0; }
@@ -520,6 +523,9 @@
         const open = siteNav.classList.toggle('open');
         document.body.classList.toggle('menu-open', open);
         menuToggle.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', function (event) {
+        if (siteNav.classList.contains('open') && !siteNav.contains(event.target) && !menuToggle.contains(event.target)) closeMenu();
       });
       document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') closeMenu();
