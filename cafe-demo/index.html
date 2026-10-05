@@ -6,10 +6,12 @@
     <title>Кофейня «Дәме» — Кофе со свежей обжарки в центре Алматы</title>
     <meta name="description" content="Небольшая кофейня в центре Алматы: варим кофе из зерна свежей обжарки, по утрам подаём завтраки, днём у нас тихо — можно поработать.">
     
-    <!-- Шрифты: используем @import для соблюдения требования "один файл", с системными фоллбэками на случай строгой изоляции -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon-cafe.svg">
+    <!-- Шрифты отдельным link (вместо @import): те же гарнитуры, один файл, быстрее первая отрисовка -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:opsz,wght@9..144,800&family=Manrope:wght@400;500;600&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Fraunces:opsz,wght@9..144,800&family=Manrope:wght@400;500;600&display=swap');
-
         :root {
             --cream: #fdf8f3;
             --terracotta: #9a3412;
@@ -182,6 +184,7 @@
                 width: 80%;
                 max-width: 320px;
                 height: 100vh;
+                height: 100dvh;
                 background: var(--cream);
                 flex-direction: column;
                 padding: 100px 32px 32px;
@@ -200,12 +203,22 @@
             .nav-links a {
                 font-size: 18px;
                 font-weight: 600;
+                padding: 10px 0;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
             }
+        }
+
+        /* Якоря: не прятать заголовки секций под липкой шапкой */
+        section[id] {
+            scroll-margin-top: 90px;
         }
 
         /* Hero Section */
         #hero {
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -712,7 +725,7 @@
 </head>
 <body>
 
-    <header>
+    <header id="top">
         <nav>
             <a href="#top" class="logo">Дәме</a>
             <button class="menu-toggle" aria-label="Меню" aria-expanded="false" aria-controls="mobileNav">
