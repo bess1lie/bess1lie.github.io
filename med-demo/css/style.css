@@ -12,3 +12,10 @@
 .contact-item a{min-height:44px;display:inline-flex;align-items:center}
 /* tapfix2 */
 .brand{min-height:44px;display:inline-flex;align-items:center}.services-foot a{min-height:44px;display:inline-flex;align-items:center}
+
+/* hero-mirror: figure left, copy right (redesign) */
+@media (width >= 780px){
+.hero-grid{grid-template-columns:minmax(300px,.72fr) minmax(0,1.08fr)}
+.hero-figure{order:1}
+.hero-copy{order:2;min-width:0}
+}
