@@ -183,3 +183,9 @@ details p{margin:0 0 18px;color:#53606a;max-width:44rem;font-size:15px}
 
 /* a11y-tapfix: min 44px tap zones (audit fix, no visual change) */
 .brand{min-height:44px;display:inline-flex;align-items:center}a[href^="tel:"]{min-height:44px;display:inline-flex;align-items:center}
+
+/* hero-stack: full-width copy, route panel as wide band below (redesign) */
+.hero-grid{grid-template-columns:minmax(0,1fr)}
+.hero-copy{max-width:880px}
+.hero-visual{min-height:300px}
+@media (min-width:768px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero-visual{min-height:330px}}
