@@ -155,3 +155,11 @@ details p{max-width:690px;padding:0 42px 20px 0;margin:0;color:var(--ink-soft);f
 .wordmark{min-height:44px;display:inline-flex;align-items:center}.text-link{min-height:44px;display:inline-flex;align-items:center}section[id]{scroll-margin-top:84px}
 /* tapfix2: grid blowout guard + final-link 44px */
 .booking-panel,.booking-side{min-width:0}.final-link{min-height:44px;display:inline-flex;align-items:center}
+
+/* hero-center: centered composition, art as full-width band (redesign) */
+.hero{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}
+.hero-copy{display:flex;flex-direction:column;align-items:center;max-width:780px}
+.hero-actions{justify-items:center}
+.hero-lede{max-width:560px}
+.hero-art{width:100%;margin-left:0;margin-top:8px;min-height:340px;border-left:0;border-top:1px solid var(--rule)}
+@media (min-width:700px){.hero-art{min-height:420px}.hero{padding-bottom:56px}}
