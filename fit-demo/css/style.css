@@ -13,3 +13,11 @@
 .brand{min-height:44px;display:inline-flex;align-items:center}.address a{min-height:44px;display:inline-flex;align-items:center}
 /* tapfix2 */
 .price-card a{min-height:44px}.footer-bottom a{min-height:44px;display:inline-flex;align-items:center}
+
+/* hero-band: full-width statement, art as wide band below (redesign) */
+.hero-grid{grid-template-columns:minmax(0,1fr)}
+.hero-copy{max-width:none}
+.hero h1{max-width:none}
+.hero-art{min-height:300px}
+@media (min-width:768px){.hero-art{min-height:340px}}
+@media (min-width:1100px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero-art{min-height:380px}}
