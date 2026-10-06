@@ -57,7 +57,7 @@ h1 em,h2 em{font-style:normal;color:var(--bone-soft)}
 .media-hero .shape{position:absolute;z-index:1}
 .shape-a{width:62%;aspect-ratio:1;background:var(--brass);left:11%;top:13%;transform:rotate(17deg)}
 .shape-b{width:55%;aspect-ratio:1;border:1px solid var(--bone);right:7%;bottom:9%;transform:rotate(-11deg)}
-.frame-label{position:absolute;z-index:2;left:14px;bottom:12px;color:var(--bg);font-size:10px;font-weight:600;letter-spacing:.14em;background:var(--brass);padding:6px 8px}
+.frame-label{position:absolute;z-index:4;left:14px;bottom:12px;color:var(--bg);font-size:10px;font-weight:600;letter-spacing:.14em;background:var(--brass);padding:6px 8px}
 .media-hero figcaption,.work-item figcaption{margin-top:8px;color:var(--muted);font-size:13px;line-height:1.35}
 .section{padding-block:78px}
 h2{font-size:clamp(52px,11vw,82px);line-height:1.08;text-transform:uppercase}
@@ -150,3 +150,12 @@ html[data-lang="kk"] .lang-kk{background:var(--bone);color:var(--bg)}html[data-l
 .work-small:nth-child(3) .work-frame{min-height:300px}
 .work-small:nth-child(5) .work-frame{min-height:320px}
 }
+
+/* hero-type: pure typographic hero, no photo */
+.hero{position:relative;overflow:hidden}
+.hero-copy{position:relative}
+.hero::before{content:"\0424";position:absolute;z-index:0;right:-1%;top:54%;transform:translateY(-50%);font-family:"Oswald Local","Oswald Fallback",sans-serif;font-weight:600;font-size:clamp(280px,34vw,520px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(209,178,119,.26);pointer-events:none;user-select:none}
+.hero-grid{position:relative;z-index:1}
+@media (max-width:699px){.hero::before{display:none}}
+.hero-copy h1{margin-bottom:0}
+.hero-lede{border-top:1px solid var(--line-strong);padding-top:26px;max-width:34rem}
