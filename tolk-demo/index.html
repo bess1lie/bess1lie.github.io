@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ТОЛК — автосервис в Алматы. Ремонт с прозрачной сметой</title>
+  <meta name="description" content="Диагностика, ТО, тормоза, подвеска, шиномонтаж и кондиционер. Смета до работ, фотоотчёт и запись онлайн. Алматы, ул. Рыскулова, 103.">
+  <meta name="theme-color" content="#0B0C0D">
+  <link rel="canonical" href="https://bess1lie.github.io/tolk-demo/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="ТОЛК — автосервис в Алматы">
+  <meta property="og:description" content="Ремонт, в котором есть толк. Диагностика, смета до работ, фотоотчёт и запись онлайн.">
+  <meta property="og:image" content="https://bess1lie.github.io/tolk-demo/assets/og.png">
+  <meta property="og:url" content="https://bess1lie.github.io/tolk-demo/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoRepair",
+    "name": "ТОЛК",
+    "url": "https://bess1lie.github.io/tolk-demo/",
+    "description": "Независимый автосервис в Алматы: диагностика, ТО, тормоза, подвеска, шиномонтаж, кондиционер, автоэлектрика.",
+    "image": "https://bess1lie.github.io/tolk-demo/assets/og.png",
+    "telephone": "+7 777 000-00-00",
+    "priceRange": "₸₸",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ул. Рыскулова, 103",
+      "addressLocality": "Алматы",
+      "addressCountry": "KZ"
+    },
+    "areaServed": "Алматы",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:00",
+        "closes": "19:00"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="top-anchor" id="top" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="ТОЛК — на главную">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">ТОЛК</span>
+        <span class="brand-sub">автосервис</span>
+      </a>
+
+      <nav class="nav" id="site-nav" aria-label="Основная навигация">
+        <a href="#services">Услуги</a>
+        <a href="#prices">Цены</a>
+        <a href="#process">Как работаем</a>
+        <a href="#ai">AI-админ</a>
+        <a href="#faq">Вопросы</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-phone" href="tel:+77770000000">+7 777 000-00-00</a>
+        <a class="btn btn-sm btn-accent" href="#contact">Записаться</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="hero-ring hero-ring-1"></span>
+        <span class="hero-ring hero-ring-2"></span>
+        <span class="hero-ring hero-ring-3"></span>
+        <span class="hero-cross hero-cross-1"></span>
+        <span class="hero-cross hero-cross-2"></span>
+        <span class="hero-number">24</span>
+        <span class="hero-grid-lines"></span>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span> Алматы · независимый автосервис</p>
+          <h1>Ремонт, в котором есть <em>толк</em></h1>
+          <p class="hero-lead">Диагностика, смета до работ и фотоотчёт. Чтобы вы понимали, за что платите, даже если не разбираетесь в машинах.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="#contact">Записаться на диагностику</a>
+            <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
+          </div>
+
+          <ul class="hero-trust" aria-label="Что входит в работу">
+            <li><span class="check" aria-hidden="true"></span> Смета до работ</li>
+            <li><span class="check" aria-hidden="true"></span> Фотоотчёт</li>
+            <li><span class="check" aria-hidden="true"></span> Запись без звонка</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <div class="workorder" aria-label="Пример заказ-наряда">
+            <div class="wo-top">
+              <span class="mono">Заказ-наряд</span>
+              <span class="mono">№ 024</span>
+            </div>
+
+            <div class="wo-car">
+              <span class="wo-label">Автомобиль</span>
+              <strong>Toyota Camry</strong>
+              <span class="wo-meta">2021 · 2.5 · 78 400 км</span>
+            </div>
+
+            <div class="wo-lines">
+              <div class="wo-line">
+                <span>Диагностика ходовой</span>
+                <span>7 400 ₸</span>
+              </div>
+              <div class="wo-line">
+                <span>Передние колодки</span>
+                <span>24 300 ₸</span>
+              </div>
+              <div class="wo-line">
+                <span>Смазка направляющих</span>
+                <span>3 900 ₸</span>
+              </div>
+            </div>
+
+            <div class="wo-total">
+              <span>Смета до работ</span>
+              <strong>35 600 ₸</strong>
+            </div>
+
+            <div class="wo-status">
+              <span class="status-dot" aria-hidden="true"></span>
+              Согласовано с клиентом
+            </div>
+
+            <div class="wo-footer">
+              <span class="mono">Фотоотчёт</span>
+              <span class="photo-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mono">3 фото</span>
+            </div>
+          </div>
+
+          <p class="hero-note mono">Пример заказ-наряда. Цены — заглушки.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Диагностика</span><span>ТО</span><span>Тормоза</span><span>Подвеска</span><span>Шиномонтаж</span><span>Кондиционер</span><span>Автоэлектрика</span><span>Развал-схождение</span>
+        <span>Диагностика</span><span>ТО</span><span>Тормоза</span><span>Подвеска</span><span>Шиномонтаж</span><span>Кондиционер</span><span>Автоэлектрика</span><span>Развал-схождение</span>
+      </div>
+    </div>
+
+    <section class="section section-paper" aria-labelledby="problem-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Знакомо?</p>
+          <h2 id="problem-title">Ремонт начинается не с цены.<br>Он начинается с <em>доверия</em>.</h2>
+          <p class="lead">В автосервисе самое дорогое — не запчасти, а непонимание. Мы убираем его на каждом этапе.</p>
+        </div>
+
+        <div class="pain-grid">
+          <article class="pain">
+            <span class="mono">01</span>
+            <h3>«Сначала разберём, потом скажем»</h3>
+            <p>Не называем цену вслепую. Сначала диагностика и список работ — потом смета.</p>
+          </article>
+          <article class="pain">
+            <span class="mono">02</span>
+            <h3>«Покажем, что сняли»</h3>
+            <p>Фото и видео каждого этапа. Не нужно верить на слово и ехать перепроверять.</p>
+          </article>
+          <article class="pain">
+            <span class="mono">03</span>
+            <h3>«Запись без дозвонов»</h3>
+            <p>Форма или WhatsApp. AI-админ ответит, даже когда мастер занят.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" id="process" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-head section-head-split">
+          <div>
+            <p class="eyebrow">Процесс</p>
+            <h2 id="process-title">Четыре шага.<br>Без <em>тумана</em>.</h2>
+          </div>
+          <p class="lead">Вы всегда знаете, на каком этапе машина и что будет дальше. Никаких «перезвоним» без ответа.</p>
+        </div>
+
+        <div class="process-grid">
+          <article class="step">
+            <span class="step-num">01</span>
+            <h3>Слушаем</h3>
+            <p>Вы описываете симптом. Мы задаём вопросы и фиксируем, что проверить.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">02</span>
+            <h3>Диагностируем</h3>
+            <p>Проверяем по чек-листу. Показываем износ и объясняем, что критично, а что может подождать.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">03</span>
+            <h3>Считаем</h3>
+            <p>Смета с работами и запчастями. Согласуем до начала ремонта.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">04</span>
+            <h3>Чиним</h3>
+            <p>Присылаем фото и отчёт. Возвращаем машину с понятным списком работ.</p>
+          </article>
+        </div>
+
+        <p class="process-note"><span class="mono">Важно</span> Если во время ремонта найдётся что-то ещё — сначала согласуем, потом делаем.</p>
+      </div>
+    </section>
+
+    <section class="section section-paper" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head section-head-split">
+          <div>
+            <p class="eyebrow">Услуги</p>
+            <h2 id="services-title">Чиним <em>по делу</em></h2>
+          </div>
+          <p class="lead">Основное — ходовая, тормоза, ТО и электрика. Цены ниже — примерные: финальная смета после диагностики.</p>
+        </div>
+
+        <div class="services-grid" id="prices">
+          <article class="service-card">
+            <span class="service-num">01</span>
+            <h3>Диагностика</h3>
+            <p>Ходовая, двигатель, электрика. 24 пункта проверки.</p>
+            <p class="price"><span>от</span> 7 400 ₸</p>
+          </article>
+          <article class="service-card">
+            <span class="service-num">02</span>
+            <h3>ТО</h3>
+            <p>Масло, фильтры, жидкости по регламенту.</p>
+            <p class="price"><span>от</span> 18 700 ₸</p>
+          </article>
+          <article class="service-card">
+            <span class="service-num">03</span>
+            <h3>Тормоза</h3>
+            <p>Колодки, диски, суппорты, тормозная жидкость.</p>
+            <p class="price"><span>от</span> 24 300 ₸</p>
+          </article>
+          <article class="service-card">
+            <span class="service-num">04</span>
+            <h3>Подвеска</h3>
+            <p>Амортизаторы, рычаги, сайлентблоки, ступицы.</p>
+            <p class="price"><span>от</span> 31 800 ₸</p>
+          </article>
+          <article class="service-card">
+            <span class="service-num">05</span>
+            <h3>Шиномонтаж</h3>
+            <p>Сезонная смена, балансировка, хранение.</p>
+            <p class="price"><span>от</span> 9 200 ₸</p>
+          </article>
+          <article class="service-card">
+            <span class="service-num">06</span>
+            <h3>Кондиционер</h3>
+            <p>Диагностика, заправка, поиск утечки.</p>
+            <p class="price"><span>от</span> 16 400 ₸</p>
+          </article>
+          <article class="service-card">
+            <span class="service-num">07</span>
+            <h3>Автоэлектрика</h3>
+            <p>Аккумулятор, стартер, генератор, проводка.</p>
+            <p class="price"><span>от</span> 8 600 ₸</p>
+          </article>
+          <article class="service-card">
+            <span class="service-num">08</span>
+            <h3>Развал-схождение</h3>
+            <p>Регулировка углов установки колёс.</p>
+            <p class="price"><span>от</span> 12 800 ₸</p>
+          </article>
+        </div>
+
+        <p class="note">Цены — заглушки для демо. Финальная стоимость — после диагностики и осмотра.</p>
+      </div>
+    </section>
+
+    <section class="section section-white" id="calculator" aria-labelledby="calculator-title">
+      <div class="container">
+        <div class="calculator">
+          <div class="calc-copy">
+            <p class="eyebrow">Калькулятор</p>
+            <h2 id="calculator-title">Прикиньте вилку <em>до звонка</em></h2>
+            <p class="lead">Выберите машину и услугу. Это не оферта — точная смета после диагностики.</p>
+            <p class="calc-hint"><span class="mono">Как считаем</span> Берём базовую стоимость услуги, коэффициент кузова и вариант запчастей. Округляем до сотен.</p>
+          </div>
+
+          <div class="calc-panel">
+            <div class="calc-fields">
+              <label class="field">
+                <span class="field-label">Кузов</span>
+                <select id="calc-body">
+                  <option value="1">Седан</option>
+                  <option value="1.18">Кроссовер</option>
+                  <option value="1.35">Внедорожник</option>
+                  <option value="1.5">Коммерческий</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Услуга</span>
+                <select id="calc-service">
+                  <option value="7400">Диагностика</option>
+                  <option value="18700">ТО</option>
+                  <option value="24300">Тормоза</option>
+                  <option value="31800">Подвеска</option>
+                  <option value="9200">Шиномонтаж</option>
+                  <option value="16400">Кондиционер</option>
+                  <option value="8600">Автоэлектрика</option>
+                  <option value="12800">Развал-схождение</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span class="field-label">Запчасти</span>
+                <select id="calc-parts">
+                  <option value="0.55">Только работа</option>
+                  <option value="1" selected>Работа + аналоги</option>
+                  <option value="1.45">Работа + оригинал</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="calc-result" aria-live="polite">
+              <span class="mono">Примерная стоимость</span>
+              <strong id="calc-output">6 700 – 8 500 ₸</strong>
+              <span class="calc-result-note">Вилка зависит от состояния машины и наличия деталей.</span>
+            </div>
+
+            <a class="btn btn-accent btn-block" href="#contact">Записаться на диагностику</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper" id="why" aria-labelledby="why-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Почему ТОЛК</p>
+          <h2 id="why-title">Спокойно, когда <em>понятно</em></h2>
+          <p class="lead">Мы не обещаем невозможного. Мы делаем ремонт предсказуемым.</p>
+        </div>
+
+        <div class="benefit-grid">
+          <article class="benefit">
+            <span class="benefit-mark" aria-hidden="true">01</span>
+            <h3>Смета до работ</h3>
+            <p>Согласуем список и стоимость. Если что-то меняется — сначала звонок, потом работа.</p>
+          </article>
+          <article class="benefit">
+            <span class="benefit-mark" aria-hidden="true">02</span>
+            <h3>Фотоотчёт</h3>
+            <p>Показываем детали до и после. Отчёт остаётся у вас в переписке.</p>
+          </article>
+          <article class="benefit">
+            <span class="benefit-mark" aria-hidden="true">03</span>
+            <h3>Запчасти на выбор</h3>
+            <p>Оригинал или аналог. Объясняем разницу и даём выбрать без давления.</p>
+          </article>
+        </div>
+
+        <blockquote class="pullquote">
+          <span class="pullquote-label mono">Наш принцип</span>
+          <p>«Хороший автосервис — это когда не нужно разбираться в машинах, чтобы тебя не обманули».</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section section-ink" id="ai" aria-labelledby="ai-title">
+      <div class="container ai-grid">
+        <div class="ai-copy">
+          <p class="eyebrow eyebrow-light">AI-админ</p>
+          <h2 id="ai-title">Мастер под машиной.<br>Админ — <em>на связи</em>.</h2>
+          <p class="lead">Пока вы работаете, AI-админ отвечает в WhatsApp: подбирает время, записывает и напоминает о визите. Утром вы просто подтверждаете запись.</p>
+
+          <ul class="check-list">
+            <li><span class="check" aria-hidden="true"></span> Отвечает 24/7, даже в выходные</li>
+            <li><span class="check" aria-hidden="true"></span> Не теряет заявки из Instagram и WhatsApp</li>
+            <li><span class="check" aria-hidden="true"></span> Напоминает о визите и переносит запись</li>
+          </ul>
+
+          <a class="btn btn-accent" href="https://wa.me/77770000000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%B2%20%D0%A2%D0%9E%D0%9B%D0%9A." target="_blank" rel="noopener">Записаться через WhatsApp</a>
+          <p class="note note-light">В демо показан пример диалога. AI-админ — отдельная услуга.</p>
+        </div>
+
+        <div class="chat-card" aria-label="Пример диалога с AI-админом">
+          <div class="chat-head">
+            <div class="chat-avatar" aria-hidden="true">Т</div>
+            <div>
+              <strong>ТОЛК</strong>
+              <span class="chat-status"><span class="status-dot" aria-hidden="true"></span> AI-админ · онлайн</span>
+            </div>
+          </div>
+
+          <div class="chat-body">
+            <div class="bubble bubble-in">
+              <span class="bubble-label">Клиент</span>
+              Здравствуйте! Хочу на диагностику ходовой.
+            </div>
+            <div class="bubble bubble-out">
+              <span class="bubble-label">ТОЛК</span>
+              Добрый день! Есть завтра 10:30 и 15:00. Какая у вас машина?
+            </div>
+            <div class="bubble bubble-in">
+              <span class="bubble-label">Клиент</span>
+              Toyota Camry, 2021
+            </div>
+            <div class="bubble bubble-out">
+              <span class="bubble-label">ТОЛК</span>
+              Записала на 15:00. Мастер подтвердит утром.
+            </div>
+          </div>
+
+          <div class="chat-foot mono">Пример диалога</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-grid">
+        <div class="section-head faq-head">
+          <p class="eyebrow">Вопросы</p>
+          <h2 id="faq-title">Коротко о <em>важном</em></h2>
+          <p class="lead">Если ответа нет — напишите в WhatsApp. Ответим без скриптов.</p>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>Диагностика платная?</summary>
+            <p>Да, 7 400 ₸. Если ремонт делаете у нас, стоимость диагностики входит в работы. Условия фиксируем до начала.</p>
+          </details>
+          <details>
+            <summary>Можно приехать со своими запчастями?</summary>
+            <p>Да. Гарантия на работу — наша, на деталь — поставщика. Если деталь не подойдёт, скажем до установки.</p>
+          </details>
+          <details>
+            <summary>Сколько занимает ремонт?</summary>
+            <p>Диагностика — 40–60 минут. Слесарные работы — от 2 часов, если деталь есть в наличии. Точный срок скажем после осмотра.</p>
+          </details>
+          <details>
+            <summary>Даёте гарантию?</summary>
+            <p>На работы — 6 месяцев. На запчасти — гарантия производителя или поставщика. Все условия — в заказ-наряде.</p>
+          </details>
+          <details>
+            <summary>Можно записаться без звонка?</summary>
+            <p>Да. Оставьте заявку на сайте или напишите в WhatsApp. AI-админ ответит даже ночью и подберёт время.</p>
+          </details>
+          <details>
+            <summary>Где вы находитесь?</summary>
+            <p>Алматы, ул. Рыскулова, 103. Парковка перед сервисом. Точный ориентир пришлём в WhatsApp после записи.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-ink" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow eyebrow-light">Запись</p>
+          <h2 id="contact-title">Приезжайте.<br>Разберёмся <em>по делу</em>.</h2>
+          <p class="lead">Оставьте заявку — подберём время и подскажем, что проверить в первую очередь. Или напишите в WhatsApp, если так удобнее.</p>
+
+          <dl class="contact-list">
+            <div>
+              <dt>Адрес</dt>
+              <dd>Алматы, ул. Рыскулова, 103</dd>
+            </div>
+            <div>
+              <dt>Часы</dt>
+              <dd>Пн–Сб, 09:00–19:00<br>Вс — по записи</dd>
+            </div>
+            <div>
+              <dt>Телефон</dt>
+              <dd><a href="tel:+77770000000">+7 777 000-00-00</a></dd>
+            </div>
+            <div>
+              <dt>Мессенджеры</dt>
+              <dd>
+                <a href="https://wa.me/77770000000" target="_blank" rel="noopener">WhatsApp</a><br>
+                <a href="https://t.me/tolk_auto" target="_blank" rel="noopener">Telegram</a>
+              </dd>
+            </div>
+          </dl>
+
+          <div class="map-card" aria-hidden="true">
+            <span class="map-road map-road-1"></span>
+            <span class="map-road map-road-2"></span>
+            <span class="map-road map-road-3"></span>
+            <span class="map-pin"><span></span></span>
+            <span class="map-label mono">Рыскулова, 103</span>
+          </div>
+        </div>
+
+        <form class="booking" id="booking-form" novalidate>
+          <div class="form-head">
+            <p class="mono">Заявка на диагностику</p>
+            <h3>Записаться</h3>
+          </div>
+
+          <div class="field-row">
+            <label class="field">
+              <span class="field-label">Имя</span>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required>
+            </label>
+            <label class="field">
+              <span class="field-label">Телефон</span>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 (___) ___-__-__" minlength="10" required>
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field-label">Автомобиль</span>
+            <input id="car" name="car" type="text" placeholder="Например, Toyota Camry, 2021" required>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Что беспокоит</span>
+            <select id="service" name="service">
+              <option>Диагностика</option>
+              <option>ТО</option>
+              <option>Тормоза</option>
+              <option>Подвеска</option>
+              <option>Шиномонтаж</option>
+              <option>Кондиционер</option>
+              <option>Автоэлектрика</option>
+              <option>Развал-схождение</option>
+              <option>Другое</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Комментарий <span class="optional">необязательно</span></span>
+            <textarea id="comment" name="comment" rows="3" placeholder="Симптомы, удобное время, вопросы"></textarea>
+          </label>
+
+          <label class="consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <span>Согласен на обработку данных для записи. Данные не сохраняются на сайте.</span>
+          </label>
+
+          <button class="btn btn-accent btn-block" type="submit">Отправить в WhatsApp</button>
+          <p class="form-note">Откроется WhatsApp с готовым сообщением. Если не открылось — напишите нам напрямую.</p>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <noscript><p class="form-note">Для отправки формы нужен JavaScript. Напишите в <a href="https://wa.me/77770000000">WhatsApp</a>.</p></noscript>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <a class="brand brand-light" href="#top" aria-label="ТОЛК — на главную">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">ТОЛК</span>
+        <span class="brand-sub">автосервис</span>
+      </a>
+
+      <p class="footer-note">Демо-сайт для автосервисов Алматы. Цены, адрес и телефон — плейсхолдеры. Замените их перед публикацией.</p>
+
+      <nav class="footer-nav" aria-label="Навигация в подвале">
+        <a href="#services">Услуги</a>
+        <a href="#prices">Цены</a>
+        <a href="#ai">AI-админ</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+
+      <p class="footer-copy mono">© 2026 ТОЛК · демо</p>
+    </div>
+  </footer>
+
+  <div class="mobile-bar" aria-label="Быстрая запись">
+    <a class="btn btn-accent" href="#contact">Записаться</a>
+    <a class="btn btn-ghost" href="https://wa.me/77770000000" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</body>
+</html>
