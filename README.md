@@ -1,32 +1,23 @@
 # bess1lie.github.io
 
-Landing page for my security tooling ecosystem.
+Personal site of bess1lie: security tooling landing and live demo sites for small business.
 
 **Live:** https://bess1lie.github.io/
 
-## What's here
+## Structure
 
-Single `index.html` — interactive terminal, tool cards, philosophy, screenshots, and install instructions.
+- `index.html` — security tooling landing (bounthunt, gqlhunter, apihunter).
+- `cafe-demo/`, `cafe-demo-v2/` — coffeehouse demos.
+- `barbershop-demo/`, `barbershop-demo-v2/` — barbershop demos (v2 is bilingual RU/KZ).
+- `furniture-demo/` — furniture workshop.
+- `salon-demo/`, `med-demo/`, `fit-demo/`, `edu-demo/` — salon, medical center, studio and school.
+- `tolk-demo/`, `taza-demo/` — auto service and cleaning company.
+- `sitemap.xml`, `robots.txt`, `favicon.svg` — site metadata.
 
-## Projects
+## Demo sites
 
-- [apihunter](https://github.com/bess1lie/apihunter) — REST API security testing CLI
-- [bounthunt](https://github.com/bess1lie/bounthunt) — Bug bounty recon automation
-- [gqlhunter](https://github.com/bess1lie/gqlhunter) — GraphQL security testing
+Static HTML/CSS/JS, no build step. Each demo is a self-contained folder with its own `index.html` and relative assets.
 
-## Features
+## Deploy
 
-- Dark/light theme toggle with particles background
-- Interactive terminal emulator (discover, scan, report, help, clear)
-- Scroll‑reveal animations and 3D tilt cards
-- Lightbox for screenshots
-- GitHub stats via API
-- Fallback placeholders for broken images
-
-## Tech
-
-Pure HTML + inline CSS + vanilla JS. No frameworks, no dependencies.
-
-## License
-
-MIT
+GitHub Pages, branch `main`, repository root. Push to `main` triggers a build.
