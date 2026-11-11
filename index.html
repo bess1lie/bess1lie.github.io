@@ -617,7 +617,7 @@ button.evidence-item { appearance: none; }
   <section class="block reveal" id="projects" aria-labelledby="projects-title">
     <div class="sec-head">
       <div class="sec-kicker">02 — Selected tools</div>
-      <h2 class="sec-title" id="projects-title">Three CLIs, one workflow: discover → validate → report.</h2>
+      <h2 class="sec-title" id="projects-title">Four tools, one workflow: discover → validate → report.</h2>
       <p class="sec-sub">Each tool covers one stage of practical security research. Built in Python, MIT-licensed, usable independently.</p>
     </div>
     <div class="tools-grid">
@@ -671,6 +671,25 @@ button.evidence-item { appearance: none; }
         </ul>
         <div class="tool-meta"><span class="pill">Python</span><span class="pill">MIT</span><span class="pill" data-stars="apihunter">★ —</span></div>
         <a class="tool-link" href="https://github.com/bess1lie/apihunter" target="_blank" rel="noopener">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+      <article class="tool-card feature" style="grid-column: 1 / -1;">
+        <div class="tool-index"><span class="n">04</span><span>Mutation evidence</span></div>
+        <div class="tool-top">
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v5L5 19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2L14 8V3"/><path d="M7.5 14h9"/></svg></span>
+          <h3>mutvera</h3>
+        </div>
+        <p class="tool-purpose">Mutation testing of security test suites for FastAPI webhook receivers. Controlled defects are injected into isolated copies of the project, then your existing test suite is re-run — the output shows what the suite actually catches, and what it misses.</p>
+        <div class="tool-focus-label">Focus</div>
+        <ul class="tool-focus cols">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Six targeted operators + control</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>JUnit evidence · HTML/Markdown/SARIF</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>SQLite-persisted runs · RU/EN UI</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Detection-only — not a vuln scanner</li>
+        </ul>
+        <div class="feature-foot">
+          <span class="card-note">MIT-licensed · public source · synthetic demo protocol.</span>
+          <a class="tool-link" href="https://github.com/bess1lie/mutvera-public" target="_blank" rel="noopener">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
       </article>
     </div>
   </section>
@@ -807,10 +826,15 @@ cd bounthunt &amp;&amp; pip install .
 git clone https://github.com/bess1lie/gqlhunter.git
 cd gqlhunter &amp;&amp; pip install .
 
+<span class="c"># Mutation evidence for your security suite</span>
+git clone https://github.com/bess1lie/mutvera-public.git
+cd mutvera-public &amp;&amp; pip install -e ".[demo]"
+
 <span class="c"># First run (example targets)</span>
 apihunter discover https://api.example.com
 bounthunt scan scope.yaml
-gqlhunter discover https://example.com/graphql</pre>
+gqlhunter discover https://example.com/graphql
+mutvera prove --scope mutvera.yaml --property WH-DEDUP-001</pre>
     </div>
   </section>
 
